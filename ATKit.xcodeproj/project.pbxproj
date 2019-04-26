@@ -12,6 +12,8 @@
 		DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD42273019A00DE1FF8 /* ATWeakObject.m */; };
 		DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD62273019A00DE1FF8 /* ATNotificationUtils.m */; };
 		DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */; };
+		DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */; };
+		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -39,6 +41,11 @@
 		DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleProtocol.h; sourceTree = "<group>"; };
 		DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATModuleManager.m; sourceTree = "<group>"; };
 		DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleManager.h; sourceTree = "<group>"; };
+		DC2F9CE322730B0200DE1FF8 /* ATProtocolManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATProtocolManagerProtocol.h; sourceTree = "<group>"; };
+		DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATProtocolManager.h; sourceTree = "<group>"; };
+		DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManager.m; sourceTree = "<group>"; };
+		DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseModule.h; sourceTree = "<group>"; };
+		DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseModule.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +120,11 @@
 				DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */,
 				DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */,
 				DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */,
+				DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */,
+				DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */,
+				DC2F9CE322730B0200DE1FF8 /* ATProtocolManagerProtocol.h */,
+				DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */,
+				DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */,
 			);
 			path = ModuleManager;
 			sourceTree = "<group>";
@@ -173,10 +185,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
+				DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -18,8 +18,8 @@
 #define AT_GET_MODULE(atModuleManager, atModuleClass) \
     ((atModuleClass *)[atModuleManager moduleWithIdentifier:@#atModuleClass])
 
-#define AT_GET_MODULE_VARIABLE(atModuleManager, atModuleClass) \
-    atModuleClass *aModule = (atModuleClass *)[atModuleManager moduleWithIdentifier:@#atModuleClass];
+#define AT_GET_MODULE_VARIABLE(atModuleManager, atModuleClass, atVariable) \
+    atModuleClass *atVariable = (atModuleClass *)[atModuleManager moduleWithIdentifier:@#atModuleClass];
 
 extern const NSInteger kATModuleDefaultGroup;
 
