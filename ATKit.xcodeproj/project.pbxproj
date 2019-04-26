@@ -11,6 +11,7 @@
 		DC167A23227050780009D463 /* ATKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC167A20227050780009D463 /* ATKit.h */; };
 		DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD42273019A00DE1FF8 /* ATWeakObject.m */; };
 		DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD62273019A00DE1FF8 /* ATNotificationUtils.m */; };
+		DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -35,6 +36,9 @@
 		DC2F9CD62273019A00DE1FF8 /* ATNotificationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATNotificationUtils.m; sourceTree = "<group>"; };
 		DC2F9CD72273019A00DE1FF8 /* ATNotificationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATNotificationUtils.h; sourceTree = "<group>"; };
 		DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATGlobalMacro.h; sourceTree = "<group>"; };
+		DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleProtocol.h; sourceTree = "<group>"; };
+		DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATModuleManager.m; sourceTree = "<group>"; };
+		DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleManager.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */,
+				DC2F9CDB2273039F00DE1FF8 /* ModuleManager */,
 				DC2F9CD52273019A00DE1FF8 /* Notification */,
 				DC2F9CD22273019A00DE1FF8 /* WeakObject */,
 			);
@@ -100,6 +105,16 @@
 				DC2F9CD62273019A00DE1FF8 /* ATNotificationUtils.m */,
 			);
 			path = Notification;
+			sourceTree = "<group>";
+		};
+		DC2F9CDB2273039F00DE1FF8 /* ModuleManager */ = {
+			isa = PBXGroup;
+			children = (
+				DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */,
+				DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */,
+				DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */,
+			);
+			path = ModuleManager;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -160,6 +175,7 @@
 			files = (
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
+				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

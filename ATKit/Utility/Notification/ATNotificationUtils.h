@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ATGlobalMacro.h"
 
-#define ATNOTIFICATION_SIGNALTON [ATNotificationUtils sharedObject]
+#define AT_NOTIFICATION_SIGNALTON [ATNotificationUtils sharedObject]
 
 NS_ASSUME_NONNULL_BEGIN
 
