@@ -24,11 +24,31 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
+@protocol ATKitProtocolManagerProtocolC <NSObject>
+
+- (void)methodC;
+
+@end
+
+@protocol ATKitProtocolManagerProtocolD <NSObject>
+
+- (void)methodD;
+
+@end
+
 @interface ATKitProtocolManagerClassA : NSObject<ATKitProtocolManagerProtocolA>
 
 @end
 
 @interface ATKitProtocolManagerClassB : NSObject<ATKitProtocolManagerProtocolB>
+
+@end
+
+@interface ATKitProtocolManagerClassC : NSObject<ATKitProtocolManagerProtocolC>
+
+@end
+
+@interface ATKitProtocolManagerClassD : NSObject<ATKitProtocolManagerProtocolD>
 
 @end
 

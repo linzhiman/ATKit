@@ -16,17 +16,29 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+extern const NSInteger kATProtocolManagerDefaultGroup;
+
+@interface ATProtocolManagerMeta : NSObject
+
+@property (nonatomic, strong) Protocol *protocol;
+@property (nonatomic, strong, nullable) Class aClass;
+@property (nonatomic, strong, nullable) id module;
+
+@end
+
 @protocol ATProtocolManagerProtocol <NSObject>
 
 - (id)moduleForProtocol:(Protocol *)protocol;
 
 - (void)addModule:(id)module withProtocol:(Protocol *)protocol;
+- (void)addModule:(id)module withProtocol:(Protocol *)protocol group:(NSInteger)group;
 
 - (void)removeModuleWithProtocol:(Protocol *)protocol;
 
 - (Class)classForProtocol:(Protocol *)procotol;
 
 - (void)registerClass:(Class)aClass withProtocol:(Protocol *)protocol;
+- (void)registerClass:(Class)aClass withProtocol:(Protocol *)protocol group:(NSInteger)group;
 
 - (void)unRegisterClassWithProtocol:(Protocol *)protocol;
 

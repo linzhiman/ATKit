@@ -14,6 +14,7 @@
 		DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */; };
 		DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */; };
 		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
+		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -46,6 +47,7 @@
 		DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManager.m; sourceTree = "<group>"; };
 		DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseModule.h; sourceTree = "<group>"; };
 		DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseModule.m; sourceTree = "<group>"; };
+		DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManagerProtocol.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */,
 				DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */,
 				DC2F9CE322730B0200DE1FF8 /* ATProtocolManagerProtocol.h */,
+				DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */,
 				DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */,
 				DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */,
 			);
@@ -186,6 +189,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */,
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,

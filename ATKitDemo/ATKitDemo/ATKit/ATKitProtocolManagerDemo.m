@@ -54,6 +54,52 @@
 
 @end
 
+@implementation ATKitProtocolManagerClassC
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        NSLog(@"ATKitProtocolManagerClassC init");
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"ATKitProtocolManagerClassC dealloc");
+}
+
+- (void)methodC
+{
+    NSLog(@"ATKitProtocolManagerClassC methodC");
+}
+
+@end
+
+@implementation ATKitProtocolManagerClassD
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        NSLog(@"ATKitProtocolManagerClassD init");
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    NSLog(@"ATKitProtocolManagerClassD dealloc");
+}
+
+- (void)methodD
+{
+    NSLog(@"ATKitProtocolManagerClassD methodD");
+}
+
+@end
+
 @implementation ATKitProtocolManager
 
 AT_IMPLEMENT_SINGLETON(ATKitProtocolManager)
@@ -77,13 +123,17 @@ AT_IMPLEMENT_SINGLETON(ATKitProtocolManager)
     self.protocolManager = [[ATProtocolManager alloc] init];
     
     [self.protocolManager addModule:[[ATKitProtocolManagerClassA alloc] init] withProtocol:@protocol(ATKitProtocolManagerProtocolA)];
-    [self.protocolManager registerClass:[ATKitProtocolManagerClassB class] withProtocol:@protocol(ATKitProtocolManagerProtocolB)];
+    [self.protocolManager addModule:[[ATKitProtocolManagerClassB alloc] init] withProtocol:@protocol(ATKitProtocolManagerProtocolB) group:1];
+    [self.protocolManager registerClass:[ATKitProtocolManagerClassC class] withProtocol:@protocol(ATKitProtocolManagerProtocolC)];
+    [self.protocolManager registerClass:[ATKitProtocolManagerClassD class] withProtocol:@protocol(ATKitProtocolManagerProtocolD) group:1];
 }
 
 - (void)uninitModule
 {
     [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolA)];
     [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolB)];
+    [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolC)];
+    [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolD)];
 }
 
 @end
@@ -94,15 +144,18 @@ AT_IMPLEMENT_SINGLETON(ATKitProtocolManager)
 {
     {{
         [ATKITDEMO_GET_MODULE_PROTOCOL(ATKitProtocolManagerProtocolA) methodA];
-        ATKITDEMO_GET_MODULE_PROTOCOL_VARIABLE(ATKitProtocolManagerProtocolB, protocolB);
-        [protocolB methodB];
+        [ATKITDEMO_GET_MODULE_PROTOCOL(ATKitProtocolManagerProtocolB) methodB];
+        ATKITDEMO_GET_MODULE_PROTOCOL_VARIABLE(ATKitProtocolManagerProtocolC, protocolC);
+        [protocolC methodC];
+        ATKITDEMO_GET_MODULE_PROTOCOL_VARIABLE(ATKitProtocolManagerProtocolD, protocolD);
+        [protocolD methodD];
     }}
     
     [[ATKitProtocolManager sharedObject] uninitModule];
     
     [ATKITDEMO_GET_MODULE_PROTOCOL(ATKitProtocolManagerProtocolA) methodA];
-    ATKITDEMO_GET_MODULE_PROTOCOL_VARIABLE(ATKitProtocolManagerProtocolB, protocolBB);
-    [protocolBB methodB];
+    ATKITDEMO_GET_MODULE_PROTOCOL_VARIABLE(ATKitProtocolManagerProtocolC, protocolC);
+    [protocolC methodC];
 }
 
 @end
