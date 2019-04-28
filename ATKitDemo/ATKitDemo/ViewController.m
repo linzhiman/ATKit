@@ -7,8 +7,11 @@
 //
 
 #import "ViewController.h"
+#import "ATKitNotificationDemo.h"
 
 @interface ViewController ()
+
+@property (nonatomic, strong) ATKitNotificationDemo *notificationDemo;
 
 @end
 
@@ -16,7 +19,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    
+    self.notificationDemo = [[ATKitNotificationDemo alloc] init];
+    [self.notificationDemo postNotification];
 }
 
 

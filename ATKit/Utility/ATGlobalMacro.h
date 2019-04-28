@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ATNotificationUtils.h"
 
 #define AT_STRING_FROM_OBJECT_NAME(atName) @#atName
 
@@ -21,21 +22,35 @@
 #define AT_STRING_EXTERN(atName) \
     extern NSString * const atName;
 
+//Notification
+
+#define AT_DECLARE_NOTIFICATION(atName) \
+    NSString * const atName = @#atName;
+#define AT_EXTERN_NOTIFICATION(atName) \
+    extern NSString * const atName;
+
+#define AT_POST_NOTIFICATION(atName) \
+    [ATNotificationUtils postNotificationName:atName object:self];
+#define AT_POST_NOTIFICATION(atName, atUserInfo) \
+    [ATNotificationUtils postNotificationName:atName object:self userInfo:atUserInfo];
+#define AT_REMOVE_NOTIFICATION \
+    [AT_NOTIFICATION_SIGNALTON removeObserver:self];
+
 //Singleton
 
 #define AT_DECLARE_SINGLETON \
 + (instancetype)sharedObject;
 
-#define AT_IMPLEMENT_SINGLETON(__TYPE__) \
+#define AT_IMPLEMENT_SINGLETON(atType) \
 + (instancetype)sharedObject { \
     static dispatch_once_t __once; \
-    static __TYPE__ *__instance = nil; \
+    static atType *__instance = nil; \
     dispatch_once(&__once, ^{ \
-        __instance = [[__TYPE__ alloc] init]; \
+        __instance = [[atType alloc] init]; \
     }); \
     return __instance; \
 }
 
 //Block
 
-#define AT_SAFETY_CALL_BLOCK(block, ...) if((block)) { block(__VA_ARGS__); }
+#define AT_SAFETY_CALL_BLOCK(atBlock, ...) if((atBlock)) { atBlock(__VA_ARGS__); }

@@ -24,6 +24,9 @@ AT_DECLARE_SINGLETON;
 - (void)removeObserver:(id)observer name:(NSString *)name;
 - (void)removeObserver:(id)observer;
 
++ (void)postNotificationName:(NSString *)name object:(id)object;
++ (void)postNotificationName:(NSString *)name object:(id)object userInfo:(NSDictionary *)userInfo;
+
 @end
 
 NS_ASSUME_NONNULL_END

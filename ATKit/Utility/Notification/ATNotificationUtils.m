@@ -148,4 +148,28 @@ AT_IMPLEMENT_SINGLETON(ATNotificationUtils);
     }
 }
 
++ (void)postNotificationName:(NSString *)name object:(id)object
+{
+    if ([NSThread isMainThread]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:name object:object];
+        });
+    }
+}
+
++ (void)postNotificationName:(NSString *)name object:(id)object userInfo:(NSDictionary *)userInfo
+{
+    if ([NSThread isMainThread]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:name object:object userInfo:userInfo];
+    }
+    else {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [[NSNotificationCenter defaultCenter] postNotificationName:name object:object userInfo:userInfo];
+        });
+    }
+}
+
 @end

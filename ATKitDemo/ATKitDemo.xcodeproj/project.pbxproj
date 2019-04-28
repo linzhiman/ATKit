@@ -13,7 +13,26 @@
 		DC2F9D002273124F00DE1FF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DC2F9CFF2273124F00DE1FF8 /* Assets.xcassets */; };
 		DC2F9D032273124F00DE1FF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DC2F9D012273124F00DE1FF8 /* LaunchScreen.storyboard */; };
 		DC2F9D062273124F00DE1FF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D052273124F00DE1FF8 /* main.m */; };
+		DC2F9D15227312FF00DE1FF8 /* libATKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2F9D11227312D000DE1FF8 /* libATKit.a */; };
+		DC2F9D192273136000DE1FF8 /* ATKitNotificationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC2F9D10227312D000DE1FF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC167A1D227050780009D463;
+			remoteInfo = ATKit;
+		};
+		DC2F9D12227312F900DE1FF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = DC167A1C227050780009D463;
+			remoteInfo = ATKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		DC2F9CF32273124D00DE1FF8 /* ATKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ATKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -26,6 +45,9 @@
 		DC2F9D022273124F00DE1FF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DC2F9D042273124F00DE1FF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC2F9D052273124F00DE1FF8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATKit.xcodeproj; path = ../ATKit.xcodeproj; sourceTree = "<group>"; };
+		DC2F9D172273136000DE1FF8 /* ATKitNotificationDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKitNotificationDemo.h; sourceTree = "<group>"; };
+		DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitNotificationDemo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC2F9D15227312FF00DE1FF8 /* libATKit.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,8 +65,10 @@
 		DC2F9CEA2273124C00DE1FF8 = {
 			isa = PBXGroup;
 			children = (
+				DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */,
 				DC2F9CF52273124D00DE1FF8 /* ATKitDemo */,
 				DC2F9CF42273124D00DE1FF8 /* Products */,
+				DC2F9D14227312FF00DE1FF8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +83,7 @@
 		DC2F9CF52273124D00DE1FF8 /* ATKitDemo */ = {
 			isa = PBXGroup;
 			children = (
+				DC2F9D162273132600DE1FF8 /* ATKit */,
 				DC2F9CF62273124D00DE1FF8 /* AppDelegate.h */,
 				DC2F9CF72273124D00DE1FF8 /* AppDelegate.m */,
 				DC2F9CF92273124D00DE1FF8 /* ViewController.h */,
@@ -69,6 +95,30 @@
 				DC2F9D052273124F00DE1FF8 /* main.m */,
 			);
 			path = ATKitDemo;
+			sourceTree = "<group>";
+		};
+		DC2F9D0D227312D000DE1FF8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DC2F9D11227312D000DE1FF8 /* libATKit.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		DC2F9D14227312FF00DE1FF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DC2F9D162273132600DE1FF8 /* ATKit */ = {
+			isa = PBXGroup;
+			children = (
+				DC2F9D172273136000DE1FF8 /* ATKitNotificationDemo.h */,
+				DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */,
+			);
+			path = ATKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -85,6 +135,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				DC2F9D13227312F900DE1FF8 /* PBXTargetDependency */,
 			);
 			name = ATKitDemo;
 			productName = ATKitDemo;
@@ -116,12 +167,28 @@
 			mainGroup = DC2F9CEA2273124C00DE1FF8;
 			productRefGroup = DC2F9CF42273124D00DE1FF8 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = DC2F9D0D227312D000DE1FF8 /* Products */;
+					ProjectRef = DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				DC2F9CF22273124D00DE1FF8 /* ATKitDemo */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		DC2F9D11227312D000DE1FF8 /* libATKit.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libATKit.a;
+			remoteRef = DC2F9D10227312D000DE1FF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		DC2F9CF12273124D00DE1FF8 /* Resources */ = {
@@ -144,10 +211,19 @@
 				DC2F9CFB2273124D00DE1FF8 /* ViewController.m in Sources */,
 				DC2F9D062273124F00DE1FF8 /* main.m in Sources */,
 				DC2F9CF82273124D00DE1FF8 /* AppDelegate.m in Sources */,
+				DC2F9D192273136000DE1FF8 /* ATKitNotificationDemo.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC2F9D13227312F900DE1FF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ATKit;
+			targetProxy = DC2F9D12227312F900DE1FF8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		DC2F9CFC2273124D00DE1FF8 /* Main.storyboard */ = {
@@ -220,7 +296,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -273,7 +349,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -286,6 +362,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../ATKit/**";
 				INFOPLIST_FILE = ATKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -302,6 +379,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				HEADER_SEARCH_PATHS = "$(SRCROOT)/../ATKit/**";
 				INFOPLIST_FILE = ATKitDemo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
