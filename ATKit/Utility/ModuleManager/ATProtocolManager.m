@@ -28,17 +28,9 @@ static NSMapTable *moduleClassesMap() {
 
 @implementation ATProtocolManager
 
-- (id)moduleWithProtocol:(Protocol *)protocol
+- (id)moduleForProtocol:(Protocol *)protocol
 {
-    id obj = [modulesMap() objectForKey:protocol];
-    if (obj == nil) {
-        Class class = [self classWithProtocol:protocol];
-        if (class != NULL) {
-            obj = [[class alloc] init];
-            [self addModule:obj withProtocol:protocol];
-        }
-    }
-    return obj;
+    return [modulesMap() objectForKey:protocol];
 }
 
 - (void)addModule:(id)module withProtocol:(Protocol *)protocol
@@ -56,7 +48,7 @@ static NSMapTable *moduleClassesMap() {
     }
 }
 
-- (Class)classWithProtocol:(Protocol *)protocol
+- (Class)classForProtocol:(Protocol *)protocol
 {
     return [moduleClassesMap() objectForKey:protocol];
 }
@@ -74,6 +66,19 @@ static NSMapTable *moduleClassesMap() {
     if (obj != nil) {
         [moduleClassesMap() removeObjectForKey:protocol];
     }
+}
+
+- (id)moduleForProtocolEx:(Protocol *)protocol
+{
+    id obj = [self moduleForProtocol:protocol];
+    if (obj == nil) {
+        Class class = [self classForProtocol:protocol];
+        if (class != NULL) {
+            obj = [[class alloc] init];
+            [self addModule:obj withProtocol:protocol];
+        }
+    }
+    return obj;
 }
 
 @end

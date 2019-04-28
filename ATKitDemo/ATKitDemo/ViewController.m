@@ -9,11 +9,13 @@
 #import "ViewController.h"
 #import "ATKitNotificationDemo.h"
 #import "ATKitModuleManagerDemo.h"
+#import "ATKitProtocolManagerDemo.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) ATKitNotificationDemo *notificationDemo;
 @property (nonatomic, strong) ATKitModuleManagerDemo *moduleManagerDemo;
+@property (nonatomic, strong) ATKitProtocolManagerDemo *protocolManagerDemo;
 
 @end
 
@@ -27,7 +29,9 @@
     
     self.moduleManagerDemo = [[ATKitModuleManagerDemo alloc] init];
     [self.moduleManagerDemo demo];
+    
+    self.protocolManagerDemo = [[ATKitProtocolManagerDemo alloc] init];
+    [self.protocolManagerDemo demo];
 }
-
 
 @end

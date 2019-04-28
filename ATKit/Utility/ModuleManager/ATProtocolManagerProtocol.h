@@ -9,26 +9,31 @@
 #import <Foundation/Foundation.h>
 
 #define AT_GET_MODULE_PROTOCOL(atManager, atProtocol) \
-    ((id<atProtocol>)[atManager moduleWithProtocol:@protocol(atProtocol)])
+    ((id<atProtocol>)[atManager moduleForProtocolEx:@protocol(atProtocol)])
 
 #define AT_GET_MODULE_PROTOCOL_VARIABLE(atManager, atProtocol, atVariable) \
-    id<atProtocol> atVariable = (id<atProtocol>)[atManager moduleWithProtocol:@protocol(atProtocol)];
+    id<atProtocol> atVariable = (id<atProtocol>)[atManager moduleForProtocolEx:@protocol(atProtocol)];
 
 NS_ASSUME_NONNULL_BEGIN
 
 @protocol ATProtocolManagerProtocol <NSObject>
 
-- (id)moduleWithProtocol:(Protocol *)protocol;
+- (id)moduleForProtocol:(Protocol *)protocol;
 
 - (void)addModule:(id)module withProtocol:(Protocol *)protocol;
 
 - (void)removeModuleWithProtocol:(Protocol *)protocol;
 
-- (Class)classWithProtocol:(Protocol *)procotol;
+- (Class)classForProtocol:(Protocol *)procotol;
 
 - (void)registerClass:(Class)aClass withProtocol:(Protocol *)protocol;
 
 - (void)unRegisterClassWithProtocol:(Protocol *)protocol;
+
+/**
+ 先查module表，再查class表，有则创建对象并addModule添加到module表
+ */
+- (id)moduleForProtocolEx:(Protocol *)protocol;
 
 @end
 
