@@ -15,6 +15,12 @@
 #define AT_ADD_MODULE(atModuleManager, atModuleClass) \
     AT_ADD_MODULE_GROUP(atModuleManager, atModuleClass, kATModuleDefaultGroup);
 
+#define AT_REMOVE_MODULE_GROUP(atModuleManager, atModuleClass, atGroup) \
+    [atModuleManager removeModuleWithIdentifier:@#atModuleClass group:atGroup];
+
+#define AT_REMOVE_MODULE(atModuleManager, atModuleClass) \
+    AT_REMOVE_MODULE_GROUP(atModuleManager, atModuleClass, kATModuleDefaultGroup);
+
 #define AT_GET_MODULE(atModuleManager, atModuleClass) \
     ((atModuleClass *)[atModuleManager moduleWithIdentifier:@#atModuleClass])
 

@@ -46,8 +46,8 @@ AT_DECLARE_NOTIFICATION(kNotification2)
 
 - (void)postNotification
 {
-    AT_POST_NOTIFICATION(kNotification1, @{kNotificationKey:@(1)});
-    AT_POST_NOTIFICATION(kNotification2, @{kNotificationKey:@(2)});
+    AT_POST_NOTIFICATION_USERINFO(kNotification1, @{kNotificationKey:@(1)});
+    AT_POST_NOTIFICATION_USERINFO(kNotification2, @{kNotificationKey:@(2)});
 }
 
 @end

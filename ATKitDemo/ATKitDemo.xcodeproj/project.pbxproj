@@ -15,6 +15,7 @@
 		DC2F9D062273124F00DE1FF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D052273124F00DE1FF8 /* main.m */; };
 		DC2F9D15227312FF00DE1FF8 /* libATKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC2F9D11227312D000DE1FF8 /* libATKit.a */; };
 		DC2F9D192273136000DE1FF8 /* ATKitNotificationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */; };
+		DC2F9D1C227543FC00DE1FF8 /* ATKitModuleManagerDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,8 @@
 		DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ATKit.xcodeproj; path = ../ATKit.xcodeproj; sourceTree = "<group>"; };
 		DC2F9D172273136000DE1FF8 /* ATKitNotificationDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKitNotificationDemo.h; sourceTree = "<group>"; };
 		DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitNotificationDemo.m; sourceTree = "<group>"; };
+		DC2F9D1A227543FC00DE1FF8 /* ATKitModuleManagerDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKitModuleManagerDemo.h; sourceTree = "<group>"; };
+		DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitModuleManagerDemo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +120,8 @@
 			children = (
 				DC2F9D172273136000DE1FF8 /* ATKitNotificationDemo.h */,
 				DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */,
+				DC2F9D1A227543FC00DE1FF8 /* ATKitModuleManagerDemo.h */,
+				DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */,
 			);
 			path = ATKit;
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 		DC2F9CEB2273124C00DE1FF8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = ATKit;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = linzhiman;
 				TargetAttributes = {
@@ -210,6 +216,7 @@
 			files = (
 				DC2F9CFB2273124D00DE1FF8 /* ViewController.m in Sources */,
 				DC2F9D062273124F00DE1FF8 /* main.m in Sources */,
+				DC2F9D1C227543FC00DE1FF8 /* ATKitModuleManagerDemo.m in Sources */,
 				DC2F9CF82273124D00DE1FF8 /* AppDelegate.m in Sources */,
 				DC2F9D192273136000DE1FF8 /* ATKitNotificationDemo.m in Sources */,
 			);

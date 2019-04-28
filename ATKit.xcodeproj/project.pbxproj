@@ -155,6 +155,7 @@
 		DC167A15227050780009D463 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				CLASSPREFIX = AT;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = linzhiman;
 				TargetAttributes = {

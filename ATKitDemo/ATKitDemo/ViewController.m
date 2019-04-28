@@ -8,10 +8,12 @@
 
 #import "ViewController.h"
 #import "ATKitNotificationDemo.h"
+#import "ATKitModuleManagerDemo.h"
 
 @interface ViewController ()
 
 @property (nonatomic, strong) ATKitNotificationDemo *notificationDemo;
+@property (nonatomic, strong) ATKitModuleManagerDemo *moduleManagerDemo;
 
 @end
 
@@ -22,6 +24,9 @@
     
     self.notificationDemo = [[ATKitNotificationDemo alloc] init];
     [self.notificationDemo postNotification];
+    
+    self.moduleManagerDemo = [[ATKitModuleManagerDemo alloc] init];
+    [self.moduleManagerDemo demo];
 }
 
 
