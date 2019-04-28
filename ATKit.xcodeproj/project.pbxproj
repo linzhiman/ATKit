@@ -15,6 +15,7 @@
 		DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */; };
 		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
 		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
+		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,8 @@
 		DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseModule.h; sourceTree = "<group>"; };
 		DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseModule.m; sourceTree = "<group>"; };
 		DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManagerProtocol.m; sourceTree = "<group>"; };
+		DC7995612275ADE100407F41 /* ATBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseViewController.h; sourceTree = "<group>"; };
+		DC7995622275ADE100407F41 /* ATBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,7 @@
 		DC167A1F227050780009D463 /* ATKit */ = {
 			isa = PBXGroup;
 			children = (
+				DC79955E2275ADAC00407F41 /* UI */,
 				DC2F9CD12273019A00DE1FF8 /* Utility */,
 				DC167A20227050780009D463 /* ATKit.h */,
 				DC167A21227050780009D463 /* ATKit.m */,
@@ -130,6 +134,23 @@
 				DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */,
 			);
 			path = ModuleManager;
+			sourceTree = "<group>";
+		};
+		DC79955E2275ADAC00407F41 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				DC7995602275ADC400407F41 /* Base */,
+			);
+			path = UI;
+			sourceTree = "<group>";
+		};
+		DC7995602275ADC400407F41 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				DC7995612275ADE100407F41 /* ATBaseViewController.h */,
+				DC7995622275ADE100407F41 /* ATBaseViewController.m */,
+			);
+			path = Base;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -189,6 +210,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */,
 				DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */,
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,

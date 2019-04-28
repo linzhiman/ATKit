@@ -17,6 +17,7 @@
 		DC2F9D192273136000DE1FF8 /* ATKitNotificationDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D182273136000DE1FF8 /* ATKitNotificationDemo.m */; };
 		DC2F9D1C227543FC00DE1FF8 /* ATKitModuleManagerDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */; };
 		DC2F9D1F2275513300DE1FF8 /* ATKitProtocolManagerDemo.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9D1E2275513300DE1FF8 /* ATKitProtocolManagerDemo.m */; };
+		DC7995692275B5E600407F41 /* ATKitTransformViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995682275B5E600407F41 /* ATKitTransformViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,8 @@
 		DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitModuleManagerDemo.m; sourceTree = "<group>"; };
 		DC2F9D1D2275513300DE1FF8 /* ATKitProtocolManagerDemo.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKitProtocolManagerDemo.h; sourceTree = "<group>"; };
 		DC2F9D1E2275513300DE1FF8 /* ATKitProtocolManagerDemo.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitProtocolManagerDemo.m; sourceTree = "<group>"; };
+		DC7995672275B5E600407F41 /* ATKitTransformViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKitTransformViewController.h; sourceTree = "<group>"; };
+		DC7995682275B5E600407F41 /* ATKitTransformViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitTransformViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +130,8 @@
 				DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */,
 				DC2F9D1D2275513300DE1FF8 /* ATKitProtocolManagerDemo.h */,
 				DC2F9D1E2275513300DE1FF8 /* ATKitProtocolManagerDemo.m */,
+				DC7995672275B5E600407F41 /* ATKitTransformViewController.h */,
+				DC7995682275B5E600407F41 /* ATKitTransformViewController.m */,
 			);
 			path = ATKit;
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC7995692275B5E600407F41 /* ATKitTransformViewController.m in Sources */,
 				DC2F9CFB2273124D00DE1FF8 /* ViewController.m in Sources */,
 				DC2F9D062273124F00DE1FF8 /* main.m in Sources */,
 				DC2F9D1C227543FC00DE1FF8 /* ATKitModuleManagerDemo.m in Sources */,
