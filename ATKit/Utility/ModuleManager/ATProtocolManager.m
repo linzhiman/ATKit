@@ -39,12 +39,12 @@ static NSMapTable *moduleClassesMap() {
     return [modulesMap() objectForKey:protocol];
 }
 
-- (void)addModule:(id)module withProtocol:(Protocol *)protocol
+- (void)addModule:(id)module protocol:(Protocol *)protocol
 {
-    [self addModule:module withProtocol:protocol group:kATProtocolManagerDefaultGroup];
+    [self addModule:module protocol:protocol group:kATProtocolManagerDefaultGroup];
 }
 
-- (void)addModule:(id)module withProtocol:(Protocol *)protocol group:(NSInteger)group
+- (void)addModule:(id)module protocol:(Protocol *)protocol group:(NSInteger)group
 {
     if ([module conformsToProtocol:protocol]) {
         [modulesMap() setObject:module forKey:protocol];
@@ -56,7 +56,7 @@ static NSMapTable *moduleClassesMap() {
     }
 }
 
-- (void)removeModuleWithProtocol:(Protocol *)protocol
+- (void)removeModule:(Protocol *)protocol
 {
     id obj = [modulesMap() objectForKey:protocol];
     if (obj != nil) {
@@ -74,12 +74,12 @@ static NSMapTable *moduleClassesMap() {
     return [moduleClassesMap() objectForKey:protocol];
 }
 
-- (void)registerClass:(Class)aClass withProtocol:(Protocol *)protocol
+- (void)registerClass:(Class)aClass protocol:(Protocol *)protocol
 {
-    [self registerClass:aClass withProtocol:protocol group:kATProtocolManagerDefaultGroup];
+    [self registerClass:aClass protocol:protocol group:kATProtocolManagerDefaultGroup];
 }
 
-- (void)registerClass:(Class)aClass withProtocol:(Protocol *)protocol group:(NSInteger)group
+- (void)registerClass:(Class)aClass protocol:(Protocol *)protocol group:(NSInteger)group
 {
     if ([aClass conformsToProtocol:protocol]) {
         [moduleClassesMap() setObject:aClass forKey:protocol];
@@ -91,7 +91,7 @@ static NSMapTable *moduleClassesMap() {
     }
 }
 
-- (void)unRegisterClassWithProtocol:(Protocol *)protocol
+- (void)unRegisterClass:(Protocol *)protocol
 {
     id obj = [moduleClassesMap() objectForKey:protocol];
     if (obj != nil) {
@@ -104,17 +104,41 @@ static NSMapTable *moduleClassesMap() {
     }
 }
 
-- (id)moduleForProtocolEx:(Protocol *)protocol
+- (id)module:(Protocol *)protocol
 {
     id obj = [self moduleForProtocol:protocol];
     if (obj == nil) {
         Class class = [self classForProtocol:protocol];
         if (class != NULL) {
             obj = [[class alloc] init];
-            [self addModule:obj withProtocol:protocol group:[self groupForProtocol:protocol]];
+            [self addModule:obj protocol:protocol group:[self groupForProtocol:protocol]];
         }
     }
     return obj;
+}
+
+- (void)removeProtocol:(Protocol *)protocol
+{
+    [self removeModule:protocol];
+    [self unRegisterClass:protocol];
+}
+
+- (NSArray *)modulesInGroup:(NSInteger)group createIfNeed:(BOOL)createIfNeed
+{
+    NSMutableArray *value = [[NSMutableArray alloc] init];
+    NSArray *aArray = [[self.groups objectForKey:@(group)] copy];
+    for (ATProtocolManagerMeta *curMeta in aArray) {
+        if (createIfNeed) {
+            [value addObject:[self module:curMeta.protocol]];
+        }
+        else {
+            id obj = [self moduleForProtocol:curMeta.protocol];
+            if (obj != nil) {
+                [value addObject:obj];
+            }
+        }
+    }
+    return [value copy];
 }
 
 - (void)addMeta:(ATProtocolManagerMeta *)meta group:(NSInteger)group

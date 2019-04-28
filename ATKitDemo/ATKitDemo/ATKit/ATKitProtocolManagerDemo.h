@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "ATProtocolManager.h"
 #import "ATGlobalMacro.h"
+#import "ATBaseModule.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -36,19 +37,19 @@ NS_ASSUME_NONNULL_BEGIN
 
 @end
 
-@interface ATKitProtocolManagerClassA : NSObject<ATKitProtocolManagerProtocolA>
+@interface ATKitProtocolManagerClassA : ATBaseModule<ATKitProtocolManagerProtocolA>
 
 @end
 
-@interface ATKitProtocolManagerClassB : NSObject<ATKitProtocolManagerProtocolB>
+@interface ATKitProtocolManagerClassB : ATBaseModule<ATKitProtocolManagerProtocolB>
 
 @end
 
-@interface ATKitProtocolManagerClassC : NSObject<ATKitProtocolManagerProtocolC>
+@interface ATKitProtocolManagerClassC : ATBaseModule<ATKitProtocolManagerProtocolC>
 
 @end
 
-@interface ATKitProtocolManagerClassD : NSObject<ATKitProtocolManagerProtocolD>
+@interface ATKitProtocolManagerClassD : ATBaseModule<ATKitProtocolManagerProtocolD>
 
 @end
 

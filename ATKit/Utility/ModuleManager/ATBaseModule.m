@@ -10,20 +10,6 @@
 
 @implementation ATBaseModule
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [self initModule];
-    }
-    return self;
-}
-
-- (void)dealloc
-{
-    [self uninitModule];
-}
-
 - (void)initModule
 {
     ;

@@ -122,18 +122,27 @@ AT_IMPLEMENT_SINGLETON(ATKitProtocolManager)
 {
     self.protocolManager = [[ATProtocolManager alloc] init];
     
-    [self.protocolManager addModule:[[ATKitProtocolManagerClassA alloc] init] withProtocol:@protocol(ATKitProtocolManagerProtocolA)];
-    [self.protocolManager addModule:[[ATKitProtocolManagerClassB alloc] init] withProtocol:@protocol(ATKitProtocolManagerProtocolB) group:1];
-    [self.protocolManager registerClass:[ATKitProtocolManagerClassC class] withProtocol:@protocol(ATKitProtocolManagerProtocolC)];
-    [self.protocolManager registerClass:[ATKitProtocolManagerClassD class] withProtocol:@protocol(ATKitProtocolManagerProtocolD) group:1];
+    [self.protocolManager addModule:[[ATKitProtocolManagerClassA alloc] init] protocol:@protocol(ATKitProtocolManagerProtocolA)];
+    [self.protocolManager addModule:[[ATKitProtocolManagerClassB alloc] init] protocol:@protocol(ATKitProtocolManagerProtocolB) group:1];
+    [self.protocolManager registerClass:[ATKitProtocolManagerClassC class] protocol:@protocol(ATKitProtocolManagerProtocolC)];
+    [self.protocolManager registerClass:[ATKitProtocolManagerClassD class] protocol:@protocol(ATKitProtocolManagerProtocolD) group:1];
 }
 
 - (void)uninitModule
 {
-    [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolA)];
-    [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolB)];
-    [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolC)];
-    [self.protocolManager removeModuleWithProtocol:@protocol(ATKitProtocolManagerProtocolD)];
+    [self.protocolManager removeProtocol:@protocol(ATKitProtocolManagerProtocolA)];
+    [self.protocolManager removeProtocol:@protocol(ATKitProtocolManagerProtocolB)];
+    [self.protocolManager removeProtocol:@protocol(ATKitProtocolManagerProtocolC)];
+    [self.protocolManager removeProtocol:@protocol(ATKitProtocolManagerProtocolD)];
+}
+
+- (void)callModulesInGroup1
+{
+    NSArray *aArray = [self.protocolManager modulesInGroup:1 createIfNeed:YES];
+    [aArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        id<ATModuleProtocol> module = obj;
+        [module initModule];
+    }];
 }
 
 @end
@@ -150,6 +159,8 @@ AT_IMPLEMENT_SINGLETON(ATKitProtocolManager)
         ATKITDEMO_GET_MODULE_PROTOCOL_VARIABLE(ATKitProtocolManagerProtocolD, protocolD);
         [protocolD methodD];
     }}
+    
+    [[ATKitProtocolManager sharedObject] callModulesInGroup1];
     
     [[ATKitProtocolManager sharedObject] uninitModule];
     
