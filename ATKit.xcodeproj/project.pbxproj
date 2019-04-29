@@ -16,6 +16,7 @@
 		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
 		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
+		DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79956C2275D1DE00407F41 /* ATComponentService.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -51,6 +52,8 @@
 		DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManagerProtocol.m; sourceTree = "<group>"; };
 		DC7995612275ADE100407F41 /* ATBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseViewController.h; sourceTree = "<group>"; };
 		DC7995622275ADE100407F41 /* ATBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseViewController.m; sourceTree = "<group>"; };
+		DC79956B2275D1DE00407F41 /* ATComponentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATComponentService.h; sourceTree = "<group>"; };
+		DC79956C2275D1DE00407F41 /* ATComponentService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATComponentService.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */,
+				DC79956A2275CED000407F41 /* Component */,
 				DC2F9CDB2273039F00DE1FF8 /* ModuleManager */,
 				DC2F9CD52273019A00DE1FF8 /* Notification */,
 				DC2F9CD22273019A00DE1FF8 /* WeakObject */,
@@ -151,6 +155,15 @@
 				DC7995622275ADE100407F41 /* ATBaseViewController.m */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		DC79956A2275CED000407F41 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				DC79956B2275D1DE00407F41 /* ATComponentService.h */,
+				DC79956C2275D1DE00407F41 /* ATComponentService.m */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -218,6 +231,7 @@
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
 				DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */,
+				DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
