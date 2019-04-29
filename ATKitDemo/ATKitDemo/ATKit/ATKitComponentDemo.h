@@ -11,9 +11,19 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/**
+ ATComponentService(ComponentA)均由组件提供者实现，调用者使用即可。
+ */
+
 @interface ATKitComponentA : NSObject
 
 AT_COMPONENT_ACTION(version);
+
+@end
+
+@interface ATComponentService(ComponentA)
+
++ (NSString *)a_versionWithPrefix:(NSString *)prefix callback:(void(^)(NSString *version))callback;
 
 @end
 

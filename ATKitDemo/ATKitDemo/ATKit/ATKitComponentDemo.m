@@ -12,9 +12,24 @@
 
 AT_COMPONENT_ACTION(version)
 {
+    NSString *prefix = params[@"prefix"];
+    NSString *version = [prefix stringByAppendingString:@"123"];
     NSMutableDictionary *dic = [NSMutableDictionary atcs_resultDic];
-    [dic setObject:@"123" forKey:@"version"];
+    [dic setObject:version forKey:@"version"];
+    AT_SAFETY_CALL_BLOCK(callback, dic);
     return dic;
+}
+
+@end
+
+@implementation ATComponentService(ComponentA)
+
++ (NSString *)a_versionWithPrefix:(NSString *)prefix callback:(void(^)(NSString *version))callback
+{
+    NSDictionary *result = [ATComponentService callTarget:@"A" action:@"version" params:@{@"prefix":prefix} callback:^(NSDictionary * _Nullable params) {
+        AT_SAFETY_CALL_BLOCK(callback, params[@"version"]);
+    }];
+    return result[@"version"];
 }
 
 @end
@@ -29,8 +44,10 @@ AT_COMPONENT_ACTION(version)
 {
     AT_COMPONENT_REGISTER(A, ATKitComponentA);
     
-    NSDictionary *result = [ATComponentService callTarget:@"A" action:@"version" params:nil callback:nil];
-    NSLog(@"ATKitComponentDemo version %@", result[@"version"]);
+    NSString *version = [ATComponentService a_versionWithPrefix:@"abc" callback:^(NSString * _Nonnull version) {
+        NSLog(@"ATKitComponentDemo callback %@", version);
+    }];
+    NSLog(@"ATKitComponentDemo retrun %@", version);
 }
 
 @end
