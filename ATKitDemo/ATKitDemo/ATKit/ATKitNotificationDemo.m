@@ -44,7 +44,7 @@ AT_DECLARE_NOTIFICATION(kNotification2)
     [AT_NOTIFICATION_SIGNALTON removeObserver:self];
 }
 
-- (void)postNotification
+- (void)demo
 {
     AT_POST_NOTIFICATION_USERINFO(kNotification1, @{kNotificationKey:@(1)});
     AT_POST_NOTIFICATION_USERINFO(kNotification2, @{kNotificationKey:@(2)});

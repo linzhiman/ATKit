@@ -16,7 +16,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)removeNotification;
 
-- (void)postNotification;
+- (void)demo;
 
 @end
 

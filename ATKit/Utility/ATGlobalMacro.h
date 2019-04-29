@@ -50,6 +50,9 @@
     return __instance; \
 }
 
+#define AT_WEAKIFY_SELF __weak __typeof(self) weak_self = self;
+#define AT_STRONGIFY_SELF __strong __typeof(self) self = weak_self;
+
 //Block
 
 #define AT_SAFETY_CALL_BLOCK(atBlock, ...) if((atBlock)) { atBlock(__VA_ARGS__); }
