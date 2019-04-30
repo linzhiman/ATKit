@@ -11,8 +11,8 @@
 
 @interface ATNotificationUtils()
 
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *observers;
-@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableSet *> *notifications;
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *observers;//name->[WrapObj]
+@property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableSet *> *notifications;//ObjKey->[name]
 
 @end
 
@@ -82,6 +82,7 @@ AT_IMPLEMENT_SINGLETON(ATNotificationUtils);
             }
             if (observers.count == 0) {
                 [[NSNotificationCenter defaultCenter] removeObserver:observer name:name object:nil];
+                [self.observers removeObjectForKey:name];
             }
         }
         
