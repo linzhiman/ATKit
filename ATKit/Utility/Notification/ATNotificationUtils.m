@@ -73,10 +73,12 @@ AT_IMPLEMENT_SINGLETON(ATNotificationUtils);
     {
         NSMutableArray *observers = [self.observers objectForKey:name];
         if (observers != nil) {
-            ATWeakObject *aWrapObj = [[ATWeakObject alloc] init];
-            aWrapObj.target = observer;
-            if ([observers containsObject:aWrapObj]) {
-                [observers removeObject:aWrapObj];
+            for (NSUInteger i = 0; i < observers.count; ++i) {
+                ATWeakObject *aWrapObj = observers[i];
+                if (aWrapObj.target == observer || [aWrapObj.objectKey isEqualToString:[ATWeakObject objectKey:observer]]) {
+                    [observers removeObjectAtIndex:i];
+                    break;
+                }
             }
             if (observers.count == 0) {
                 [[NSNotificationCenter defaultCenter] removeObserver:observer name:name object:nil];
