@@ -17,7 +17,19 @@
 		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
 		DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79956C2275D1DE00407F41 /* ATComponentService.m */; };
+		DC7995792277E54300407F41 /* ATKitUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995782277E54300407F41 /* ATKitUnitTest.m */; };
+		DC79957B2277E54300407F41 /* libATKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC167A1D227050780009D463 /* libATKit.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		DC79957C2277E54300407F41 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC167A15227050780009D463 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DC167A1C227050780009D463;
+			remoteInfo = ATKit;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		DC167A1B227050780009D463 /* CopyFiles */ = {
@@ -54,6 +66,9 @@
 		DC7995622275ADE100407F41 /* ATBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseViewController.m; sourceTree = "<group>"; };
 		DC79956B2275D1DE00407F41 /* ATComponentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATComponentService.h; sourceTree = "<group>"; };
 		DC79956C2275D1DE00407F41 /* ATComponentService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATComponentService.m; sourceTree = "<group>"; };
+		DC7995762277E54200407F41 /* ATKitUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ATKitUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DC7995782277E54300407F41 /* ATKitUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitUnitTest.m; sourceTree = "<group>"; };
+		DC79957A2277E54300407F41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +79,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC7995732277E54200407F41 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC79957B2277E54300407F41 /* libATKit.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,6 +94,7 @@
 			isa = PBXGroup;
 			children = (
 				DC167A1F227050780009D463 /* ATKit */,
+				DC7995772277E54200407F41 /* ATKitUnitTest */,
 				DC167A1E227050780009D463 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +103,7 @@
 			isa = PBXGroup;
 			children = (
 				DC167A1D227050780009D463 /* libATKit.a */,
+				DC7995762277E54200407F41 /* ATKitUnitTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -166,6 +191,15 @@
 			path = Component;
 			sourceTree = "<group>";
 		};
+		DC7995772277E54200407F41 /* ATKitUnitTest */ = {
+			isa = PBXGroup;
+			children = (
+				DC7995782277E54300407F41 /* ATKitUnitTest.m */,
+				DC79957A2277E54300407F41 /* Info.plist */,
+			);
+			path = ATKitUnitTest;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -186,6 +220,24 @@
 			productReference = DC167A1D227050780009D463 /* libATKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		DC7995752277E54200407F41 /* ATKitUnitTest */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DC79957E2277E54300407F41 /* Build configuration list for PBXNativeTarget "ATKitUnitTest" */;
+			buildPhases = (
+				DC7995722277E54200407F41 /* Sources */,
+				DC7995732277E54200407F41 /* Frameworks */,
+				DC7995742277E54200407F41 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DC79957D2277E54300407F41 /* PBXTargetDependency */,
+			);
+			name = ATKitUnitTest;
+			productName = ATKitUnitTest;
+			productReference = DC7995762277E54200407F41 /* ATKitUnitTest.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -197,6 +249,9 @@
 				ORGANIZATIONNAME = linzhiman;
 				TargetAttributes = {
 					DC167A1C227050780009D463 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					DC7995752277E54200407F41 = {
 						CreatedOnToolsVersion = 10.1;
 					};
 				};
@@ -214,9 +269,20 @@
 			projectRoot = "";
 			targets = (
 				DC167A1C227050780009D463 /* ATKit */,
+				DC7995752277E54200407F41 /* ATKitUnitTest */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DC7995742277E54200407F41 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		DC167A19227050780009D463 /* Sources */ = {
@@ -235,7 +301,23 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DC7995722277E54200407F41 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DC7995792277E54300407F41 /* ATKitUnitTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DC79957D2277E54300407F41 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DC167A1C227050780009D463 /* ATKit */;
+			targetProxy = DC79957C2277E54300407F41 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		DC167A24227050780009D463 /* Debug */ = {
@@ -372,6 +454,40 @@
 			};
 			name = Release;
 		};
+		DC79957F2277E54300407F41 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = ATKitUnitTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = linzhiman.ATKitUnitTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DC7995802277E54300407F41 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				INFOPLIST_FILE = ATKitUnitTest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = linzhiman.ATKitUnitTest;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -389,6 +505,15 @@
 			buildConfigurations = (
 				DC167A27227050780009D463 /* Debug */,
 				DC167A28227050780009D463 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DC79957E2277E54300407F41 /* Build configuration list for PBXNativeTarget "ATKitUnitTest" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DC79957F2277E54300407F41 /* Debug */,
+				DC7995802277E54300407F41 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
