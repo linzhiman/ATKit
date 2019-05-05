@@ -12,20 +12,20 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface NSObject (ATKit)
 
-- (void)bs_performSelector:(SEL)selector withObject:(id)object afterDelay:(NSTimeInterval)delay;
-+ (void)bs_cancelPreviousPerformRequestsWithTarget:(id)target selector:(SEL)selector;
+- (void)at_performSelector:(SEL)selector withObject:(id)object afterDelay:(NSTimeInterval)delay;
++ (void)at_cancelPreviousPerformRequestsWithTarget:(id)target selector:(SEL)selector;
 
-- (id)bs_getProperty:(NSString *)name;
-- (void)bs_setProperty:(id)property withName:(NSString *)name;
-- (void)bs_removeProperty:(NSString *)name;
+- (id)at_getProperty:(NSString *)name;
+- (void)at_setProperty:(id)property withName:(NSString *)name;
+- (void)at_removeProperty:(NSString *)name;
 
-- (id)bs_associatedObject:(NSString *)key;
-- (void)bs_setAssociatedObject:(id)object key:(NSString *)key;
-- (void)bs_removeAssociatedObject:(NSString *)key;
+- (id)at_associatedObject:(NSString *)key;
+- (void)at_setAssociatedObject:(id)object key:(NSString *)key;
+- (void)at_removeAssociatedObject:(NSString *)key;
 
-- (void)bs_addDelegate:(id)delegate;
-- (void)bs_removeDelegate:(id)delegate;
-- (void)bs_checkSelector:(SEL)selector callback:(void (^)(id delegate))callback;
+- (void)at_addDelegate:(id)delegate;
+- (void)at_removeDelegate:(id)delegate;
+- (void)at_checkSelector:(SEL)selector callback:(void (^)(id delegate))callback;
 
 @end
 

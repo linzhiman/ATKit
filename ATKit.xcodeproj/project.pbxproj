@@ -29,6 +29,8 @@
 		DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */; };
 		DC7995A6227E8ED900407F41 /* NSArray+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */; };
 		DC7995A9227EB4EF00407F41 /* NSObject+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A8227EB4EF00407F41 /* NSObject+ATKit.m */; };
+		DC7995AD227EBCC900407F41 /* ATWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995AC227EBCC900407F41 /* ATWeakTimer.m */; };
+		DC7995AF227EC4F300407F41 /* ATWeakTimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,6 +100,9 @@
 		DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ATKit.m"; sourceTree = "<group>"; };
 		DC7995A7227EB4EF00407F41 /* NSObject+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ATKit.h"; sourceTree = "<group>"; };
 		DC7995A8227EB4EF00407F41 /* NSObject+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ATKit.m"; sourceTree = "<group>"; };
+		DC7995AB227EBCC800407F41 /* ATWeakTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATWeakTimer.h; sourceTree = "<group>"; };
+		DC7995AC227EBCC900407F41 /* ATWeakTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATWeakTimer.m; sourceTree = "<group>"; };
+		DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATWeakTimerTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -151,6 +156,7 @@
 		DC2F9CD12273019A00DE1FF8 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DC7995AA227EBC7000407F41 /* Timer */,
 				DC7995852277FAA700407F41 /* Category */,
 				DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */,
 				DC79956A2275CED000407F41 /* Component */,
@@ -227,6 +233,7 @@
 				DC79957A2277E54300407F41 /* Info.plist */,
 				DC7995822277EA0600407F41 /* ATKitNotificationTest.m */,
 				DC79958B227841BC00407F41 /* ATKitStringTest.m */,
+				DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */,
 			);
 			path = ATKitUnitTest;
 			sourceTree = "<group>";
@@ -254,6 +261,15 @@
 				DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */,
 			);
 			path = Category;
+			sourceTree = "<group>";
+		};
+		DC7995AA227EBC7000407F41 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				DC7995AB227EBCC800407F41 /* ATWeakTimer.h */,
+				DC7995AC227EBCC900407F41 /* ATWeakTimer.m */,
+			);
+			path = Timer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -363,6 +379,7 @@
 				DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */,
 				DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */,
 				DC7995A9227EB4EF00407F41 /* NSObject+ATKit.m in Sources */,
+				DC7995AD227EBCC900407F41 /* ATWeakTimer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,6 +388,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */,
+				DC7995AF227EC4F300407F41 /* ATWeakTimerTest.m in Sources */,
 				DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
