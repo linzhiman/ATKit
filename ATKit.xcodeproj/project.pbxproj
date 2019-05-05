@@ -24,6 +24,7 @@
 		DC799592227E835A00407F41 /* NSMutableAttributedString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */; };
 		DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799594227E85A400407F41 /* NSBundle+ATKit.m */; };
 		DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799597227E86ED00407F41 /* UIFont+ATKit.m */; };
+		DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959A227E8AE100407F41 /* UIColor+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +84,8 @@
 		DC799594227E85A400407F41 /* NSBundle+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+ATKit.m"; sourceTree = "<group>"; };
 		DC799596227E86ED00407F41 /* UIFont+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+ATKit.h"; sourceTree = "<group>"; };
 		DC799597227E86ED00407F41 /* UIFont+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ATKit.m"; sourceTree = "<group>"; };
+		DC799599227E8AE100407F41 /* UIColor+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+ATKit.h"; sourceTree = "<group>"; };
+		DC79959A227E8AE100407F41 /* UIColor+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -227,6 +230,8 @@
 				DC799594227E85A400407F41 /* NSBundle+ATKit.m */,
 				DC799596227E86ED00407F41 /* UIFont+ATKit.h */,
 				DC799597227E86ED00407F41 /* UIFont+ATKit.m */,
+				DC799599227E8AE100407F41 /* UIColor+ATKit.h */,
+				DC79959A227E8AE100407F41 /* UIColor+ATKit.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -333,6 +338,7 @@
 				DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */,
 				DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */,
 				DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */,
+				DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
