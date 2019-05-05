@@ -27,6 +27,7 @@
 		DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959A227E8AE100407F41 /* UIColor+ATKit.m */; };
 		DC7995A0227E8CC900407F41 /* NSDateFormatter+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */; };
 		DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */; };
+		DC7995A6227E8ED900407F41 /* NSArray+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -92,6 +93,8 @@
 		DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ATKit.m"; sourceTree = "<group>"; };
 		DC7995A1227E8DCC00407F41 /* NSDictionary+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ATKit.h"; sourceTree = "<group>"; };
 		DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ATKit.m"; sourceTree = "<group>"; };
+		DC7995A4227E8ED900407F41 /* NSArray+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+ATKit.h"; sourceTree = "<group>"; };
+		DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +235,8 @@
 				DC7995872277FB1A00407F41 /* NSString+ATKit.m */,
 				DC799590227E835A00407F41 /* NSMutableAttributedString+ATKit.h */,
 				DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */,
+				DC7995A4227E8ED900407F41 /* NSArray+ATKit.h */,
+				DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */,
 				DC7995A1227E8DCC00407F41 /* NSDictionary+ATKit.h */,
 				DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */,
 				DC799593227E85A400407F41 /* NSBundle+ATKit.h */,
@@ -341,6 +346,7 @@
 				DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */,
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
+				DC7995A6227E8ED900407F41 /* NSArray+ATKit.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
 				DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */,
 				DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */,
