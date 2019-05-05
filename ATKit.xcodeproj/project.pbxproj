@@ -17,9 +17,10 @@
 		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
 		DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79956C2275D1DE00407F41 /* ATComponentService.m */; };
-		DC7995792277E54300407F41 /* ATKitUnitTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995782277E54300407F41 /* ATKitUnitTest.m */; };
 		DC79957B2277E54300407F41 /* libATKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC167A1D227050780009D463 /* libATKit.a */; };
 		DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995822277EA0600407F41 /* ATKitNotificationTest.m */; };
+		DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995872277FB1A00407F41 /* NSString+ATKit.m */; };
+		DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79958B227841BC00407F41 /* ATKitStringTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,9 +69,11 @@
 		DC79956B2275D1DE00407F41 /* ATComponentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATComponentService.h; sourceTree = "<group>"; };
 		DC79956C2275D1DE00407F41 /* ATComponentService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATComponentService.m; sourceTree = "<group>"; };
 		DC7995762277E54200407F41 /* ATKitUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ATKitUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DC7995782277E54300407F41 /* ATKitUnitTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitUnitTest.m; sourceTree = "<group>"; };
 		DC79957A2277E54300407F41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC7995822277EA0600407F41 /* ATKitNotificationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitNotificationTest.m; sourceTree = "<group>"; };
+		DC7995862277FB1A00407F41 /* NSString+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+ATKit.h"; sourceTree = "<group>"; };
+		DC7995872277FB1A00407F41 /* NSString+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ATKit.m"; sourceTree = "<group>"; };
+		DC79958B227841BC00407F41 /* ATKitStringTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitStringTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -124,6 +127,7 @@
 		DC2F9CD12273019A00DE1FF8 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DC7995852277FAA700407F41 /* Category */,
 				DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */,
 				DC79956A2275CED000407F41 /* Component */,
 				DC2F9CDB2273039F00DE1FF8 /* ModuleManager */,
@@ -197,10 +201,19 @@
 			isa = PBXGroup;
 			children = (
 				DC79957A2277E54300407F41 /* Info.plist */,
-				DC7995782277E54300407F41 /* ATKitUnitTest.m */,
 				DC7995822277EA0600407F41 /* ATKitNotificationTest.m */,
+				DC79958B227841BC00407F41 /* ATKitStringTest.m */,
 			);
 			path = ATKitUnitTest;
+			sourceTree = "<group>";
+		};
+		DC7995852277FAA700407F41 /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				DC7995862277FB1A00407F41 /* NSString+ATKit.h */,
+				DC7995872277FB1A00407F41 /* NSString+ATKit.m */,
+			);
+			path = Category;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -299,6 +312,7 @@
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
+				DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */,
 				DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */,
 				DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */,
 			);
@@ -308,8 +322,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */,
 				DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */,
-				DC7995792277E54300407F41 /* ATKitUnitTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,6 +484,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = linzhiman.ATKitUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -488,6 +503,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = linzhiman.ATKitUnitTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
