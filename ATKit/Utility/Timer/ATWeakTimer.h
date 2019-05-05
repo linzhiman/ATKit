@@ -12,7 +12,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @class ATWeakTimer;
 
-typedef void (^ATWeakTimerBlock)(ATWeakTimer *timer);
+typedef void (^ATWeakTimerTimeout)(ATWeakTimer *timer);
 
 @interface ATWeakTimer : NSObject
 
@@ -36,11 +36,11 @@ typedef void (^ATWeakTimerBlock)(ATWeakTimer *timer);
                                     commonModes:(BOOL)isCommonModes;
 
 + (ATWeakTimer *)timerWithTimeInterval:(NSTimeInterval)ti
-                                 block:(ATWeakTimerBlock)block
+                               timeout:(ATWeakTimerTimeout)timeout
                                repeats:(BOOL)yesOrNo;
 
 + (ATWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti
-                                          block:(ATWeakTimerBlock)block
+                                        timeout:(ATWeakTimerTimeout)timeout
                                         repeats:(BOOL)yesOrNo;
 
 @property (nonatomic, strong) id userInfo;

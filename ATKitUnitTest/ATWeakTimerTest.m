@@ -62,7 +62,7 @@
 
 - (void)testExample3 {
     self.exception = [self expectationWithDescription:@"3"];
-    self.weakTimer = [ATWeakTimer timerWithTimeInterval:2 block:^(ATWeakTimer * _Nonnull timer) {
+    self.weakTimer = [ATWeakTimer timerWithTimeInterval:2 timeout:^(ATWeakTimer * _Nonnull timer) {
         XCTAssert(timer.userInfo == nil);
         [self.exception fulfill];
     } repeats:NO];

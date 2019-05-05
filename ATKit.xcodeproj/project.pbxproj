@@ -31,6 +31,8 @@
 		DC7995A9227EB4EF00407F41 /* NSObject+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A8227EB4EF00407F41 /* NSObject+ATKit.m */; };
 		DC7995AD227EBCC900407F41 /* ATWeakTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995AC227EBCC900407F41 /* ATWeakTimer.m */; };
 		DC7995AF227EC4F300407F41 /* ATWeakTimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */; };
+		DC7995B2227ED3BC00407F41 /* ATGCDTimer.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995B1227ED3BC00407F41 /* ATGCDTimer.m */; };
+		DC7995B4227ED8F200407F41 /* ATGCDTimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -103,6 +105,9 @@
 		DC7995AB227EBCC800407F41 /* ATWeakTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATWeakTimer.h; sourceTree = "<group>"; };
 		DC7995AC227EBCC900407F41 /* ATWeakTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATWeakTimer.m; sourceTree = "<group>"; };
 		DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATWeakTimerTest.m; sourceTree = "<group>"; };
+		DC7995B0227ED3BC00407F41 /* ATGCDTimer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATGCDTimer.h; sourceTree = "<group>"; };
+		DC7995B1227ED3BC00407F41 /* ATGCDTimer.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATGCDTimer.m; sourceTree = "<group>"; };
+		DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATGCDTimerTest.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -234,6 +239,7 @@
 				DC7995822277EA0600407F41 /* ATKitNotificationTest.m */,
 				DC79958B227841BC00407F41 /* ATKitStringTest.m */,
 				DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */,
+				DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */,
 			);
 			path = ATKitUnitTest;
 			sourceTree = "<group>";
@@ -268,6 +274,8 @@
 			children = (
 				DC7995AB227EBCC800407F41 /* ATWeakTimer.h */,
 				DC7995AC227EBCC900407F41 /* ATWeakTimer.m */,
+				DC7995B0227ED3BC00407F41 /* ATGCDTimer.h */,
+				DC7995B1227ED3BC00407F41 /* ATGCDTimer.m */,
 			);
 			path = Timer;
 			sourceTree = "<group>";
@@ -368,6 +376,7 @@
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
 				DC7995A6227E8ED900407F41 /* NSArray+ATKit.m in Sources */,
+				DC7995B2227ED3BC00407F41 /* ATGCDTimer.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
 				DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */,
 				DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */,
@@ -390,6 +399,7 @@
 				DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */,
 				DC7995AF227EC4F300407F41 /* ATWeakTimerTest.m in Sources */,
 				DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */,
+				DC7995B4227ED8F200407F41 /* ATGCDTimerTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

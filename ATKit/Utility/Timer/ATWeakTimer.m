@@ -35,7 +35,7 @@
 @interface ATWeakTimer()
 
 @property (nonatomic, strong) NSTimer *timer;
-@property (nonatomic, copy) ATWeakTimerBlock block;
+@property (nonatomic, copy) ATWeakTimerTimeout timeout;
 
 @end
 
@@ -101,27 +101,27 @@
 }
 
 + (ATWeakTimer *)timerWithTimeInterval:(NSTimeInterval)ti
-                                 block:(ATWeakTimerBlock)block repeats:(BOOL)yesOrNo
+                               timeout:(ATWeakTimerTimeout)timeout repeats:(BOOL)yesOrNo
 {
     ATWeakTimer *weakTimer = [ATWeakTimer timerWithTimeInterval:ti target:self selector:@selector(timeoutBlock:)
                                      userInfo:nil repeats:yesOrNo];
-    weakTimer.block = block;
+    weakTimer.timeout = timeout;
     return weakTimer;
 }
 
 + (ATWeakTimer *)scheduledTimerWithTimeInterval:(NSTimeInterval)ti
-                                          block:(ATWeakTimerBlock)block repeats:(BOOL)yesOrNo
+                                        timeout:(ATWeakTimerTimeout)timeout repeats:(BOOL)yesOrNo
 {
     ATWeakTimer *weakTimer = [ATWeakTimer scheduledTimerWithTimeInterval:ti target:self selector:@selector(timeoutBlock:)
-                                                                userInfo:block repeats:yesOrNo];
-    weakTimer.block = block;
+                                                                userInfo:nil repeats:yesOrNo];
+    weakTimer.timeout = timeout;
     return weakTimer;
 }
 
 + (void)timeoutBlock:(id)weakTimer
 {
     ATWeakTimer *timer = weakTimer;
-    AT_SAFETY_CALL_BLOCK(timer.block, timer);
+    AT_SAFETY_CALL_BLOCK(timer.timeout, timer);
 }
 
 - (void)fire
