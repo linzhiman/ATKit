@@ -21,6 +21,7 @@
 		DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995822277EA0600407F41 /* ATKitNotificationTest.m */; };
 		DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995872277FB1A00407F41 /* NSString+ATKit.m */; };
 		DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79958B227841BC00407F41 /* ATKitStringTest.m */; };
+		DC799592227E835A00407F41 /* NSMutableAttributedString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,8 @@
 		DC7995862277FB1A00407F41 /* NSString+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+ATKit.h"; sourceTree = "<group>"; };
 		DC7995872277FB1A00407F41 /* NSString+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ATKit.m"; sourceTree = "<group>"; };
 		DC79958B227841BC00407F41 /* ATKitStringTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitStringTest.m; sourceTree = "<group>"; };
+		DC799590227E835A00407F41 /* NSMutableAttributedString+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSMutableAttributedString+ATKit.h"; sourceTree = "<group>"; };
+		DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -212,6 +215,8 @@
 			children = (
 				DC7995862277FB1A00407F41 /* NSString+ATKit.h */,
 				DC7995872277FB1A00407F41 /* NSString+ATKit.m */,
+				DC799590227E835A00407F41 /* NSMutableAttributedString+ATKit.h */,
+				DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -305,6 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DC799592227E835A00407F41 /* NSMutableAttributedString+ATKit.m in Sources */,
 				DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */,
 				DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */,
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
