@@ -28,6 +28,7 @@
 		DC7995A0227E8CC900407F41 /* NSDateFormatter+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */; };
 		DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */; };
 		DC7995A6227E8ED900407F41 /* NSArray+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */; };
+		DC7995A9227EB4EF00407F41 /* NSObject+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A8227EB4EF00407F41 /* NSObject+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,8 @@
 		DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ATKit.m"; sourceTree = "<group>"; };
 		DC7995A4227E8ED900407F41 /* NSArray+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSArray+ATKit.h"; sourceTree = "<group>"; };
 		DC7995A5227E8ED900407F41 /* NSArray+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSArray+ATKit.m"; sourceTree = "<group>"; };
+		DC7995A7227EB4EF00407F41 /* NSObject+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSObject+ATKit.h"; sourceTree = "<group>"; };
+		DC7995A8227EB4EF00407F41 /* NSObject+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,6 +234,8 @@
 		DC7995852277FAA700407F41 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				DC7995A7227EB4EF00407F41 /* NSObject+ATKit.h */,
+				DC7995A8227EB4EF00407F41 /* NSObject+ATKit.m */,
 				DC7995862277FB1A00407F41 /* NSString+ATKit.h */,
 				DC7995872277FB1A00407F41 /* NSString+ATKit.m */,
 				DC799590227E835A00407F41 /* NSMutableAttributedString+ATKit.h */,
@@ -357,6 +362,7 @@
 				DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */,
 				DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */,
 				DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */,
+				DC7995A9227EB4EF00407F41 /* NSObject+ATKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
