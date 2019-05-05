@@ -26,6 +26,7 @@
 		DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799597227E86ED00407F41 /* UIFont+ATKit.m */; };
 		DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959A227E8AE100407F41 /* UIColor+ATKit.m */; };
 		DC7995A0227E8CC900407F41 /* NSDateFormatter+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */; };
+		DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -89,6 +90,8 @@
 		DC79959A227E8AE100407F41 /* UIColor+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ATKit.m"; sourceTree = "<group>"; };
 		DC79959E227E8CC900407F41 /* NSDateFormatter+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ATKit.h"; sourceTree = "<group>"; };
 		DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ATKit.m"; sourceTree = "<group>"; };
+		DC7995A1227E8DCC00407F41 /* NSDictionary+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+ATKit.h"; sourceTree = "<group>"; };
+		DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -229,6 +232,8 @@
 				DC7995872277FB1A00407F41 /* NSString+ATKit.m */,
 				DC799590227E835A00407F41 /* NSMutableAttributedString+ATKit.h */,
 				DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */,
+				DC7995A1227E8DCC00407F41 /* NSDictionary+ATKit.h */,
+				DC7995A2227E8DCC00407F41 /* NSDictionary+ATKit.m */,
 				DC799593227E85A400407F41 /* NSBundle+ATKit.h */,
 				DC799594227E85A400407F41 /* NSBundle+ATKit.m */,
 				DC799596227E86ED00407F41 /* UIFont+ATKit.h */,
@@ -344,6 +349,7 @@
 				DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */,
 				DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */,
 				DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */,
+				DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */,
 				DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
