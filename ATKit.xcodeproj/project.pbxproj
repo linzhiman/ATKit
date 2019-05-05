@@ -23,6 +23,7 @@
 		DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79958B227841BC00407F41 /* ATKitStringTest.m */; };
 		DC799592227E835A00407F41 /* NSMutableAttributedString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */; };
 		DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799594227E85A400407F41 /* NSBundle+ATKit.m */; };
+		DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799597227E86ED00407F41 /* UIFont+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,8 @@
 		DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSMutableAttributedString+ATKit.m"; sourceTree = "<group>"; };
 		DC799593227E85A400407F41 /* NSBundle+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+ATKit.h"; sourceTree = "<group>"; };
 		DC799594227E85A400407F41 /* NSBundle+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+ATKit.m"; sourceTree = "<group>"; };
+		DC799596227E86ED00407F41 /* UIFont+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIFont+ATKit.h"; sourceTree = "<group>"; };
+		DC799597227E86ED00407F41 /* UIFont+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -222,6 +225,8 @@
 				DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */,
 				DC799593227E85A400407F41 /* NSBundle+ATKit.h */,
 				DC799594227E85A400407F41 /* NSBundle+ATKit.m */,
+				DC799596227E86ED00407F41 /* UIFont+ATKit.h */,
+				DC799597227E86ED00407F41 /* UIFont+ATKit.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
+				DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */,
 				DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */,
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
