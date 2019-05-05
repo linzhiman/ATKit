@@ -25,6 +25,7 @@
 		DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799594227E85A400407F41 /* NSBundle+ATKit.m */; };
 		DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799597227E86ED00407F41 /* UIFont+ATKit.m */; };
 		DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959A227E8AE100407F41 /* UIColor+ATKit.m */; };
+		DC7995A0227E8CC900407F41 /* NSDateFormatter+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,6 +87,8 @@
 		DC799597227E86ED00407F41 /* UIFont+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIFont+ATKit.m"; sourceTree = "<group>"; };
 		DC799599227E8AE100407F41 /* UIColor+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIColor+ATKit.h"; sourceTree = "<group>"; };
 		DC79959A227E8AE100407F41 /* UIColor+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIColor+ATKit.m"; sourceTree = "<group>"; };
+		DC79959E227E8CC900407F41 /* NSDateFormatter+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+ATKit.h"; sourceTree = "<group>"; };
+		DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+ATKit.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -232,6 +235,8 @@
 				DC799597227E86ED00407F41 /* UIFont+ATKit.m */,
 				DC799599227E8AE100407F41 /* UIColor+ATKit.h */,
 				DC79959A227E8AE100407F41 /* UIColor+ATKit.m */,
+				DC79959E227E8CC900407F41 /* NSDateFormatter+ATKit.h */,
+				DC79959F227E8CC900407F41 /* NSDateFormatter+ATKit.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -327,6 +332,7 @@
 			files = (
 				DC799592227E835A00407F41 /* NSMutableAttributedString+ATKit.m in Sources */,
 				DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */,
+				DC7995A0227E8CC900407F41 /* NSDateFormatter+ATKit.m in Sources */,
 				DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */,
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
