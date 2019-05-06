@@ -54,17 +54,9 @@ typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
 
 @end
 
-@interface ATTaskBase(ATKit)
-
-- (BOOL)normalTask;
-- (BOOL)delayTask;
-
-@end
-
 @interface ATTaskQueue : NSObject
 
 - (id)initWithType:(ATTaskQueueType)type notifyQueue:(dispatch_queue_t _Nullable)notifyQueue;
-- (BOOL)empty;
 - (void)push:(ATTaskBase *)task;
 - (void)schedule;
 - (void)complete:(ATTaskBase *)task;
