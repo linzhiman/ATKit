@@ -18,21 +18,38 @@ NSUInteger ATTaskGenTaskId()
     return ++taskId;
 }
 
-@interface ATTask()
+@interface ATTaskBase()
 
 @property (nonatomic, assign) NSUInteger taskId;
 @property (nonatomic, assign) ATTaskState state;
 
 @end
 
-@implementation ATTask
+@implementation ATTaskBase
 
 - (id)copyWithZone:(NSZone *)zone
 {
-    ATTask *copyInstance = [ATTask allocWithZone:zone];
+    ATTaskBase *copyInstance = [self.class allocWithZone:zone];
     if (copyInstance != nil) {
         copyInstance.state = self.state;
         copyInstance.taskId = self.taskId;
+    }
+    return copyInstance;
+}
+
+- (BOOL)isEqual:(ATTaskBase *)object
+{
+    return self == object || self.taskId == object.taskId;
+}
+
+@end
+
+@implementation ATTaskNormal
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    ATTaskNormal *copyInstance = [super copyWithZone:zone];
+    if (copyInstance != nil) {
         copyInstance.paramBlock = self.paramBlock;
         copyInstance.actionBlock = self.actionBlock;
         copyInstance.completeBlock = self.completeBlock;
@@ -40,19 +57,49 @@ NSUInteger ATTaskGenTaskId()
     return copyInstance;
 }
 
-- (BOOL)isEqual:(ATTask *)object
+@end
+
+@implementation ATTaskDelay
+
++ (instancetype)task:(NSTimeInterval)ti
 {
-    return self == object || self.taskId == object.taskId;
+    ATTaskDelay *task = [[ATTaskDelay alloc] init];
+    task.ti = ti;
+    return task;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+    ATTaskDelay *copyInstance = [super copyWithZone:zone];
+    if (copyInstance != nil) {
+        copyInstance.ti = self.ti;
+    }
+    return copyInstance;
+}
+
+@end
+
+@implementation ATTaskBase(ATKit)
+
+- (BOOL)normalTask
+{
+    return [self isKindOfClass:[ATTaskNormal class]];
+}
+
+- (BOOL)delayTask
+{
+    return [self isKindOfClass:[ATTaskDelay class]];
 }
 
 @end
 
 @interface ATTaskQueue()
 
+@property (nonatomic, assign) ATTaskQueueType type;
 @property (nonatomic, strong) dispatch_queue_t taskQueue;
 @property (nonatomic, strong) dispatch_queue_t notifyQueue;
-@property (nonatomic, strong) NSMutableArray<ATTask *> *taskList;
-@property (nonatomic, strong) NSMutableDictionary<NSNumber *, ATTask *> *taskMap;
+@property (nonatomic, strong) NSMutableArray<ATTaskBase *> *taskList;
+@property (nonatomic, strong) NSMutableDictionary<NSNumber *, ATTaskBase *> *taskMap;
 @property (nonatomic, strong) NSLock *mutexLock;
 @property (atomic, assign) BOOL scheduling;
 
@@ -63,6 +110,8 @@ NSUInteger ATTaskGenTaskId()
 - (id)initWithType:(ATTaskQueueType)type notifyQueue:(dispatch_queue_t _Nullable)notifyQueue
 {
     if (self = [super init]) {
+        _type = type;
+        
         if (type == ATTaskQueueTypeMainQueue) {
             _taskQueue = dispatch_get_main_queue();
         }
@@ -92,9 +141,20 @@ NSUInteger ATTaskGenTaskId()
     return empty;
 }
 
-- (void)push:(ATTask *)task
+- (void)push:(ATTaskBase *)task
 {
-    if (task.actionBlock == nil) {
+    if (task.normalTask) {
+        ATTaskNormal *normal = (ATTaskNormal *)task;
+        if (normal.actionBlock == nil) {
+            return;
+        }
+    }
+    else if (task.delayTask) {
+        if (self.type == ATTaskQueueTypeConcurrent) {
+            return;
+        }
+    }
+    else {
         return;
     }
     
@@ -103,18 +163,24 @@ NSUInteger ATTaskGenTaskId()
     
     [self.mutexLock lock];
     if (self.taskMap[@(task.taskId)] == nil) {
-        ATTask *aTask = task.copy;
+        ATTaskBase *aTask = task.copy;
         [self.taskList addObject:aTask];
         self.taskMap[@(aTask.taskId)] = aTask;
     }
     [self.mutexLock unlock];
     
     if (self.scheduling) {
-        [self dispatchTask:task];
+        if (self.type == ATTaskQueueTypeConcurrent) {
+            ATTaskNormal *normal = (ATTaskNormal *)task;
+            [self dispatchTask:normal complete:nil];
+        }
+        else {
+            [self runInSerial];
+        }
     }
 }
 
-- (void)popTask:(ATTask *)task
+- (void)popTask:(ATTaskBase *)task
 {
     if (task.state != ATTaskStateDone) {
         return;
@@ -126,6 +192,17 @@ NSUInteger ATTaskGenTaskId()
     [self.mutexLock unlock];
 }
 
+- (ATTaskBase *)peepTask
+{
+    ATTaskBase *task = nil;
+    [self.mutexLock lock];
+    if (self.taskList.count > 0) {
+        task = self.taskList.firstObject;
+    }
+    [self.mutexLock unlock];
+    return task;
+}
+
 - (void)schedule
 {
     if (self.empty || self.scheduling) {
@@ -134,14 +211,19 @@ NSUInteger ATTaskGenTaskId()
     
     self.scheduling = YES;
     
-    [self.mutexLock lock];
-    for (ATTask *task in self.taskList) {
-        [self dispatchTask:task];
+    if (self.type == ATTaskQueueTypeConcurrent) {
+        [self.mutexLock lock];
+        for (ATTaskNormal *task in self.taskList) {
+            [self dispatchTask:task complete:nil];
+        }
+        [self.mutexLock unlock];
     }
-    [self.mutexLock unlock];
+    else {
+        [self runInSerial];
+    }
 }
 
-- (void)dispatchTask:(ATTask *)task
+- (void)dispatchTask:(ATTaskNormal *)task complete:(dispatch_block_t)complete
 {
     if (task.state != ATTaskStateInit) {
         return;
@@ -151,13 +233,13 @@ NSUInteger ATTaskGenTaskId()
     
     AT_WEAKIFY_SELF;
     dispatch_async(self.taskQueue, ^{
-        [weak_self actionTask:task];
+        [weak_self actionTask:task complete:complete];
     });
 }
 
-- (void)actionTask:(ATTask *)task
+- (void)actionTask:(ATTaskNormal *)task complete:(dispatch_block_t)complete
 {
-    NSLog(@"ATTaskQueueTest run %@ in %@", @(task.taskId), [NSThread currentThread]);
+    NSLog(@"ATTaskQueueTest actionTask %@ in %@", @(task.taskId), [NSThread currentThread]);
     
     if (task.state != ATTaskStatePending) {
         return;
@@ -178,6 +260,37 @@ NSUInteger ATTaskGenTaskId()
         dispatch_async(self.notifyQueue ?: dispatch_get_main_queue(), ^{
             block(task, result);
         });
+    }
+    
+    [self popTask:task];
+    
+    AT_SAFETY_CALL_BLOCK(complete);
+}
+
+- (void)runInSerial
+{
+    ATTaskBase *task = [self peepTask];
+    if (task != nil) {
+        AT_WEAKIFY_SELF;
+        if (task.normalTask) {
+            ATTaskNormal *normal = (ATTaskNormal *)task;
+            [self dispatchTask:normal complete:^{
+                [weak_self runInSerial];
+            }];
+        }
+        else if (task.delayTask) {
+            ATTaskDelay *delay = (ATTaskDelay *)task;
+            task.state = ATTaskStateDoing;
+            NSLog(@"ATTaskQueueTest delayTask %@ seconds %@ in %@", @(task.taskId), @(delay.ti), [NSThread currentThread]);
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay.ti * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                task.state = ATTaskStateDone;
+                [weak_self popTask:task];
+                [weak_self runInSerial];
+            });
+        }
+        else {
+            ;
+        }
     }
 }
 

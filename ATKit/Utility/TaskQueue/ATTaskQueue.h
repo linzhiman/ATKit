@@ -11,10 +11,10 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, ATTaskState) {
-    ATTaskStateInit        = 0x01 << 0,
-    ATTaskStatePending     = 0x01 << 1,
-    ATTaskStateDoing       = 0x01 << 2,
-    ATTaskStateDone        = 0x01 << 3
+    ATTaskStateInit,
+    ATTaskStatePending,
+    ATTaskStateDoing,
+    ATTaskStateDone
 };
 
 typedef NS_ENUM(NSUInteger, ATTaskQueueType) {
@@ -23,19 +23,39 @@ typedef NS_ENUM(NSUInteger, ATTaskQueueType) {
     ATTaskQueueTypeConcurrent
 };
 
-@class ATTask;
+@class ATTaskNormal;
 
-typedef id (^ATTaskParamBlock)(ATTask *task);
-typedef id (^ATTaskActionBlock)(ATTask *task, id _Nullable params);
-typedef void (^ATTaskCompleteBlock)(ATTask *task, id _Nullable result);
+typedef id (^ATTaskParamBlock)(ATTaskNormal *task);
+typedef id (^ATTaskActionBlock)(ATTaskNormal *task, id _Nullable params);
+typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
 
-@interface ATTask : NSObject <NSCopying>
+@interface ATTaskBase : NSObject<NSCopying>
 
 @property (nonatomic, assign, readonly) NSUInteger taskId;
 @property (nonatomic, assign, readonly) ATTaskState state;
+
+@end
+
+@interface ATTaskNormal : ATTaskBase
+
 @property (nonatomic, copy, nullable) ATTaskParamBlock paramBlock;
 @property (nonatomic, copy) ATTaskActionBlock actionBlock;
 @property (nonatomic, copy, nullable) ATTaskCompleteBlock completeBlock;
+
+@end
+
+@interface ATTaskDelay : ATTaskBase
+
+@property (nonatomic, assign) NSTimeInterval ti;
+
++ (instancetype)task:(NSTimeInterval)ti;
+
+@end
+
+@interface ATTaskBase(ATKit)
+
+- (BOOL)normalTask;
+- (BOOL)delayTask;
 
 @end
 
@@ -43,7 +63,7 @@ typedef void (^ATTaskCompleteBlock)(ATTask *task, id _Nullable result);
 
 - (id)initWithType:(ATTaskQueueType)type notifyQueue:(dispatch_queue_t _Nullable)notifyQueue;
 - (BOOL)empty;
-- (void)push:(ATTask *)task;
+- (void)push:(ATTaskBase *)task;
 - (void)schedule;
 
 @end

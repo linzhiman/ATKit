@@ -38,13 +38,13 @@
     self.taskQueue = [[ATTaskQueue alloc] initWithType:ATTaskQueueTypeMainQueue notifyQueue:self.notifyQueue];
     AT_WEAKIFY_SELF;
     for (NSUInteger i = 0; i < 10; ++i) {
-        ATTask *task = [[ATTask alloc] init];
-        task.actionBlock = ^id(ATTask * _Nonnull task, id  _Nullable params) {
+        ATTaskNormal *task = [[ATTaskNormal alloc] init];
+        task.actionBlock = ^id(ATTaskNormal * _Nonnull task, id  _Nullable params) {
             NSLog(@"ATTaskQueueTest action %@ params %@", @(task.taskId), params);
             [weak_self.actions addObject:@(task.taskId)];
             return nil;
         };
-        task.completeBlock = ^(ATTask * _Nonnull task, id  _Nullable result) {
+        task.completeBlock = ^(ATTaskNormal * _Nonnull task, id  _Nullable result) {
             NSLog(@"ATTaskQueueTest finished %@ result %@", @(task.taskId), result);
             [weak_self.finisheds addObject:@(task.taskId)];
             if (weak_self.finisheds.count == 10) {
@@ -63,13 +63,13 @@
     self.taskQueue = [[ATTaskQueue alloc] initWithType:ATTaskQueueTypeSerial notifyQueue:self.notifyQueue];
     AT_WEAKIFY_SELF;
     for (NSUInteger i = 0; i < 10; ++i) {
-        ATTask *task = [[ATTask alloc] init];
-        task.actionBlock = ^id(ATTask * _Nonnull task, id  _Nullable params) {
+        ATTaskNormal *task = [[ATTaskNormal alloc] init];
+        task.actionBlock = ^id(ATTaskNormal * _Nonnull task, id  _Nullable params) {
             NSLog(@"ATTaskQueueTest action %@ params %@", @(task.taskId), params);
             [weak_self.actions addObject:@(task.taskId)];
             return nil;
         };
-        task.completeBlock = ^(ATTask * _Nonnull task, id  _Nullable result) {
+        task.completeBlock = ^(ATTaskNormal * _Nonnull task, id  _Nullable result) {
             NSLog(@"ATTaskQueueTest finished %@ result %@", @(task.taskId), result);
             [weak_self.finisheds addObject:@(task.taskId)];
             if (weak_self.finisheds.count == 10) {
@@ -88,13 +88,13 @@
     self.taskQueue = [[ATTaskQueue alloc] initWithType:ATTaskQueueTypeConcurrent notifyQueue:self.notifyQueue];
     AT_WEAKIFY_SELF;
     for (NSUInteger i = 0; i < 10; ++i) {
-        ATTask *task = [[ATTask alloc] init];
-        task.actionBlock = ^id(ATTask * _Nonnull task, id  _Nullable params) {
+        ATTaskNormal *task = [[ATTaskNormal alloc] init];
+        task.actionBlock = ^id(ATTaskNormal * _Nonnull task, id  _Nullable params) {
             NSLog(@"ATTaskQueueTest action %@ params %@ thread %@", @(task.taskId), params, [NSThread currentThread]);
             [weak_self.actions addObject:@(task.taskId)];
             return nil;
         };
-        task.completeBlock = ^(ATTask * _Nonnull task, id  _Nullable result) {
+        task.completeBlock = ^(ATTaskNormal * _Nonnull task, id  _Nullable result) {
             NSLog(@"ATTaskQueueTest finished %@ result %@", @(task.taskId), result);
             [weak_self.finisheds addObject:@(task.taskId)];
             if (weak_self.finisheds.count == 10) {
@@ -104,7 +104,7 @@
         [self.taskQueue push:task];
     }
     [self.taskQueue schedule];
-    [self waitForExpectationsWithTimeout:65 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testExample4 {
@@ -113,16 +113,16 @@
     self.taskQueue = [[ATTaskQueue alloc] initWithType:ATTaskQueueTypeConcurrent notifyQueue:self.notifyQueue];
     AT_WEAKIFY_SELF;
     for (NSUInteger i = 0; i < 11; ++i) {
-        ATTask *task = [[ATTask alloc] init];
-        task.paramBlock = ^id(ATTask * _Nonnull task) {
+        ATTaskNormal *task = [[ATTaskNormal alloc] init];
+        task.paramBlock = ^id(ATTaskNormal * _Nonnull task) {
             return @(100 + i);
         };
-        task.actionBlock = ^id(ATTask * _Nonnull task, id  _Nullable params) {
+        task.actionBlock = ^id(ATTaskNormal * _Nonnull task, id  _Nullable params) {
             NSLog(@"ATTaskQueueTest action %@ params %@ thread %@", @(task.taskId), params, [NSThread currentThread]);
             [weak_self.actions addObject:@(task.taskId)];
             return params;
         };
-        task.completeBlock = ^(ATTask * _Nonnull task, id  _Nullable result) {
+        task.completeBlock = ^(ATTaskNormal * _Nonnull task, id  _Nullable result) {
             NSLog(@"ATTaskQueueTest finished %@ result %@", @(task.taskId), result);
             [weak_self.finisheds addObject:@(task.taskId)];
             if (weak_self.finisheds.count == 10) {
@@ -134,7 +134,35 @@
             [self.taskQueue schedule];
         }
     }
-    [self waitForExpectationsWithTimeout:65 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void)testExample5 {
+    self.exception = [self expectationWithDescription:@"5"];
+    self.notifyQueue = nil;
+    self.taskQueue = [[ATTaskQueue alloc] initWithType:ATTaskQueueTypeSerial notifyQueue:self.notifyQueue];
+    AT_WEAKIFY_SELF;
+    for (NSUInteger i = 0; i < 10; ++i) {
+        ATTaskNormal *task = [[ATTaskNormal alloc] init];
+        task.actionBlock = ^id(ATTaskNormal * _Nonnull task, id  _Nullable params) {
+            NSLog(@"ATTaskQueueTest action %@ params %@", @(task.taskId), params);
+            [weak_self.actions addObject:@(task.taskId)];
+            return nil;
+        };
+        task.completeBlock = ^(ATTaskNormal * _Nonnull task, id  _Nullable result) {
+            NSLog(@"ATTaskQueueTest finished %@ result %@", @(task.taskId), result);
+            [weak_self.finisheds addObject:@(task.taskId)];
+            if (weak_self.finisheds.count == 10) {
+                [self.exception fulfill];
+            }
+        };
+        [self.taskQueue push:task];
+        if (i % 3 == 0) {
+            [self.taskQueue push:[ATTaskDelay task:2.5]];
+        }
+    }
+    [self.taskQueue schedule];
+    [self waitForExpectationsWithTimeout:10 handler:nil];
 }
 
 @end
