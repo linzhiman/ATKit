@@ -23,12 +23,6 @@ typedef NS_ENUM(NSUInteger, ATTaskQueueType) {
     ATTaskQueueTypeConcurrent
 };
 
-@class ATTaskNormal;
-
-typedef id (^ATTaskParamBlock)(ATTaskNormal *task);
-typedef id (^ATTaskActionBlock)(ATTaskNormal *task, id _Nullable params);
-typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
-
 @interface ATTaskBase : NSObject<NSCopying>
 
 @property (nonatomic, assign, readonly) NSUInteger taskId;
@@ -36,10 +30,18 @@ typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
 
 @end
 
+@class ATTaskNormal;
+
+typedef id (^ATTaskParamBlock)(ATTaskNormal *task);
+typedef id (^ATTaskActionBlock)(ATTaskNormal *task, id _Nullable params);
+typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
+
 @interface ATTaskNormal : ATTaskBase
 
 @property (nonatomic, copy, nullable) ATTaskParamBlock paramBlock;
 @property (nonatomic, copy) ATTaskActionBlock actionBlock;
+
+@property (nonatomic, assign) BOOL manuallyComplete;
 @property (nonatomic, copy, nullable) ATTaskCompleteBlock completeBlock;
 
 @end
@@ -65,6 +67,7 @@ typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
 - (BOOL)empty;
 - (void)push:(ATTaskBase *)task;
 - (void)schedule;
+- (void)complete:(ATTaskBase *)task;
 
 @end
 
