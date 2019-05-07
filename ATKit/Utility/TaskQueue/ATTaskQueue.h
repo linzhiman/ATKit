@@ -58,7 +58,8 @@ typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
 
 - (id)initWithType:(ATTaskQueueType)type notifyQueue:(dispatch_queue_t _Nullable)notifyQueue;
 - (void)push:(ATTaskBase *)task;
-- (void)schedule;
+- (void)scheduleAll;
+- (void)scheduleOne;
 - (void)complete:(ATTaskBase *)task;
 
 @end

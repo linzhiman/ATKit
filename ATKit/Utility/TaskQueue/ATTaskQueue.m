@@ -97,6 +97,12 @@ NSUInteger ATTaskGenTaskId()
 
 @end
 
+typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
+    ATTaskScheduleTypeUnknown,
+    ATTaskScheduleTypeAll,
+    ATTaskScheduleTypeOne
+};
+
 @interface ATTaskQueue()
 
 @property (nonatomic, assign) ATTaskQueueType type;
@@ -105,6 +111,7 @@ NSUInteger ATTaskGenTaskId()
 @property (nonatomic, strong) NSMutableArray<ATTaskBase *> *taskList;
 @property (nonatomic, strong) NSMutableDictionary<NSNumber *, ATTaskBase *> *taskMap;
 @property (nonatomic, strong) NSLock *mutexLock;
+@property (atomic, assign) ATTaskScheduleType scheduleType;
 @property (atomic, assign) BOOL scheduling;
 
 @end
@@ -172,12 +179,12 @@ NSUInteger ATTaskGenTaskId()
     }
     [self.mutexLock unlock];
     
-    if (self.scheduling) {
+    if (self.scheduleType == ATTaskScheduleTypeAll && self.scheduling) {
         if (self.type == ATTaskQueueTypeConcurrent) {
             [self dispatchTask:AT_TASK_NORMAL(task) complete:nil];
         }
         else {
-            [self runInSerial];
+            [self scheduleSerial];
         }
     }
 }
@@ -205,12 +212,13 @@ NSUInteger ATTaskGenTaskId()
     return task;
 }
 
-- (void)schedule
+- (void)scheduleAll
 {
-    if (self.empty || self.scheduling) {
+    if (self.empty || self.scheduleType == ATTaskScheduleTypeOne || self.scheduling) {
         return;
     }
     
+    self.scheduleType = ATTaskScheduleTypeAll;
     self.scheduling = YES;
     
     if (self.type == ATTaskQueueTypeConcurrent) {
@@ -221,23 +229,30 @@ NSUInteger ATTaskGenTaskId()
         [self.mutexLock unlock];
     }
     else {
-        [self runInSerial];
+        [self scheduleSerial];
     }
+}
+
+- (void)scheduleOne
+{
+    if (self.empty || self.scheduleType == ATTaskScheduleTypeAll || self.scheduling) {
+        return;
+    }
+    
+    self.scheduleType = ATTaskScheduleTypeOne;
+    self.scheduling = YES;
+    
+    [self scheduleSerial];
 }
 
 - (void)complete:(ATTaskBase *)task
 {
-    if (self.type == ATTaskQueueTypeConcurrent) {
-        return;
-    }
     if (!task.normalTask) {
         return;
     }
-    ATTaskBase *aTask = [self peepTask];
-    if ([aTask isEqual:task]) {
-        [self completeTask:AT_TASK_NORMAL(task) result:nil];
-        [self popTask:task];
-        [self runInSerial];
+    [self completeTask:AT_TASK_NORMAL(task) result:nil];
+    if (self.type != ATTaskQueueTypeConcurrent) {
+        [self scheduleSerial];
     }
 }
 
@@ -271,14 +286,19 @@ NSUInteger ATTaskGenTaskId()
     
     if (!task.manuallyComplete) {
         [self completeTask:task result:result];
-        [self popTask:task];
         AT_SAFETY_CALL_BLOCK(complete);
     }
 }
 
 - (void)completeTask:(ATTaskNormal *)task result:(id)result
 {
+    if (self.type != ATTaskQueueTypeConcurrent && self.scheduleType == ATTaskScheduleTypeOne) {
+        self.scheduling = NO;
+    }
+    
     task.state = ATTaskStateDone;
+    
+    [self popTask:task];
     
     ATTaskCompleteBlock block = task.completeBlock;
     if (block != nil) {
@@ -288,14 +308,24 @@ NSUInteger ATTaskGenTaskId()
     }
 }
 
-- (void)runInSerial
+- (void)scheduleSerial
+{
+    AT_WEAKIFY_SELF;
+    [self scheduleFirstTask:^{
+        if (weak_self.scheduleType == ATTaskScheduleTypeAll) {
+            [weak_self scheduleSerial];
+        }
+    }];
+}
+
+- (void)scheduleFirstTask:(dispatch_block_t)complete
 {
     ATTaskBase *task = [self peepTask];
     if (task != nil) {
         AT_WEAKIFY_SELF;
         if (task.normalTask) {
             [self dispatchTask:AT_TASK_NORMAL(task) complete:^{
-                [weak_self runInSerial];
+                AT_SAFETY_CALL_BLOCK(complete);
             }];
         }
         else if (task.delayTask) {
@@ -303,7 +333,7 @@ NSUInteger ATTaskGenTaskId()
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(AT_TASK_DELAY(task).ti * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 task.state = ATTaskStateDone;
                 [weak_self popTask:task];
-                [weak_self runInSerial];
+                AT_SAFETY_CALL_BLOCK(complete);
             });
         }
         else {
