@@ -32,8 +32,8 @@ typedef NS_ENUM(NSUInteger, ATTaskQueueType) {
 
 @class ATTaskNormal;
 
-typedef id (^ATTaskParamBlock)(ATTaskNormal *task);
-typedef id (^ATTaskActionBlock)(ATTaskNormal *task, id _Nullable params);
+typedef id _Nullable (^ATTaskParamBlock)(ATTaskNormal *task);
+typedef id _Nullable (^ATTaskActionBlock)(ATTaskNormal *task, id _Nullable params);
 typedef void (^ATTaskCompleteBlock)(ATTaskNormal *task, id _Nullable result);
 
 @interface ATTaskNormal : ATTaskBase

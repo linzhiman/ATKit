@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "ATGlobalMacro.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 AT_STRING_EXTERN(kATComponentServiceCode);
 AT_STRING_EXTERN(kATComponentServiceMsg);
 
@@ -26,9 +28,6 @@ typedef NS_ENUM(NSInteger, ATComponentServiceCode) {
     ATComponentServiceCodeNoAction = 3,
     ATComponentServiceCodeResultError = 4
 };
-
-
-NS_ASSUME_NONNULL_BEGIN
 
 typedef void (^ATComponentCallback)(NSDictionary * _Nullable params);
 
