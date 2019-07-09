@@ -8,6 +8,45 @@
 
 #import "NSString+ATKit.h"
 #import <CommonCrypto/CommonDigest.h>
+#import <CommonCrypto/CommonCryptor.h>
+
+static const int kBufferSize = 1024;
+
+@implementation NSFileHandle(Hash)
+
+- (NSString *)at_fileMD5HexString
+{
+    assert(self != nil);
+    CC_MD5_CTX ctx = {0};
+    CC_MD5_Init(&ctx);
+    NSData* data = [self readDataOfLength:kBufferSize];
+    while (data && [data length] > 0) {
+        CC_MD5_Update(&ctx, [data bytes], (uint32_t)[data length]);
+        data = [self readDataOfLength:kBufferSize];
+    }
+    unsigned char result[CC_MD5_DIGEST_LENGTH] = {0x00};
+    CC_MD5_Final(result, &ctx);
+    NSData *temp = [NSData dataWithBytes:result length:CC_MD5_DIGEST_LENGTH];
+    return [NSString at_hexStringFromData:temp];
+}
+
+- (NSString *)at_fileSHA1HexString
+{
+    assert(self != nil);
+    CC_SHA1_CTX ctx = {0};;
+    CC_SHA1_Init(&ctx);
+    NSData* data = [self readDataOfLength:kBufferSize];
+    while (data && [data length] > 0) {
+        CC_SHA1_Update(&ctx, [data bytes], (uint32_t)[data length]);
+        data = [self readDataOfLength:kBufferSize];
+    }
+    unsigned char result[CC_SHA1_DIGEST_LENGTH] = {0x00};
+    CC_SHA1_Final(result, &ctx);
+    NSData *temp = [NSData dataWithBytes:result length:CC_SHA1_DIGEST_LENGTH];
+    return [NSString at_hexStringFromData:temp];
+}
+
+@end
 
 @implementation NSString (ATKit)
 
@@ -209,32 +248,122 @@
     return [params copy];
 }
 
-#pragma mark - MD5
+#pragma mark - Crypto
 
 - (NSString *)at_MD5
 {
-    unsigned char result[CC_MD5_DIGEST_LENGTH] = {0x00};
-    const char *cstr = [self UTF8String];
-    CC_MD5(cstr, (CC_LONG)strlen(cstr), result);
-    return [NSString stringWithFormat:@"%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x%02x",
-            result[0], result[1], result[2], result[3], result[4], result[5], result[6], result[7],
-            result[8], result[9], result[10], result[11], result[12], result[13], result[14], result[15]];
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSString at_MD5FromData:data];
+}
+
+- (NSString *)at_SHA1
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    return [NSString at_SHA1FromData:data];
 }
 
 +  (NSString *)at_MD5FromData:(NSData *)data
 {
-    void *cData = malloc([data length]);
-    unsigned char result[CC_MD5_DIGEST_LENGTH] = {0x00};
-    [data getBytes:cData length:[data length]];
-    
-    CC_MD5(cData, (CC_LONG)[data length], result);
-    free(cData);
-    
-    NSMutableString *hash = [NSMutableString string];
-    for (int i = 0; i < CC_MD5_DIGEST_LENGTH; i++) {
-        [hash appendFormat:@"%02x", result[i]];
+    const char *str = [data bytes];
+    unsigned char digest[CC_MD5_DIGEST_LENGTH] = {0x00};
+    CC_MD5(str, (CC_LONG)[data length], digest);
+    NSData *temp = [NSData dataWithBytes:digest length:CC_MD5_DIGEST_LENGTH];
+    return [NSString at_hexStringFromData:temp];
+}
+
++ (NSString *)at_SHA1FromData:(NSData *)data
+{
+    const unsigned char *buffer = [data bytes];
+    unsigned char result[CC_SHA1_DIGEST_LENGTH] = {0x00};
+    CC_SHA1(buffer, (CC_LONG)[data length], result);
+    NSData *temp = [NSData dataWithBytes:result length:CC_SHA1_DIGEST_LENGTH];
+    return [NSString at_hexStringFromData:temp];
+}
+
++ (NSString *)at_hexStringFromData:(NSData *)data;
+{
+    const uint32_t length = (uint32_t)[data length];
+    const unsigned char *str = [data bytes];
+    NSMutableString *hexStr = [NSMutableString stringWithCapacity:length*2];
+    for (int i=0; i<length; i++) {
+        [hexStr appendFormat:@"%02x", str[i]];
     }
-    return [hash lowercaseString];
+    return hexStr;
+}
+
++ (NSString *)at_fileMd5HexString:(NSString *)filePath
+{
+    NSFileHandle *handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+    if (handle == nil) {
+        return nil;
+    }
+    return [handle at_fileMD5HexString];
+}
+
++ (NSString *)at_fileSha1HexString:(NSString *)filePath
+{
+    NSFileHandle* handle = [NSFileHandle fileHandleForReadingAtPath:filePath];
+    if (handle == nil) {
+        return nil;
+    }
+    return [handle at_fileSHA1HexString];
+}
+
++ (NSData *)at_DESEncrypt:(NSData *)data WithKey:(NSString *)key
+{
+    char keyPtr[kCCKeySizeAES256+1] = {'\0'};
+    bzero(keyPtr, sizeof(keyPtr));
+    
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    NSUInteger dataLength = [data length];
+    
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    
+    size_t numBytesEncrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCEncrypt, kCCAlgorithmDES,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeDES,
+                                          NULL,
+                                          [data bytes], dataLength,
+                                          buffer, bufferSize,
+                                          &numBytesEncrypted);
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesEncrypted];
+    }
+    
+    free(buffer);
+    return nil;
+}
+
++ (NSData *)at_DESDecrypt:(NSData *)data WithKey:(NSString *)key
+{
+    char keyPtr[kCCKeySizeAES256+1] = {'\0'};
+    bzero(keyPtr, sizeof(keyPtr));
+    
+    [key getCString:keyPtr maxLength:sizeof(keyPtr) encoding:NSUTF8StringEncoding];
+    
+    NSUInteger dataLength = [data length];
+    
+    size_t bufferSize = dataLength + kCCBlockSizeAES128;
+    void *buffer = malloc(bufferSize);
+    
+    size_t numBytesDecrypted = 0;
+    CCCryptorStatus cryptStatus = CCCrypt(kCCDecrypt, kCCAlgorithmDES,
+                                          kCCOptionPKCS7Padding | kCCOptionECBMode,
+                                          keyPtr, kCCBlockSizeDES,
+                                          NULL,
+                                          [data bytes], dataLength,
+                                          buffer, bufferSize,
+                                          &numBytesDecrypted);
+    
+    if (cryptStatus == kCCSuccess) {
+        return [NSData dataWithBytesNoCopy:buffer length:numBytesDecrypted];
+    }
+    
+    free(buffer);
+    return nil;
 }
 
 #pragma mark - Filter
