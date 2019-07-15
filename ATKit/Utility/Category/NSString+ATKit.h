@@ -79,6 +79,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (BOOL)at_hasChinese:(NSString *)string;
 
+#pragma mark - JSON
+
+- (id)at_JSONObject;
+
 @end
 
 NS_ASSUME_NONNULL_END

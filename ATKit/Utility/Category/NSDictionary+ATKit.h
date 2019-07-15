@@ -18,6 +18,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (NSArray *)at_getArray:(id)key;
 - (NSDictionary *)at_getDictionary:(id)key;
 
+#pragma mark - JSON
+
+- (NSString *)at_JSONString;
+
+// 生成带双引号转义符的字符串
+- (NSString *)at_JSONStringWithQuote;
+
 @end
 
 NS_ASSUME_NONNULL_END

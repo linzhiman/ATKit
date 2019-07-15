@@ -131,4 +131,18 @@ id ATArraySafeGet(NSArray *array, Class cls, NSUInteger index)
     return [NSArray arrayWithArray:resultArray];
 }
 
+#pragma mark - JSON
+
+- (NSString *)at_JSONString
+{
+    NSError *error;
+    NSData *data = [NSJSONSerialization dataWithJSONObject:self options:0 error:&error];
+    if (data == NULL) {
+        return nil;
+    }
+    
+    NSString *json = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    return json;
+}
+
 @end

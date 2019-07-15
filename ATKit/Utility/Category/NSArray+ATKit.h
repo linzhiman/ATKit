@@ -42,6 +42,10 @@ typedef BOOL (^ATArrayFilterBlock)(ObjectType obj);
 - (NSArray *)at_distinctUnionArray;
 - (NSArray *)at_distinctUnionArrayWithCompare:(ATArrayCompareBlock)compare;
 
+#pragma mark - JSON
+
+- (NSString *)at_JSONString;
+
 @end
 
 NS_ASSUME_NONNULL_END

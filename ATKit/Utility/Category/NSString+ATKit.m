@@ -415,4 +415,18 @@ static const int kBufferSize = 1024;
     return NO;
 }
 
+#pragma mark - JSON
+
+- (id)at_JSONObject
+{
+    NSData *data = [self dataUsingEncoding:NSUTF8StringEncoding];
+    if (data == NULL) {
+        return nil;
+    }
+    
+    NSError *err = nil;
+    id obj = [NSJSONSerialization JSONObjectWithData:data options:0 error:&err];
+    return obj;
+}
+
 @end
