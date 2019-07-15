@@ -15,6 +15,7 @@
 		DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */; };
 		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
 		DC4D908E22D48F6100078C83 /* ATFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4D908D22D48F6100078C83 /* ATFileManager.m */; };
+		DC4D909722D5DAD600078C83 /* ATRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */; };
 		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
 		DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79956C2275D1DE00407F41 /* ATComponentService.m */; };
@@ -81,6 +82,8 @@
 		DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseModule.m; sourceTree = "<group>"; };
 		DC4D908C22D48F6100078C83 /* ATFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATFileManager.h; sourceTree = "<group>"; };
 		DC4D908D22D48F6100078C83 /* ATFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATFileManager.m; sourceTree = "<group>"; };
+		DC4D909522D5DAD600078C83 /* ATRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATRuntimeUtils.h; sourceTree = "<group>"; };
+		DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATRuntimeUtils.m; sourceTree = "<group>"; };
 		DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManagerProtocol.m; sourceTree = "<group>"; };
 		DC7995612275ADE100407F41 /* ATBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseViewController.h; sourceTree = "<group>"; };
 		DC7995622275ADE100407F41 /* ATBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseViewController.m; sourceTree = "<group>"; };
@@ -172,6 +175,7 @@
 		DC2F9CD12273019A00DE1FF8 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DC4D909422D5DA8500078C83 /* Runtime */,
 				DC4D908B22D48F3E00078C83 /* File */,
 				DC7995BB227EE5C100407F41 /* TaskQueue */,
 				DC7995AA227EBC7000407F41 /* Timer */,
@@ -228,6 +232,15 @@
 				DC4D908D22D48F6100078C83 /* ATFileManager.m */,
 			);
 			path = File;
+			sourceTree = "<group>";
+		};
+		DC4D909422D5DA8500078C83 /* Runtime */ = {
+			isa = PBXGroup;
+			children = (
+				DC4D909522D5DAD600078C83 /* ATRuntimeUtils.h */,
+				DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */,
+			);
+			path = Runtime;
 			sourceTree = "<group>";
 		};
 		DC79955E2275ADAC00407F41 /* UI */ = {
@@ -416,6 +429,7 @@
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
 				DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */,
 				DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */,
+				DC4D909722D5DAD600078C83 /* ATRuntimeUtils.m in Sources */,
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
 				DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */,
