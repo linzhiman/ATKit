@@ -30,7 +30,7 @@ def write_html_table(file, title, name_size_list):
 
 def do(linkmap_file_path, version):
     try:
-        file = open(linkmap_file_path, "r")
+        file = open(linkmap_file_path, 'r', 1, 'utf8', 'ignore')
         file_lines = file.readlines()
         file.close()
 
