@@ -159,4 +159,9 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
     [AT_BN_CENTER removeObserver:self];
 }
 
+- (void)atbn_removeName:(NSString *)name
+{
+    [AT_BN_CENTER removeObserver:self name:name];
+}
+
 @end

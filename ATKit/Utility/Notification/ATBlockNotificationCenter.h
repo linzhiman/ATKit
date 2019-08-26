@@ -23,22 +23,18 @@ NS_ASSUME_NONNULL_BEGIN
 // 头文件添加申明
 // AT_BN_DECLARE(kName, int, a, NSString *, b)
 #define AT_BN_DECLARE(atName, ...) \
+    AT_STRING_EXTERN(atName); \
     typedef void(^AT_BN_TYPE(atName))(AT_PAIR_CONCAT_ARGS(__VA_ARGS__)); \
     @interface NSObject (ATBN##atName) \
-    - (void)atbn_remove##atName; \
     - (void)atbn_on##atName:(AT_BN_TYPE(atName))block; \
     - (void)atbn_post##atName:(id)sender AT_BN_POST_ARGS(__VA_ARGS__); \
-    @end \
-    AT_STRING_EXTERN(atName);
+    @end
 
 // 实现文件添加定义
 // AT_BN_DEFINE(kName, int, a, NSString *, b)
 #define AT_BN_DEFINE(atName, ...) \
+    AT_STRING_DEFINE(atName); \
     @implementation NSObject (ATBN##atName) \
-    - (void)atbn_remove##atName; \
-    { \
-        [AT_BN_CENTER removeObserver:self name:atName]; \
-    } \
     - (void)atbn_on##atName:(AT_BN_TYPE(atName))block \
     { \
         [AT_BN_CENTER addObserver:self name:atName block:block]; \
@@ -49,14 +45,13 @@ NS_ASSUME_NONNULL_BEGIN
             ((AT_BN_TYPE(atName))block)(AT_EVEN_ARGS(__VA_ARGS__)); \
         }]; \
     } \
-    @end \
-    AT_STRING_DEFINE(atName);
+    @end
 
 // 监听
 // [self atbn_onkName:^(int a, NSString *b) {}];
 
 // 取消监听
-// [self atbn_removekName];
+// [self atbn_removeName:kName];
 
 // 取消所有监听
 // [self atbn_removeALL];
@@ -81,6 +76,7 @@ AT_DECLARE_SINGLETON;
 @interface NSObject (ATBN)
 
 - (void)atbn_removeALL;
+- (void)atbn_removeName:(NSString *)name;
 
 @end
 
