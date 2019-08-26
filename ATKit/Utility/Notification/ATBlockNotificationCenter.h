@@ -41,9 +41,12 @@ NS_ASSUME_NONNULL_BEGIN
     } \
     - (void)atbn_post##atName:(id)sender AT_BN_POST_ARGS(__VA_ARGS__) \
     { \
-        [AT_BN_CENTER observersNamed:atName block:^(id _Nonnull block) { \
-            ((AT_BN_TYPE(atName))block)(AT_EVEN_ARGS(__VA_ARGS__)); \
-        }]; \
+        NSArray *blocksNamed = [AT_BN_CENTER blocksNamed:atName]; \
+        dispatch_async(dispatch_get_main_queue(), ^{ \
+            for (id block in blocksNamed) { \
+                ((AT_BN_TYPE(atName))block)(AT_EVEN_ARGS(__VA_ARGS__)); \
+            } \
+        }); \
     } \
     @end
 
@@ -68,7 +71,7 @@ AT_DECLARE_SINGLETON;
 - (void)removeObserver:(id)observer name:(NSString *)name;
 - (void)removeObserver:(id)observer;
 
-- (void)observersNamed:(NSString *)name block:(void(^)(id))block;
+- (NSArray *)blocksNamed:(NSString *)name;
 
 @end
 

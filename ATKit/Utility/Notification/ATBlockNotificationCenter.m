@@ -110,7 +110,7 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
     }
 }
 
-- (void)observersNamed:(NSString *)name block:(void(^)(id))block
+- (NSArray *)blocksNamed:(NSString *)name
 {
     NSMutableArray *callbacks = [NSMutableArray new];
     
@@ -144,9 +144,7 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
         }
     }
     
-    for (id callback in callbacks) {
-        AT_SAFETY_CALL_BLOCK(block, callback);
-    }
+    return callbacks;
 }
 
 @end
