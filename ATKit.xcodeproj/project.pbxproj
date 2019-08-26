@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DC035FAB230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = DC035FAA230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m */; };
 		DC167A22227050780009D463 /* ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC167A21227050780009D463 /* ATKit.m */; };
 		DC167A23227050780009D463 /* ATKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC167A20227050780009D463 /* ATKit.h */; };
 		DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD42273019A00DE1FF8 /* ATWeakObject.m */; };
@@ -64,6 +65,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DC035FA9230EA3DE00F4CBE7 /* ATBlockNotificationCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBlockNotificationCenter.h; sourceTree = "<group>"; };
+		DC035FAA230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBlockNotificationCenter.m; sourceTree = "<group>"; };
 		DC167A1D227050780009D463 /* libATKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libATKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC167A20227050780009D463 /* ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKit.h; sourceTree = "<group>"; };
 		DC167A21227050780009D463 /* ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKit.m; sourceTree = "<group>"; };
@@ -205,6 +208,8 @@
 			children = (
 				DC2F9CD72273019A00DE1FF8 /* ATNotificationUtils.h */,
 				DC2F9CD62273019A00DE1FF8 /* ATNotificationUtils.m */,
+				DC035FA9230EA3DE00F4CBE7 /* ATBlockNotificationCenter.h */,
+				DC035FAA230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -428,6 +433,7 @@
 				DC7995B2227ED3BC00407F41 /* ATGCDTimer.m in Sources */,
 				DC2F9CDA2273019A00DE1FF8 /* ATNotificationUtils.m in Sources */,
 				DC799598227E86ED00407F41 /* UIFont+ATKit.m in Sources */,
+				DC035FAB230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m in Sources */,
 				DC799595227E85A400407F41 /* NSBundle+ATKit.m in Sources */,
 				DC4D909722D5DAD600078C83 /* ATRuntimeUtils.m in Sources */,
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
