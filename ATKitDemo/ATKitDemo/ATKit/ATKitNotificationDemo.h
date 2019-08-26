@@ -7,8 +7,12 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "ATBlockNotificationCenter.h"
 
 NS_ASSUME_NONNULL_BEGIN
+
+AT_BN_DECLARE(kName, int, a, NSString *, b)
+AT_BN_DECLARE(kName2, int, a, NSString *, b, id, c)
 
 @interface ATKitNotificationDemo : NSObject
 

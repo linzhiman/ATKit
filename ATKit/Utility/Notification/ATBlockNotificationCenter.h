@@ -13,8 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define AT_BN_CENTER [ATBlockNotificationCenter sharedObject]
 
-#define AT_BN_CONNECT(A, B) A##B
-#define AT_BN_TYPE(atName) AT_BN_CONNECT(ATBN_, atName)
+#define AT_BN_TYPE(atName) metamacro_concat(ATBN_, atName)
 
 #define AT_BN_POST_ARGS_HANDLER(first, second) second:(first)second
 #define AT_BN_POST_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_SPACE, AT_BN_POST_ARGS_HANDLER, __VA_ARGS__)
@@ -27,7 +26,7 @@ NS_ASSUME_NONNULL_BEGIN
     typedef void(^AT_BN_TYPE(atName))(AT_PAIR_CONCAT_ARGS(__VA_ARGS__)); \
     @interface NSObject (ATBN##atName) \
     - (void)atbn_on##atName:(AT_BN_TYPE(atName))block; \
-    - (void)atbn_post##atName:(id)sender AT_BN_POST_ARGS(__VA_ARGS__); \
+    - (void)metamacro_concat(atbn_post##atName##_, AT_BN_POST_ARGS(__VA_ARGS__)); \
     @end
 
 // 实现文件添加定义
@@ -39,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
     { \
         [AT_BN_CENTER addObserver:self name:atName block:block]; \
     } \
-    - (void)atbn_post##atName:(id)sender AT_BN_POST_ARGS(__VA_ARGS__) \
+    - (void)metamacro_concat(atbn_post##atName##_, AT_BN_POST_ARGS(__VA_ARGS__)) \
     { \
         NSArray *blocksNamed = [AT_BN_CENTER blocksNamed:atName]; \
         dispatch_async(dispatch_get_main_queue(), ^{ \
@@ -60,7 +59,7 @@ NS_ASSUME_NONNULL_BEGIN
 // [self atbn_removeALL];
 
 // 发送通知
-// [self atbn_postkName:self a:123 b:@"abc"];
+// [self atbn_postkName_a:123 b:@"abc"];
 
 @interface ATBlockNotificationCenter : NSObject
 
