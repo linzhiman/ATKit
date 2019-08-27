@@ -61,9 +61,13 @@ NS_ASSUME_NONNULL_BEGIN
 // 发送通知
 // [self atbn_postkName_a:123 b:@"abc"];
 
+typedef void (^ATBNNativeBlock)(NSDictionary * _Nullable userInfo);
+
 @interface ATBlockNotificationCenter : NSObject
 
 AT_DECLARE_SINGLETON;
+
+// 建议使用上面描述的方式调用
 
 - (void)addObserver:(id)observer name:(NSString *)name block:(id)block;
 
@@ -72,6 +76,15 @@ AT_DECLARE_SINGLETON;
 
 - (NSArray *)blocksNamed:(NSString *)name;
 
+#pragma mark - Native Notification
+
+// 建议使用NSObject (ATBN)中的方法调用
+
+- (void)addNativeObserver:(id)observer name:(NSString *)name block:(ATBNNativeBlock)block;
+
+- (void)removeNativeObserver:(id)observer name:(NSString *)name;
+- (void)removeNativeObserver:(id)observer;
+
 @end
 
 
@@ -79,6 +92,16 @@ AT_DECLARE_SINGLETON;
 
 - (void)atbn_removeALL;
 - (void)atbn_removeName:(NSString *)name;
+
+#pragma mark - Native Notification
+
+- (void)atbn_addNativeName:(NSString *)name block:(ATBNNativeBlock)block;
+
+- (void)atbn_removeNativeName:(NSString *)name;
+- (void)atbn_removeNativeAll;
+
+- (void)atbn_postNativeName:(NSString *)name;
+- (void)atbn_postNativeName:(NSString *)name userInfo:(NSDictionary *)userInfo;
 
 @end
 
