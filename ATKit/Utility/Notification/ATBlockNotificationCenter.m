@@ -211,7 +211,7 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
         NSMutableSet *notifications = [self.nativeNotifications objectForKey:objectKey];
         [notifications enumerateObjectsUsingBlock:^(id  _Nonnull obj, BOOL * _Nonnull stop) {
             NSString *name = obj;
-            [self removeObserver:observer name:name];
+            [self removeNativeObserver:observer name:name];
         }];
     }
 }

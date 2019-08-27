@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define AT_BN_CENTER [ATBlockNotificationCenter sharedObject]
 
+#define AT_BN_DEFINE_NAME(atName) NSString * const atName = @"ATBN_"#atName;
 #define AT_BN_TYPE(atName) metamacro_concat(ATBN_, atName)
 
 #define AT_BN_POST_ARGS_HANDLER(first, second) second:(first)second
@@ -32,7 +33,7 @@ NS_ASSUME_NONNULL_BEGIN
 // 实现文件添加定义
 // AT_BN_DEFINE(kName, int, a, NSString *, b)
 #define AT_BN_DEFINE(atName, ...) \
-    AT_STRING_DEFINE(atName); \
+    AT_BN_DEFINE_NAME(atName); \
     @implementation NSObject (ATBN##atName) \
     - (void)atbn_on##atName:(AT_BN_TYPE(atName))block \
     { \
@@ -41,11 +42,18 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)metamacro_concat(atbn_post##atName##_, AT_BN_POST_ARGS(__VA_ARGS__)) \
     { \
         NSArray *blocksNamed = [AT_BN_CENTER blocksNamed:atName]; \
-        dispatch_async(dispatch_get_main_queue(), ^{ \
+        if ([NSThread isMainThread]) { \
             for (id block in blocksNamed) { \
                 ((AT_BN_TYPE(atName))block)(AT_EVEN_ARGS(__VA_ARGS__)); \
             } \
-        }); \
+        } \
+        else { \
+            dispatch_async(dispatch_get_main_queue(), ^{ \
+            for (id block in blocksNamed) { \
+                ((AT_BN_TYPE(atName))block)(AT_EVEN_ARGS(__VA_ARGS__)); \
+                } \
+            }); \
+        } \
     } \
     @end
 
