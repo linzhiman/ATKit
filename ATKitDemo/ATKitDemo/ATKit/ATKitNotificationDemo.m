@@ -7,7 +7,6 @@
 //
 
 #import "ATKitNotificationDemo.h"
-#import "ATNotificationUtils.h"
 
 AT_DECLARE_NOTIFICATION(kNotificationKey)
 AT_DECLARE_NOTIFICATION(kNotification1)
@@ -34,10 +33,10 @@ AT_BN_DEFINE(kName2, int, a, NSString *, b, id, c)
 
 - (void)initNotification
 {
-    [AT_NOTIFICATION_SIGNALTON addObserver:self name:kNotification1 callback:^(NSDictionary * _Nullable userInfo) {
+    [self atbn_addNativeName:kNotification1 block:^(NSDictionary * _Nullable userInfo) {
         NSLog(@"kNotification1 %@", userInfo);
     }];
-    [AT_NOTIFICATION_SIGNALTON addObserver:self name:kNotification2 callback:^(NSDictionary * _Nullable userInfo) {
+    [self atbn_addNativeName:kNotification2 block:^(NSDictionary * _Nullable userInfo) {
         NSLog(@"kNotification2 %@", userInfo);
     }];
     
@@ -51,15 +50,19 @@ AT_BN_DEFINE(kName2, int, a, NSString *, b, id, c)
 
 - (void)removeNotification
 {
-    [AT_NOTIFICATION_SIGNALTON removeObserver:self];
+    [self atbn_removeNativeAll];
+    [self atbn_removeNativeName:kNotification1];
     
     [self atbn_removeALL];
+    [self atbn_removeName:kName];
 }
 
 - (void)demo
 {
-    AT_POST_NOTIFICATION_USERINFO(kNotification1, @{kNotificationKey:@(1)});
-    AT_POST_NOTIFICATION_USERINFO(kNotification2, @{kNotificationKey:@(2)});
+    [self removeNotification];
+    
+    [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
+    [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
     [self atbn_postkName_a:1 b:@"a"];
     [self atbn_postkName2_a:2 b:@"b" c:@(0)];
