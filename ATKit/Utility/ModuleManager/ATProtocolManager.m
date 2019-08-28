@@ -8,35 +8,51 @@
 
 #import "ATProtocolManager.h"
 
-static NSMapTable *modulesMap() {
-    static NSMapTable *map = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        map = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
-    });
-    return map;
-}
+const NSInteger kATProtocolManagerDefaultGroup = 0;
 
-static NSMapTable *moduleClassesMap() {
-    static NSMapTable *map = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        map = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
-    });
-    return map;
-}
+@interface ATProtocolManagerMeta : NSObject
+
+@property (nonatomic, strong) Protocol *protocol;
+@property (nonatomic, strong, nullable) Class aClass;
+@property (nonatomic, strong, nullable) id module;
+
+@end
+
+@implementation ATProtocolManagerMeta
+
+@end
 
 @interface ATProtocolManager()
 
+@property (nonatomic, strong) NSLock *lock;
+@property (nonatomic, strong) NSMapTable<Protocol *, id> *modulesMap;
+@property (nonatomic, strong) NSMapTable<Protocol *, Class> *moduleClassesMap;
 @property (nonatomic, strong) NSMutableDictionary *groups;// <group, NSMutableArray<ATProtocolManagerMeta *>>
 
 @end
 
 @implementation ATProtocolManager
 
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _lock = [[NSLock alloc] init];
+        _modulesMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
+        _moduleClassesMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
+    }
+    return self;
+}
+
 - (id)moduleForProtocol:(Protocol *)protocol
 {
-    return [modulesMap() objectForKey:protocol];
+    [self.lock lock];
+    
+    id tmp = [self.modulesMap objectForKey:protocol];
+    
+    [self.lock unlock];
+    
+    return tmp;
 }
 
 - (void)addModule:(id)module protocol:(Protocol *)protocol
@@ -46,32 +62,49 @@ static NSMapTable *moduleClassesMap() {
 
 - (void)addModule:(id)module protocol:(Protocol *)protocol group:(NSInteger)group
 {
-    if ([module conformsToProtocol:protocol]) {
-        [modulesMap() setObject:module forKey:protocol];
-        
-        ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
-        meta.protocol = protocol;
-        meta.module = module;
-        [self addMeta:meta group:group];
+    if (![module conformsToProtocol:protocol]) {
+        return;
     }
+    
+    [self.lock lock];
+    
+    [self.modulesMap setObject:module forKey:protocol];
+    
+    ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
+    meta.protocol = protocol;
+    meta.module = module;
+    [self removeMeta:meta];
+    [self addMeta:meta group:group];
+    
+    [self.lock unlock];
 }
 
 - (void)removeModule:(Protocol *)protocol
 {
-    id obj = [modulesMap() objectForKey:protocol];
+    [self.lock lock];
+    
+    id obj = [self.modulesMap objectForKey:protocol];
     if (obj != nil) {
-        [modulesMap() removeObjectForKey:protocol];
+        [self.modulesMap removeObjectForKey:protocol];
         
         ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
         meta.protocol = protocol;
         meta.module = obj;
         [self removeMeta:meta];
     }
+    
+    [self.lock unlock];
 }
 
 - (Class)classForProtocol:(Protocol *)protocol
 {
-    return [moduleClassesMap() objectForKey:protocol];
+    [self.lock lock];
+    
+    Class tmp = [self.moduleClassesMap objectForKey:protocol];
+    
+    [self.lock unlock];
+    
+    return tmp;
 }
 
 - (void)registerClass:(Class)aClass protocol:(Protocol *)protocol
@@ -81,27 +114,37 @@ static NSMapTable *moduleClassesMap() {
 
 - (void)registerClass:(Class)aClass protocol:(Protocol *)protocol group:(NSInteger)group
 {
-    if ([aClass conformsToProtocol:protocol]) {
-        [moduleClassesMap() setObject:aClass forKey:protocol];
-        
-        ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
-        meta.protocol = protocol;
-        meta.aClass = aClass;
-        [self addMeta:meta group:group];
+    if (![aClass conformsToProtocol:protocol]) {
+        return;
     }
+    
+    [self.lock lock];
+    
+    [self.moduleClassesMap setObject:aClass forKey:protocol];
+    
+    ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
+    meta.protocol = protocol;
+    meta.aClass = aClass;
+    [self addMeta:meta group:group];
+    
+    [self.lock unlock];
 }
 
 - (void)unRegisterClass:(Protocol *)protocol
 {
-    id obj = [moduleClassesMap() objectForKey:protocol];
+    [self.lock lock];
+    
+    id obj = [self.moduleClassesMap objectForKey:protocol];
     if (obj != nil) {
-        [moduleClassesMap() removeObjectForKey:protocol];
+        [self.moduleClassesMap removeObjectForKey:protocol];
         
         ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
         meta.protocol = protocol;
         meta.aClass = obj;
         [self removeMeta:meta];
     }
+    
+    [self.lock unlock];
 }
 
 - (id)module:(Protocol *)protocol
@@ -125,8 +168,13 @@ static NSMapTable *moduleClassesMap() {
 
 - (NSArray *)modulesInGroup:(NSInteger)group createIfNeed:(BOOL)createIfNeed
 {
-    NSMutableArray *value = [[NSMutableArray alloc] init];
+    [self.lock lock];
+    
     NSArray *aArray = [[self.groups objectForKey:@(group)] copy];
+    
+    [self.lock unlock];
+    
+    NSMutableArray *value = [[NSMutableArray alloc] init];
     for (ATProtocolManagerMeta *curMeta in aArray) {
         if (createIfNeed) {
             [value addObject:[self module:curMeta.protocol]];
@@ -187,15 +235,22 @@ static NSMapTable *moduleClassesMap() {
 
 - (NSInteger)groupForProtocol:(Protocol *)protocol
 {
+    NSInteger group = -1;
+    
+    [self.lock lock];
+    
     for (NSUInteger i = 0; i < self.groups.allValues.count; ++i) {
         NSMutableArray *aArray = self.groups.allValues[i];
         for (ATProtocolManagerMeta *curMeta in aArray) {
             if (curMeta.protocol == protocol) {
-                return i;
+                group = i;
             }
         }
     }
-    return -1;
+    
+    [self.lock unlock];
+    
+    return group;
 }
 
 @end

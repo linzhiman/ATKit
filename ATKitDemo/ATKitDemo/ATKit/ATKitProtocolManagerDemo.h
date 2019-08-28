@@ -62,7 +62,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 AT_DECLARE_SINGLETON;
 
-@property (nonatomic, strong) id<ATProtocolManagerProtocol> protocolManager;
+@property (nonatomic, strong) ATProtocolManager *protocolManager;
 
 @end
 

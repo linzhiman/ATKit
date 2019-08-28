@@ -16,7 +16,6 @@
 		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
 		DC4D908E22D48F6100078C83 /* ATFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4D908D22D48F6100078C83 /* ATFileManager.m */; };
 		DC4D909722D5DAD600078C83 /* ATRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */; };
-		DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */; };
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
 		DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79956C2275D1DE00407F41 /* ATComponentService.m */; };
 		DC79957B2277E54300407F41 /* libATKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC167A1D227050780009D463 /* libATKit.a */; };
@@ -75,7 +74,6 @@
 		DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleProtocol.h; sourceTree = "<group>"; };
 		DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATModuleManager.m; sourceTree = "<group>"; };
 		DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleManager.h; sourceTree = "<group>"; };
-		DC2F9CE322730B0200DE1FF8 /* ATProtocolManagerProtocol.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATProtocolManagerProtocol.h; sourceTree = "<group>"; };
 		DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATProtocolManager.h; sourceTree = "<group>"; };
 		DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManager.m; sourceTree = "<group>"; };
 		DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseModule.h; sourceTree = "<group>"; };
@@ -84,7 +82,6 @@
 		DC4D908D22D48F6100078C83 /* ATFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATFileManager.m; sourceTree = "<group>"; };
 		DC4D909522D5DAD600078C83 /* ATRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATRuntimeUtils.h; sourceTree = "<group>"; };
 		DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATRuntimeUtils.m; sourceTree = "<group>"; };
-		DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManagerProtocol.m; sourceTree = "<group>"; };
 		DC7995612275ADE100407F41 /* ATBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseViewController.h; sourceTree = "<group>"; };
 		DC7995622275ADE100407F41 /* ATBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseViewController.m; sourceTree = "<group>"; };
 		DC79956B2275D1DE00407F41 /* ATComponentService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATComponentService.h; sourceTree = "<group>"; };
@@ -217,8 +214,6 @@
 				DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */,
 				DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */,
 				DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */,
-				DC2F9CE322730B0200DE1FF8 /* ATProtocolManagerProtocol.h */,
-				DC79955C227586DC00407F41 /* ATProtocolManagerProtocol.m */,
 				DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */,
 				DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */,
 			);
@@ -421,7 +416,6 @@
 				DC7995BA227EE5B700407F41 /* ATTaskQueue.m in Sources */,
 				DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */,
 				DC7995A0227E8CC900407F41 /* NSDateFormatter+ATKit.m in Sources */,
-				DC79955D227586DC00407F41 /* ATProtocolManagerProtocol.m in Sources */,
 				DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */,
 				DC167A22227050780009D463 /* ATKit.m in Sources */,
 				DC7995A6227E8ED900407F41 /* NSArray+ATKit.m in Sources */,
