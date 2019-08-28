@@ -125,6 +125,7 @@ const NSInteger kATProtocolManagerDefaultGroup = 0;
     ATProtocolManagerMeta *meta = [[ATProtocolManagerMeta alloc] init];
     meta.protocol = protocol;
     meta.aClass = aClass;
+    [self removeMeta:meta];
     [self addMeta:meta group:group];
     
     [self.lock unlock];
