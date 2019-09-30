@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		DC035FAB230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m in Sources */ = {isa = PBXBuildFile; fileRef = DC035FAA230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m */; };
+		DC035FBF2317E01000F4CBE7 /* ATTaskQueueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC035FBE2317E01000F4CBE7 /* ATTaskQueueTest.m */; };
 		DC167A22227050780009D463 /* ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC167A21227050780009D463 /* ATKit.m */; };
 		DC167A23227050780009D463 /* ATKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = DC167A20227050780009D463 /* ATKit.h */; };
 		DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD42273019A00DE1FF8 /* ATWeakObject.m */; };
@@ -36,7 +37,6 @@
 		DC7995B4227ED8F200407F41 /* ATGCDTimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */; };
 		DC7995B7227EDD1200407F41 /* ATWeakProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995B6227EDD1200407F41 /* ATWeakProxy.m */; };
 		DC7995BA227EE5B700407F41 /* ATTaskQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995B9227EE5B700407F41 /* ATTaskQueue.m */; };
-		DC7995BD227FCD0F00407F41 /* ATTaskQueueTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995BC227FCD0F00407F41 /* ATTaskQueueTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +65,7 @@
 /* Begin PBXFileReference section */
 		DC035FA9230EA3DE00F4CBE7 /* ATBlockNotificationCenter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBlockNotificationCenter.h; sourceTree = "<group>"; };
 		DC035FAA230EA3DE00F4CBE7 /* ATBlockNotificationCenter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBlockNotificationCenter.m; sourceTree = "<group>"; };
+		DC035FBE2317E01000F4CBE7 /* ATTaskQueueTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATTaskQueueTest.m; sourceTree = "<group>"; };
 		DC167A1D227050780009D463 /* libATKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libATKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC167A20227050780009D463 /* ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATKit.h; sourceTree = "<group>"; };
 		DC167A21227050780009D463 /* ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKit.m; sourceTree = "<group>"; };
@@ -118,7 +119,6 @@
 		DC7995B6227EDD1200407F41 /* ATWeakProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATWeakProxy.m; sourceTree = "<group>"; };
 		DC7995B8227EE5B700407F41 /* ATTaskQueue.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATTaskQueue.h; sourceTree = "<group>"; };
 		DC7995B9227EE5B700407F41 /* ATTaskQueue.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATTaskQueue.m; sourceTree = "<group>"; };
-		DC7995BC227FCD0F00407F41 /* ATTaskQueueTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATTaskQueueTest.m; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,12 +267,12 @@
 		DC7995772277E54200407F41 /* ATKitUnitTest */ = {
 			isa = PBXGroup;
 			children = (
-				DC79957A2277E54300407F41 /* Info.plist */,
+				DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */,
 				DC7995822277EA0600407F41 /* ATKitNotificationTest.m */,
 				DC79958B227841BC00407F41 /* ATKitStringTest.m */,
+				DC035FBE2317E01000F4CBE7 /* ATTaskQueueTest.m */,
 				DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */,
-				DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */,
-				DC7995BC227FCD0F00407F41 /* ATTaskQueueTest.m */,
+				DC79957A2277E54300407F41 /* Info.plist */,
 			);
 			path = ATKitUnitTest;
 			sourceTree = "<group>";
@@ -445,7 +445,7 @@
 				DC7995AF227EC4F300407F41 /* ATWeakTimerTest.m in Sources */,
 				DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */,
 				DC7995B4227ED8F200407F41 /* ATGCDTimerTest.m in Sources */,
-				DC7995BD227FCD0F00407F41 /* ATTaskQueueTest.m in Sources */,
+				DC035FBF2317E01000F4CBE7 /* ATTaskQueueTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
