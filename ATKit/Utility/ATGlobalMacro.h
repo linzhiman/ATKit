@@ -71,39 +71,40 @@
     metamacro_concat(metamacro_at, N)(__VA_ARGS__)
 
 #define metamacro_argcount(...) \
-    metamacro_at(20, __VA_ARGS__, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1)
+    metamacro_at(20, ##__VA_ARGS__, 20, 19, 18, 17, 16, 15, 14, 13, 12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, 1, 0)
 
-#define AT_MAKE_ARG_0()
-#define AT_MAKE_ARG_2(handler, first, second) handler(first, second)
-#define AT_MAKE_ARG_4(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_2(handler, __VA_ARGS__)
-#define AT_MAKE_ARG_6(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_4(separate, handler, __VA_ARGS__)
-#define AT_MAKE_ARG_8(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_6(separate, handler, __VA_ARGS__)
-#define AT_MAKE_ARG_10(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_8(separate, handler, __VA_ARGS__)
-#define AT_MAKE_ARG_12(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_10(separate, handler, __VA_ARGS__)
-#define AT_MAKE_ARG_14(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_12(separate, handler, __VA_ARGS__)
-#define AT_MAKE_ARG_16(separate, handler, first, second, ...) \
-    AT_MAKE_ARG_2(handler, first, second) separate() AT_MAKE_ARG_14(separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_0(placeholder, ...) placeholder()
+#define AT_MAKE_ARG_2(placeholder, separate, handler, first, second) handler(first, second)
+#define AT_MAKE_ARG_4(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_2(placeholder, separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_6(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_4(placeholder, separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_8(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_6(placeholder, separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_10(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_8(placeholder, separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_12(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_10(placeholder, separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_14(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_12(placeholder, separate, handler, __VA_ARGS__)
+#define AT_MAKE_ARG_16(placeholder, separate, handler, first, second, ...) \
+    AT_MAKE_ARG_2(placeholder, separate, handler, first, second) separate() AT_MAKE_ARG_14(placeholder, separate, handler, __VA_ARGS__)
 
+#define AT_MAKE_ARG_VOID() void
 #define AT_MAKE_ARG_COMMA() ,
 #define AT_MAKE_ARG_SPACE()
 
 // 奇数位参数列表 (a, b, c, d)->(a, c)
 #define AT_ODD_ARGS_HANDLER(first, second) first
-#define AT_ODD_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_COMMA, AT_ODD_ARGS_HANDLER, __VA_ARGS__)
+#define AT_ODD_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_SPACE, AT_MAKE_ARG_COMMA, AT_ODD_ARGS_HANDLER, __VA_ARGS__)
 #define AT_ODD_ARGS(...) AT_ODD_ARGS_(__VA_ARGS__)
 
 // 偶数位参数列表 (a, b, c, d)->(b, d)
 #define AT_EVEN_ARGS_HANDLER(first, second) second
-#define AT_EVEN_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_COMMA, AT_EVEN_ARGS_HANDLER, __VA_ARGS__)
+#define AT_EVEN_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_SPACE, AT_MAKE_ARG_COMMA, AT_EVEN_ARGS_HANDLER, __VA_ARGS__)
 #define AT_EVEN_ARGS(...) AT_EVEN_ARGS_(__VA_ARGS__)
 
 // 两个一组连接 (a, b, c, d)->(a b, c d)
 #define AT_PAIR_CONCAT_ARGS_HANDLER(first, second) first second
-#define AT_PAIR_CONCAT_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_COMMA, AT_PAIR_CONCAT_ARGS_HANDLER, __VA_ARGS__)
+#define AT_PAIR_CONCAT_ARGS_(...) metamacro_concat(AT_MAKE_ARG_, metamacro_argcount(__VA_ARGS__))(AT_MAKE_ARG_VOID, AT_MAKE_ARG_COMMA, AT_PAIR_CONCAT_ARGS_HANDLER, __VA_ARGS__)
 #define AT_PAIR_CONCAT_ARGS(...) AT_PAIR_CONCAT_ARGS_(__VA_ARGS__)

@@ -20,7 +20,6 @@
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
 		DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79956C2275D1DE00407F41 /* ATComponentService.m */; };
 		DC79957B2277E54300407F41 /* libATKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DC167A1D227050780009D463 /* libATKit.a */; };
-		DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995822277EA0600407F41 /* ATKitNotificationTest.m */; };
 		DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995872277FB1A00407F41 /* NSString+ATKit.m */; };
 		DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */ = {isa = PBXBuildFile; fileRef = DC79958B227841BC00407F41 /* ATKitStringTest.m */; };
 		DC799592227E835A00407F41 /* NSMutableAttributedString+ATKit.m in Sources */ = {isa = PBXBuildFile; fileRef = DC799591227E835A00407F41 /* NSMutableAttributedString+ATKit.m */; };
@@ -89,7 +88,6 @@
 		DC79956C2275D1DE00407F41 /* ATComponentService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATComponentService.m; sourceTree = "<group>"; };
 		DC7995762277E54200407F41 /* ATKitUnitTest.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ATKitUnitTest.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DC79957A2277E54300407F41 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		DC7995822277EA0600407F41 /* ATKitNotificationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitNotificationTest.m; sourceTree = "<group>"; };
 		DC7995862277FB1A00407F41 /* NSString+ATKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSString+ATKit.h"; sourceTree = "<group>"; };
 		DC7995872277FB1A00407F41 /* NSString+ATKit.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSString+ATKit.m"; sourceTree = "<group>"; };
 		DC79958B227841BC00407F41 /* ATKitStringTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATKitStringTest.m; sourceTree = "<group>"; };
@@ -268,7 +266,6 @@
 			isa = PBXGroup;
 			children = (
 				DC7995B3227ED8F200407F41 /* ATGCDTimerTest.m */,
-				DC7995822277EA0600407F41 /* ATKitNotificationTest.m */,
 				DC79958B227841BC00407F41 /* ATKitStringTest.m */,
 				DC035FBE2317E01000F4CBE7 /* ATTaskQueueTest.m */,
 				DC7995AE227EC4F300407F41 /* ATWeakTimerTest.m */,
@@ -443,7 +440,6 @@
 			files = (
 				DC79958C227841BC00407F41 /* ATKitStringTest.m in Sources */,
 				DC7995AF227EC4F300407F41 /* ATWeakTimerTest.m in Sources */,
-				DC7995832277EA0600407F41 /* ATKitNotificationTest.m in Sources */,
 				DC7995B4227ED8F200407F41 /* ATGCDTimerTest.m in Sources */,
 				DC035FBF2317E01000F4CBE7 /* ATTaskQueueTest.m in Sources */,
 			);

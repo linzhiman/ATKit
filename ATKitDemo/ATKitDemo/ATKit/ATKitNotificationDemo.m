@@ -12,8 +12,15 @@ AT_DECLARE_NOTIFICATION(kNotificationKey)
 AT_DECLARE_NOTIFICATION(kNotification1)
 AT_DECLARE_NOTIFICATION(kNotification2)
 
-AT_BN_DEFINE(kName, int, a, NSString *, b)
-AT_BN_DEFINE(kName2, int, a, NSString *, b, id, c)
+AT_BN_DEFINE(kName)
+AT_BN_DEFINE(kName1, int, a)
+AT_BN_DEFINE(kName2, int, a, NSString *, b)
+AT_BN_DEFINE(kName3, int, a, NSString *, b, id, c)
+AT_BN_DEFINE(kName4, int, a, NSString *, b, id, c, id, d)
+AT_BN_DEFINE(kName5, int, a, NSString *, b, id, c, id, d, id, e)
+AT_BN_DEFINE(kName6, int, a, NSString *, b, id, c, id, d, id, e, id, f)
+AT_BN_DEFINE(kName7, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g)
+AT_BN_DEFINE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, id, h)
 
 @implementation ATKitNotificationDemo
 
@@ -40,11 +47,12 @@ AT_BN_DEFINE(kName2, int, a, NSString *, b, id, c)
         NSLog(@"kNotification2 %@", userInfo);
     }];
     
-    [self atbn_onkName:^(int a, NSString *b) {
-        NSLog(@"atbn_onkName %d %@", a, b);
+    [self atbn_onkName:^{
+        NSLog(@"atbn_onkName");
     }];
-    [self atbn_onkName2:^(int a, NSString *b, id c) {
-        NSLog(@"atbn_onkName2 %d %@ %@", a, b, c);
+    
+    [self atbn_onkName3:^(int a, NSString *b, id c) {
+        NSLog(@"atbn_onkName3 %d %@ %@", a, b, c);
     }];
 }
 
@@ -59,13 +67,13 @@ AT_BN_DEFINE(kName2, int, a, NSString *, b, id, c)
 
 - (void)demo
 {
-    [self removeNotification];
+//    [self removeNotification];
     
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [self atbn_postkName_a:1 b:@"a"];
-    [self atbn_postkName2_a:2 b:@"b" c:@(0)];
+    [self atbn_postkName_];
+    [self atbn_postkName3_a:2 b:@"b" c:@(0)];
 }
 
 @end

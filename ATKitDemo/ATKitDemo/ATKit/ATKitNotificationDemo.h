@@ -11,8 +11,15 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-AT_BN_DECLARE(kName, int, a, NSString *, b)
-AT_BN_DECLARE(kName2, int, a, NSString *, b, id, c)
+AT_BN_DECLARE(kName)
+AT_BN_DECLARE(kName1, int, a)
+AT_BN_DECLARE(kName2, int, a, NSString *, b)
+AT_BN_DECLARE(kName3, int, a, NSString *, b, id, c)
+AT_BN_DECLARE(kName4, int, a, NSString *, b, id, c, id, d)
+AT_BN_DECLARE(kName5, int, a, NSString *, b, id, c, id, d, id, e)
+AT_BN_DECLARE(kName6, int, a, NSString *, b, id, c, id, d, id, e, id, f)
+AT_BN_DECLARE(kName7, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g)
+AT_BN_DECLARE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, id, h)
 
 @interface ATKitNotificationDemo : NSObject
 
