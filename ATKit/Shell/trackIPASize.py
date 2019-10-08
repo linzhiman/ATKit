@@ -45,9 +45,9 @@ def get_all_path_size(file_dir, dic_path_size, exclude_dir_list):
             continue
         file_path = os.path.join(file_dir, file)
         if os.path.isdir(file_path):
-            dic_path_size[file_path] = get_dir_size(file_path)
+            dic_path_size[file] = get_dir_size(file_path)
         else:
-            dic_path_size[file_path] = get_file_size(file_path)
+            dic_path_size[file] = get_file_size(file_path)
 
 
 def write_html_begin(version):
