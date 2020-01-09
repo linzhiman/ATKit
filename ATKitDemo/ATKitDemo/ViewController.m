@@ -149,6 +149,9 @@ static NSString * const ATKitDemoCellIdentifier = @"ATKitDemoCellIdentifier";
     [self addItem:@"Notification" inSectionType:ATKitDemoSectionTypeUtils clickCallback:^{
         [[[ATKitNotificationDemo alloc] init] demo];
     }];
+    [self addItem:@"Notification2" inSectionType:ATKitDemoSectionTypeUtils clickCallback:^{
+        [[[ATKitNotificationDemo2 alloc] init] demo];
+    }];
     
     [self addItem:@"ModuleManager" inSectionType:ATKitDemoSectionTypeUtils clickCallback:^{
         [[[ATKitModuleManagerDemo alloc] init] demo];

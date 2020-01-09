@@ -23,9 +23,11 @@ AT_BN_DECLARE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, 
 
 @interface ATKitNotificationDemo : NSObject
 
-- (void)initNotification;
+- (void)demo;
 
-- (void)removeNotification;
+@end
+
+@interface ATKitNotificationDemo2 : ATKitNotificationDemo
 
 - (void)demo;
 
