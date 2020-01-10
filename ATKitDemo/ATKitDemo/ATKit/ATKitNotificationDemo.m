@@ -25,7 +25,11 @@ AT_BN_DEFINE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, i
 @implementation ATKitNotificationTest
 @end
 
+#ifdef UseObj
 AT_BN_DEFINE(kName9, ATKitNotificationTest *, test);
+#else
+AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
+#endif
 
 @implementation ATKitNotificationDemo
 
@@ -59,9 +63,15 @@ AT_BN_DEFINE(kName9, ATKitNotificationTest *, test);
         NSLog(@"atbn_onkName3 %d %@ %@", obj.a, obj.b, obj.c);
     }];
     
+#ifdef UseObj
     [self atbn_onkName9:^(ATBNkName9Obj * _Nonnull obj) {
         NSLog(@"atbn_onkName9 %@", @(obj.test.test));
     }];
+#else
+    [self atbn_onkName9:^(ATKitNotificationTest * _Nonnull test) {
+        NSLog(@"atbn_onkName9 %@", @(test.test));
+    }];
+#endif
 }
 
 - (void)removeNotification
