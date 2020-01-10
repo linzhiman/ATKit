@@ -22,6 +22,11 @@ AT_BN_DEFINE(kName6, int, a, NSString *, b, id, c, id, d, id, e, id, f)
 AT_BN_DEFINE(kName7, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g)
 AT_BN_DEFINE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, id, h)
 
+@implementation ATKitNotificationTest
+@end
+
+AT_BN_DEFINE(kName9, ATKitNotificationTest *, test);
+
 @implementation ATKitNotificationDemo
 
 - (instancetype)init
@@ -47,11 +52,15 @@ AT_BN_DEFINE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, i
         NSLog(@"kNotification2 %@", userInfo);
     }];
     
-    [self atbn_onkName:^{
+    [self atbn_onkName:^(ATBNkNameObj * _Nonnull obj) {
         NSLog(@"atbn_onkName");
     }];
-    [self atbn_onkName3:^(int a, NSString *b, id c) {
-        NSLog(@"atbn_onkName3 %d %@ %@", a, b, c);
+    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
+        NSLog(@"atbn_onkName3 %d %@ %@", obj.a, obj.b, obj.c);
+    }];
+    
+    [self atbn_onkName9:^(ATBNkName9Obj * _Nonnull obj) {
+        NSLog(@"atbn_onkName9 %@", @(obj.test.test));
     }];
 }
 
@@ -73,6 +82,10 @@ AT_BN_DEFINE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, i
     
     [self atbn_postkName_];
     [self atbn_postkName3_a:2 b:@"b" c:@(0)];
+    
+    ATKitNotificationTest *test = [ATKitNotificationTest new];
+    test.test = YES;
+    [self atbn_postkName9_test:test];
 }
 
 @end
@@ -89,11 +102,11 @@ AT_BN_DEFINE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, i
         NSLog(@"demo2 kNotification2 %@", userInfo);
     }];
     
-    [self atbn_onkName:^{
+    [self atbn_onkName:^(ATBNkNameObj * _Nonnull obj) {
         NSLog(@"demo2 atbn_onkName");
     }];
-    [self atbn_onkName3:^(int a, NSString *b, id c) {
-        NSLog(@"demo2 atbn_onkName3 %d %@ %@", a, b, c);
+    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
+        NSLog(@"demo2 atbn_onkName3 %d %@ %@", obj.a, obj.b, obj.c);
     }];
 }
 

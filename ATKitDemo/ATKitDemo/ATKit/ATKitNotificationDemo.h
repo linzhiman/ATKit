@@ -21,6 +21,14 @@ AT_BN_DECLARE(kName6, int, a, NSString *, b, id, c, id, d, id, e, id, f)
 AT_BN_DECLARE(kName7, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g)
 AT_BN_DECLARE(kName8, int, a, NSString *, b, id, c, id, d, id, e, id, f, id, g, id, h)
 
+@interface ATKitNotificationTest : NSObject
+@property (nonatomic, assign) BOOL test;
+@end
+
+#define AT_BN_PROPERTY_HANDLER_ATKitNotificationTest AT_BN_PROPERTY_STRONG ATKitNotificationTest
+
+AT_BN_DECLARE(kName9, ATKitNotificationTest *, test);
+
 @interface ATKitNotificationDemo : NSObject
 
 - (void)demo;
