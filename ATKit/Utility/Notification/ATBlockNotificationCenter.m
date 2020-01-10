@@ -156,6 +156,7 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
         if (observers == nil) {
             observers = [NSMutableArray new];
             [self.nativeObservers setObject:observers forKey:name];
+            [[NSNotificationCenter defaultCenter] removeObserver:self name:name object:nil];
             [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onNotification:) name:name object:nil];
         }
         
