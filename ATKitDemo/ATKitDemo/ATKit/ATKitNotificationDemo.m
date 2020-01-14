@@ -11,6 +11,7 @@
 AT_DECLARE_NOTIFICATION(kNotificationKey)
 AT_DECLARE_NOTIFICATION(kNotification1)
 AT_DECLARE_NOTIFICATION(kNotification2)
+AT_DECLARE_NOTIFICATION(kNotification3)
 
 AT_BN_DEFINE(kName)
 AT_BN_DEFINE(kName1, int, a)
@@ -105,19 +106,19 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
 
 - (void)demo2_initNotification
 {
-    [self atbn_addNativeName:kNotification1 block:^(NSDictionary * _Nullable userInfo) {
-        NSLog(@"demo2 kNotification1 %@", userInfo);
+    [self atbn_addNativeName:kNotification3 block:^(NSDictionary * _Nullable userInfo) {
+        NSLog(@"demo2 kNotification3 %@", userInfo);
     }];
-    [self atbn_addNativeName:kNotification2 block:^(NSDictionary * _Nullable userInfo) {
-        NSLog(@"demo2 kNotification2 %@", userInfo);
-    }];
+//    [self atbn_addNativeName:kNotification2 block:^(NSDictionary * _Nullable userInfo) {
+//        NSLog(@"demo2 kNotification2 %@", userInfo);
+//    }];
     
-    [self atbn_onkName:^(ATBNkNameObj * _Nonnull obj) {
-        NSLog(@"demo2 atbn_onkName");
+    [self atbn_onkName5:^(ATBNkName5Obj * _Nonnull obj) {
+        NSLog(@"demo2 atbn_onkName5");
     }];
-    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
-        NSLog(@"demo2 atbn_onkName3 %d %@ %@", obj.a, obj.b, obj.c);
-    }];
+//    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
+//        NSLog(@"demo2 atbn_onkName3");
+//    }];
 }
 
 - (void)demo2_removeNotification

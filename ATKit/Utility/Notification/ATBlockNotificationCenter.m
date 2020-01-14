@@ -56,6 +56,15 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
         ATWeakObject *aWrapObj = [[ATWeakObject alloc] init];
         aWrapObj.target = observer;
         aWrapObj.extension = [block copy];
+        
+        for (NSUInteger i = 0; i < observers.count; ++i) {
+            ATWeakObject *aWrapObj = observers[i];
+            if (aWrapObj.target == observer || [aWrapObj.objectKey isEqualToString:[ATWeakObject objectKey:observer]]) {
+                NSAssert(NO, @"addObserver twice name %@ observer %@", name, observer);
+                return;
+            }
+        }
+        
         [observers addObject:aWrapObj];
         
         NSMutableSet *notifications = [self.notifications objectForKey:aWrapObj.objectKey];
@@ -163,6 +172,15 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
         ATWeakObject *aWrapObj = [[ATWeakObject alloc] init];
         aWrapObj.target = observer;
         aWrapObj.extension = [block copy];
+        
+        for (NSUInteger i = 0; i < observers.count; ++i) {
+            ATWeakObject *aWrapObj = observers[i];
+            if (aWrapObj.target == observer || [aWrapObj.objectKey isEqualToString:[ATWeakObject objectKey:observer]]) {
+                NSAssert(NO, @"addNativeObserver twice name %@ observer %@", name, observer);
+                return;
+            }
+        }
+        
         [observers addObject:aWrapObj];
         
         NSMutableSet *notifications = [self.nativeNotifications objectForKey:aWrapObj.objectKey];

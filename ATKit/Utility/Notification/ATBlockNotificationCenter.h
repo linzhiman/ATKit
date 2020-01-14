@@ -97,6 +97,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 // 监听
 // [self atbn_onkName:^(ATBNkNameObj * _Nonnull obj) {}];
+// [self atbn_onkName:^(int a, NSString *b) {}];
 
 // 取消监听
 // [self atbn_removeName:kName];
