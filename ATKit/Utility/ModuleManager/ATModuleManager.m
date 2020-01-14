@@ -9,19 +9,21 @@
 #import "ATModuleManager.h"
 
 const NSInteger kATModuleDefaultGroup = 0;
+const NSInteger kATModuleGroup1 = 1;
+const NSInteger kATModuleGroup2 = 2;
 
 @interface ATModuleManager()
 
-@property (nonatomic, strong) NSMutableDictionary *modules;// <identifier, id<ATModuleProtocol>>
-@property (nonatomic, strong) NSMutableDictionary *groups;// <group, NSMutableArray<id<ATModuleProtocol>>>
+@property (nonatomic, strong) NSMutableDictionary *modules;// <identifier, id>
+@property (nonatomic, strong) NSMutableDictionary *groups;// <group, NSMutableArray<id>>
 
 @end
 
 @implementation ATModuleManager
 
-- (id<ATModuleProtocol>)moduleWithIdentifier:(NSString *)identifier
+- (id)moduleWithIdentifier:(NSString *)identifier
 {
-    if (!_modules) {
+    if (_modules == nil) {
         return nil;
     }
     else {
@@ -29,23 +31,23 @@ const NSInteger kATModuleDefaultGroup = 0;
     }
 }
 
-- (void)addModule:(id<ATModuleProtocol>)module identifier:(NSString *)identifier
+- (void)addModule:(id)module identifier:(NSString *)identifier
 {
     [self addModule:module identifier:identifier group:kATModuleDefaultGroup];
 }
 
-- (void)addModule:(id<ATModuleProtocol>)module identifier:(NSString *)identifier group:(NSInteger)group
+- (void)addModule:(id)module identifier:(NSString *)identifier group:(NSInteger)group
 {
-    if (!_modules) {
+    if (_modules == nil) {
         _modules = [[NSMutableDictionary alloc] init];
     }
     [_modules setObject:module forKey:identifier];
     
-    if (!_groups) {
+    if (_groups == nil) {
         _groups = [[NSMutableDictionary alloc] init];
     }
     NSMutableArray *aArray = [_groups objectForKey:@(group)];
-    if (!aArray) {
+    if (aArray == nil) {
         aArray = [[NSMutableArray alloc] init];
         [_groups setObject:aArray forKey:@(group)];
     }
@@ -59,28 +61,17 @@ const NSInteger kATModuleDefaultGroup = 0;
 
 - (void)removeModuleWithIdentifier:(NSString *)identifier group:(NSInteger)group
 {
-    id<ATModuleProtocol> obj = [self moduleWithIdentifier:identifier];
+    id module = [self moduleWithIdentifier:identifier];
     
     [_modules removeObjectForKey:identifier];
     
     NSMutableArray *aArray = [_groups objectForKey:@(group)];
-    [aArray removeObject:obj];
+    [aArray removeObject:module];
 }
 
-- (void)initModuleWithGroup:(NSInteger)group
+- (NSArray *)modulesInGroup:(NSInteger)group
 {
-    NSMutableArray *aArray = [_groups objectForKey:@(group)];
-    if (aArray) {
-        [aArray makeObjectsPerformSelector:@selector(initModule)];
-    }
-}
-
-- (void)uninitModuleWithGroup:(NSInteger)group
-{
-    NSMutableArray *aArray = [_groups objectForKey:@(group)];
-    if (aArray) {
-        [aArray makeObjectsPerformSelector:@selector(uninitModule)];
-    }
+    return [NSArray arrayWithArray:[_groups objectForKey:@(group)]];
 }
 
 @end

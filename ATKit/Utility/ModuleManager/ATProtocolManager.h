@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+// 基于协议的模块管理
+// 通过identifier标识模块，支持分组，线程安全
+
 #define AT_GET_MODULE_PROTOCOL(atManager, atProtocol) \
     ((id<atProtocol>)[atManager module:@protocol(atProtocol)])
 
@@ -17,6 +20,8 @@
 NS_ASSUME_NONNULL_BEGIN
 
 extern const NSInteger kATProtocolManagerDefaultGroup;
+extern const NSInteger kATProtocolManagerGroup1;
+extern const NSInteger kATProtocolManagerGroup2;
 
 @interface ATProtocolManager : NSObject
 

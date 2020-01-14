@@ -9,6 +9,9 @@
 #import <Foundation/Foundation.h>
 #import "ATGlobalMacro.h"
 
+// 通知中心
+// 使用block订阅系统通知及自定义通知，类型安全
+
 // 支持两个类型的定义，一般用第一种
 // 其一，将所有回调参数打包成一个obj，使用方直接访问obj的属性来访问对应参数
 // 其二，不会打包obj，所有参数原样作为block参数列表，一般用于自定义obj类型

@@ -14,7 +14,6 @@
 		DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CD42273019A00DE1FF8 /* ATWeakObject.m */; };
 		DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */; };
 		DC2F9CE622730B1600DE1FF8 /* ATProtocolManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */; };
-		DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */ = {isa = PBXBuildFile; fileRef = DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */; };
 		DC4D908E22D48F6100078C83 /* ATFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4D908D22D48F6100078C83 /* ATFileManager.m */; };
 		DC4D909722D5DAD600078C83 /* ATRuntimeUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */; };
 		DC7995632275ADE100407F41 /* ATBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = DC7995622275ADE100407F41 /* ATBaseViewController.m */; };
@@ -71,13 +70,10 @@
 		DC2F9CD32273019A00DE1FF8 /* ATWeakObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATWeakObject.h; sourceTree = "<group>"; };
 		DC2F9CD42273019A00DE1FF8 /* ATWeakObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATWeakObject.m; sourceTree = "<group>"; };
 		DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATGlobalMacro.h; sourceTree = "<group>"; };
-		DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleProtocol.h; sourceTree = "<group>"; };
 		DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ATModuleManager.m; sourceTree = "<group>"; };
 		DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ATModuleManager.h; sourceTree = "<group>"; };
 		DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATProtocolManager.h; sourceTree = "<group>"; };
 		DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATProtocolManager.m; sourceTree = "<group>"; };
-		DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATBaseModule.h; sourceTree = "<group>"; };
-		DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATBaseModule.m; sourceTree = "<group>"; };
 		DC4D908C22D48F6100078C83 /* ATFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATFileManager.h; sourceTree = "<group>"; };
 		DC4D908D22D48F6100078C83 /* ATFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ATFileManager.m; sourceTree = "<group>"; };
 		DC4D909522D5DAD600078C83 /* ATRuntimeUtils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ATRuntimeUtils.h; sourceTree = "<group>"; };
@@ -209,9 +205,6 @@
 			children = (
 				DC2F9CDE2273039F00DE1FF8 /* ATModuleManager.h */,
 				DC2F9CDD2273039F00DE1FF8 /* ATModuleManager.m */,
-				DC2F9CDC2273039F00DE1FF8 /* ATModuleProtocol.h */,
-				DC2F9CE722730DAA00DE1FF8 /* ATBaseModule.h */,
-				DC2F9CE822730DAA00DE1FF8 /* ATBaseModule.m */,
 				DC2F9CE422730B1600DE1FF8 /* ATProtocolManager.h */,
 				DC2F9CE522730B1600DE1FF8 /* ATProtocolManager.m */,
 			);
@@ -424,7 +417,6 @@
 				DC2F9CDF2273039F00DE1FF8 /* ATModuleManager.m in Sources */,
 				DC2F9CD92273019A00DE1FF8 /* ATWeakObject.m in Sources */,
 				DC7995882277FB1A00407F41 /* NSString+ATKit.m in Sources */,
-				DC2F9CE922730DAA00DE1FF8 /* ATBaseModule.m in Sources */,
 				DC79956D2275D1DE00407F41 /* ATComponentService.m in Sources */,
 				DC7995A3227E8DCC00407F41 /* NSDictionary+ATKit.m in Sources */,
 				DC79959B227E8AE100407F41 /* UIColor+ATKit.m in Sources */,

@@ -10,15 +10,22 @@
 #import "ATModuleManager.h"
 #import "ATGlobalMacro.h"
 
+@protocol ATKitModuleProtocol <NSObject>
+
+- (void)initModule;
+- (void)uninitModule;
+
+@end
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface ATKitModuleManagerClassA : NSObject<ATModuleProtocol>
+@interface ATKitModuleManagerClassA : NSObject<ATKitModuleProtocol>
 
 - (void)methodA;
 
 @end
 
-@interface ATKitModuleManagerClassB : NSObject<ATModuleProtocol>
+@interface ATKitModuleManagerClassB : NSObject<ATKitModuleProtocol>
 
 - (void)methodB;
 

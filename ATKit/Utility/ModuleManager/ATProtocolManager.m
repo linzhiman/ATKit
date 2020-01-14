@@ -9,6 +9,8 @@
 #import "ATProtocolManager.h"
 
 const NSInteger kATProtocolManagerDefaultGroup = 0;
+const NSInteger kATProtocolManagerGroup1 = 1;
+const NSInteger kATProtocolManagerGroup2 = 2;
 
 @interface ATProtocolManagerMeta : NSObject
 

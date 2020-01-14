@@ -9,47 +9,52 @@
 #import <Foundation/Foundation.h>
 #import "ATProtocolManager.h"
 #import "ATGlobalMacro.h"
-#import "ATBaseModule.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@protocol ATKitProtocolManagerProtocolA <NSObject>
+@protocol ATKitProtocolManagerProtocolBase <NSObject>
+
+- (void)base;
+
+@end
+
+@protocol ATKitProtocolManagerProtocolA <ATKitProtocolManagerProtocolBase>
 
 - (void)methodA;
 
 @end
 
-@protocol ATKitProtocolManagerProtocolB <NSObject>
+@protocol ATKitProtocolManagerProtocolB <ATKitProtocolManagerProtocolBase>
 
 - (void)methodB;
 
 @end
 
-@protocol ATKitProtocolManagerProtocolC <NSObject>
+@protocol ATKitProtocolManagerProtocolC <ATKitProtocolManagerProtocolBase>
 
 - (void)methodC;
 
 @end
 
-@protocol ATKitProtocolManagerProtocolD <NSObject>
+@protocol ATKitProtocolManagerProtocolD <ATKitProtocolManagerProtocolBase>
 
 - (void)methodD;
 
 @end
 
-@interface ATKitProtocolManagerClassA : ATBaseModule<ATKitProtocolManagerProtocolA>
+@interface ATKitProtocolManagerClassA : NSObject<ATKitProtocolManagerProtocolA>
 
 @end
 
-@interface ATKitProtocolManagerClassB : ATBaseModule<ATKitProtocolManagerProtocolB>
+@interface ATKitProtocolManagerClassB : NSObject<ATKitProtocolManagerProtocolB>
 
 @end
 
-@interface ATKitProtocolManagerClassC : ATBaseModule<ATKitProtocolManagerProtocolC>
+@interface ATKitProtocolManagerClassC : NSObject<ATKitProtocolManagerProtocolC>
 
 @end
 
-@interface ATKitProtocolManagerClassD : ATBaseModule<ATKitProtocolManagerProtocolD>
+@interface ATKitProtocolManagerClassD : NSObject<ATKitProtocolManagerProtocolD>
 
 @end
 

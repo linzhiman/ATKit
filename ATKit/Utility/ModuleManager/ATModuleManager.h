@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "ATModuleProtocol.h"
+
+// 简单模块管理
+// 通过identifier标识模块，支持分组
 
 #define AT_ADD_MODULE_GROUP(atModuleManager, atModuleClass, atGroup) \
     [atModuleManager addModule:[[atModuleClass alloc] init] identifier:@#atModuleClass group:atGroup];
@@ -28,18 +30,19 @@
     atModuleClass *atVariable = (atModuleClass *)[atModuleManager moduleWithIdentifier:@#atModuleClass];
 
 extern const NSInteger kATModuleDefaultGroup;
+extern const NSInteger kATModuleGroup1;
+extern const NSInteger kATModuleGroup2;
 
 @interface ATModuleManager : NSObject
 
-- (id<ATModuleProtocol>)moduleWithIdentifier:(NSString *)identifier;
+- (id)moduleWithIdentifier:(NSString *)identifier;
 
-- (void)addModule:(id<ATModuleProtocol>)module identifier:(NSString *)identifier;
-- (void)addModule:(id<ATModuleProtocol>)module identifier:(NSString *)identifier group:(NSInteger)group;
+- (void)addModule:(id)module identifier:(NSString *)identifier;
+- (void)addModule:(id)module identifier:(NSString *)identifier group:(NSInteger)group;
 
 - (void)removeModuleWithIdentifier:(NSString *)identifier;
 - (void)removeModuleWithIdentifier:(NSString *)identifier group:(NSInteger)group;
 
-- (void)initModuleWithGroup:(NSInteger)group;
-- (void)uninitModuleWithGroup:(NSInteger)group;
+- (NSArray *)modulesInGroup:(NSInteger)group;
 
 @end

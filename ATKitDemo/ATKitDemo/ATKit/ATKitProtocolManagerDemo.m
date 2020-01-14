@@ -24,6 +24,11 @@
     NSLog(@"ATKitProtocolManagerClassA dealloc");
 }
 
+- (void)base
+{
+    NSLog(@"ATKitProtocolManagerClassA base");
+}
+
 - (void)methodA
 {
     NSLog(@"ATKitProtocolManagerClassA methodA");
@@ -45,6 +50,11 @@
 - (void)dealloc
 {
     NSLog(@"ATKitProtocolManagerClassB dealloc");
+}
+
+- (void)base
+{
+    NSLog(@"ATKitProtocolManagerClassB base");
 }
 
 - (void)methodB
@@ -70,6 +80,11 @@
     NSLog(@"ATKitProtocolManagerClassC dealloc");
 }
 
+- (void)base
+{
+    NSLog(@"ATKitProtocolManagerClassC base");
+}
+
 - (void)methodC
 {
     NSLog(@"ATKitProtocolManagerClassC methodC");
@@ -91,6 +106,11 @@
 - (void)dealloc
 {
     NSLog(@"ATKitProtocolManagerClassD dealloc");
+}
+
+- (void)base
+{
+    NSLog(@"ATKitProtocolManagerClassD base");
 }
 
 - (void)methodD
@@ -140,8 +160,8 @@ AT_IMPLEMENT_SINGLETON(ATKitProtocolManager)
 {
     NSArray *aArray = [self.protocolManager modulesInGroup:1 createIfNeed:YES];
     [aArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        id<ATModuleProtocol> module = obj;
-        [module initModule];
+        id<ATKitProtocolManagerProtocolBase> module = obj;
+        [module base];
     }];
 }
 

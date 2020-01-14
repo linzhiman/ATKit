@@ -69,19 +69,49 @@ AT_IMPLEMENT_SINGLETON(ATKitModuleManager)
     self.moduleManager = [[ATModuleManager alloc] init];
     
     AT_ADD_MODULE(self.moduleManager, ATKitModuleManagerClassA);
-    AT_ADD_MODULE_GROUP(self.moduleManager, ATKitModuleManagerClassB , 1);
+    AT_ADD_MODULE_GROUP(self.moduleManager, ATKitModuleManagerClassB , kATModuleGroup1);
     
-    [self.moduleManager initModuleWithGroup:kATModuleDefaultGroup];
-    [self.moduleManager initModuleWithGroup:1];
+    {{
+        NSArray *modules = [self.moduleManager modulesInGroup:kATModuleDefaultGroup];
+        for (id<ATKitModuleProtocol> tmp in modules) {
+            if ([tmp respondsToSelector:@selector(initModule)]) {
+                [tmp initModule];
+            }
+        }
+    }}
+    
+    {{
+        NSArray *modules = [self.moduleManager modulesInGroup:kATModuleGroup1];
+        for (id<ATKitModuleProtocol> tmp in modules) {
+            if ([tmp respondsToSelector:@selector(initModule)]) {
+                [tmp initModule];
+            }
+        }
+    }}
 }
 
 - (void)uninitModule
 {
     AT_REMOVE_MODULE(self.moduleManager, ATKitModuleManagerClassA);
-    AT_REMOVE_MODULE_GROUP(self.moduleManager, ATKitModuleManagerClassB , 1);
+    AT_REMOVE_MODULE_GROUP(self.moduleManager, ATKitModuleManagerClassB , kATModuleGroup1);
     
-    [self.moduleManager uninitModuleWithGroup:kATModuleDefaultGroup];
-    [self.moduleManager uninitModuleWithGroup:1];
+    {{
+        NSArray *modules = [self.moduleManager modulesInGroup:kATModuleDefaultGroup];
+        for (id<ATKitModuleProtocol> tmp in modules) {
+            if ([tmp respondsToSelector:@selector(initModule)]) {
+                [tmp uninitModule];
+            }
+        }
+    }}
+    
+    {{
+        NSArray *modules = [self.moduleManager modulesInGroup:kATModuleGroup1];
+        for (id<ATKitModuleProtocol> tmp in modules) {
+            if ([tmp respondsToSelector:@selector(initModule)]) {
+                [tmp uninitModule];
+            }
+        }
+    }}
 }
 
 @end
