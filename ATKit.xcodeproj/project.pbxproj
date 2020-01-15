@@ -166,12 +166,12 @@
 		DC2F9CD12273019A00DE1FF8 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				DC5809FB23CEB4CB009CA8CD /* Macro */,
 				DC4D909422D5DA8500078C83 /* Runtime */,
 				DC4D908B22D48F3E00078C83 /* File */,
 				DC7995BB227EE5C100407F41 /* TaskQueue */,
 				DC7995AA227EBC7000407F41 /* Timer */,
 				DC7995852277FAA700407F41 /* Category */,
-				DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */,
 				DC79956A2275CED000407F41 /* Component */,
 				DC2F9CDB2273039F00DE1FF8 /* ModuleManager */,
 				DC2F9CD52273019A00DE1FF8 /* Notification */,
@@ -227,6 +227,14 @@
 				DC4D909622D5DAD600078C83 /* ATRuntimeUtils.m */,
 			);
 			path = Runtime;
+			sourceTree = "<group>";
+		};
+		DC5809FB23CEB4CB009CA8CD /* Macro */ = {
+			isa = PBXGroup;
+			children = (
+				DC2F9CD82273019A00DE1FF8 /* ATGlobalMacro.h */,
+			);
+			path = Macro;
 			sourceTree = "<group>";
 		};
 		DC79955E2275ADAC00407F41 /* UI */ = {

@@ -36,6 +36,7 @@ NSUInteger ATTaskGenTaskId()
     if (copyInstance != nil) {
         copyInstance.state = self.state;
         copyInstance.taskId = self.taskId;
+        copyInstance.userInfo = self.userInfo;
     }
     return copyInstance;
 }
@@ -152,15 +153,17 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
     return empty;
 }
 
-- (void)push:(ATTaskBase *)task
+- (void)pushTask:(ATTaskBase *)task
 {
     if (task.normalTask) {
         if (AT_TASK_NORMAL(task).actionBlock == nil) {
+            NSAssert(NO, @"push task but actionBlock is nil");
             return;
         }
     }
     else if (task.delayTask) {
         if (self.type == ATTaskQueueTypeConcurrent) {
+            NSAssert(NO, @"push task but queue type is concurrent");
             return;
         }
     }
@@ -179,12 +182,17 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
     }
     [self.mutexLock unlock];
     
-    if (self.scheduleType == ATTaskScheduleTypeAll && self.scheduling) {
-        if (self.type == ATTaskQueueTypeConcurrent) {
-            [self dispatchTask:AT_TASK_NORMAL(task) complete:nil];
+    if (self.scheduling) {
+        if (self.scheduleType == ATTaskScheduleTypeAll) {
+            if (self.type == ATTaskQueueTypeConcurrent) {
+                [self dispatchTask:AT_TASK_NORMAL(task) complete:nil];
+            }
+            else {
+                [self scheduleSerial];
+            }
         }
-        else {
-            [self scheduleSerial];
+        else if (self.scheduleType == ATTaskScheduleTypeOne) {
+            ;;// 对于scheduleOne，不管队列是并发还是串行，都不触发这个任务
         }
     }
 }
@@ -214,12 +222,16 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
 
 - (void)scheduleAll
 {
-    if (self.empty || self.scheduleType == ATTaskScheduleTypeOne || self.scheduling) {
+    if (self.scheduling || self.scheduleType == ATTaskScheduleTypeOne) {
         return;
     }
     
     self.scheduleType = ATTaskScheduleTypeAll;
     self.scheduling = YES;
+    
+    if (self.empty) {
+        return;
+    }
     
     if (self.type == ATTaskQueueTypeConcurrent) {
         [self.mutexLock lock];
@@ -235,25 +247,28 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
 
 - (void)scheduleOne
 {
-    if (self.empty || self.scheduleType == ATTaskScheduleTypeAll || self.scheduling) {
+    if (self.scheduling || self.scheduleType == ATTaskScheduleTypeAll) {
         return;
     }
     
     self.scheduleType = ATTaskScheduleTypeOne;
+    
+    if (self.empty) {
+        return;
+    }
+    
     self.scheduling = YES;
     
     [self scheduleSerial];
 }
 
-- (void)complete:(ATTaskBase *)task
+- (void)completeTask:(ATTaskBase *)task
 {
     if (!task.normalTask) {
         return;
     }
+    
     [self completeTask:AT_TASK_NORMAL(task) result:nil];
-    if (self.type != ATTaskQueueTypeConcurrent) {
-        [self scheduleSerial];
-    }
 }
 
 - (void)dispatchTask:(ATTaskNormal *)task complete:(dispatch_block_t)complete
@@ -292,10 +307,6 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
 
 - (void)completeTask:(ATTaskNormal *)task result:(id)result
 {
-    if (self.type != ATTaskQueueTypeConcurrent && self.scheduleType == ATTaskScheduleTypeOne) {
-        self.scheduling = NO;
-    }
-    
     task.state = ATTaskStateDone;
     
     [self popTask:task];
@@ -306,19 +317,32 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
             block(task, result);
         });
     }
+    
+    if (self.scheduleType == ATTaskScheduleTypeAll) {
+        if (self.type == ATTaskQueueTypeConcurrent) {
+            ;;//并发队列，scheduleAll时，任务结束不需要做什么
+        }
+        else {
+            [self scheduleSerial];
+        }
+    }
+    else if (self.scheduleType == ATTaskScheduleTypeOne) {
+        self.scheduling = NO;
+        ;;// 对于scheduleOne，不管队列是并发还是串行，任务结束不会自动执行下一个任务
+    }
 }
 
 - (void)scheduleSerial
 {
     AT_WEAKIFY_SELF;
-    [self scheduleFirstTask:^{
+    [self scheduleFirstTask_complete:^{
         if (weak_self.scheduleType == ATTaskScheduleTypeAll) {
             [weak_self scheduleSerial];
         }
     }];
 }
 
-- (void)scheduleFirstTask:(dispatch_block_t)complete
+- (void)scheduleFirstTask_complete:(dispatch_block_t)complete
 {
     ATTaskBase *task = [self peepTask];
     if (task != nil) {
@@ -329,6 +353,9 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
             }];
         }
         else if (task.delayTask) {
+            if (task.state != ATTaskStateInit) {
+                return;
+            }
             task.state = ATTaskStateDoing;
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(AT_TASK_DELAY(task).ti * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 task.state = ATTaskStateDone;

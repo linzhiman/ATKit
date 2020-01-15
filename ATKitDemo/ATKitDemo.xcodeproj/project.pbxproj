@@ -36,6 +36,13 @@
 			remoteGlobalIDString = DC167A1C227050780009D463;
 			remoteInfo = ATKit;
 		};
+		DC5809FD23CEB62F009CA8CD /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DC2F9D0C227312D000DE1FF8 /* ATKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DC7995762277E54200407F41;
+			remoteInfo = ATKitUnitTest;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				DC2F9D11227312D000DE1FF8 /* libATKit.a */,
+				DC5809FE23CEB62F009CA8CD /* ATKitUnitTest.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -133,10 +141,10 @@
 				DC2F9D1B227543FC00DE1FF8 /* ATKitModuleManagerDemo.m */,
 				DC2F9D1D2275513300DE1FF8 /* ATKitProtocolManagerDemo.h */,
 				DC2F9D1E2275513300DE1FF8 /* ATKitProtocolManagerDemo.m */,
-				DC7995672275B5E600407F41 /* ATKitTransformViewController.h */,
-				DC7995682275B5E600407F41 /* ATKitTransformViewController.m */,
 				DC79956F2276E82400407F41 /* ATKitComponentDemo.h */,
 				DC7995702276E82400407F41 /* ATKitComponentDemo.m */,
+				DC7995672275B5E600407F41 /* ATKitTransformViewController.h */,
+				DC7995682275B5E600407F41 /* ATKitTransformViewController.m */,
 			);
 			path = ATKit;
 			sourceTree = "<group>";
@@ -207,6 +215,13 @@
 			fileType = archive.ar;
 			path = libATKit.a;
 			remoteRef = DC2F9D10227312D000DE1FF8 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		DC5809FE23CEB62F009CA8CD /* ATKitUnitTest.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = ATKitUnitTest.xctest;
+			remoteRef = DC5809FD23CEB62F009CA8CD /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
