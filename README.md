@@ -31,3 +31,19 @@
 #### (6)发送通知
 
       [self atbn_postkName_a:123 b:@"abc"];
+
+## 2、ATModuleManager-简单模块管理
+
+      通过identifier标识模块，支持分组
+
+## 3、ATProtocolManager-基于协议的模块管理
+
+      通过protocol标识模块，支持懒加载，支持分组，线程安全
+
+## 4、ATTaskQueue-任务队列
+
+      支持并发或者串行执行任务，支持触发所有或者只触发一个任务，支持手动结束任务
+      
+## 5、ATComponentService-组件中间件
+
+      。。。
