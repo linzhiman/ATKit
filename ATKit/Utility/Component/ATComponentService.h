@@ -29,12 +29,12 @@ typedef NS_ENUM(NSInteger, ATComponentServiceCode) {
     ATComponentServiceCodeResultError = 4
 };
 
+typedef void (^ATComponentCallback)(NSDictionary * _Nullable params);
+
 typedef NS_ENUM(NSInteger, ATComponentLaunchType) {
     ATComponentLaunchTypeOnRegister,
     ATComponentLaunchTypeOnCall
 };
-
-typedef void (^ATComponentCallback)(NSDictionary * _Nullable params);
 
 @protocol IATComponentLaunch <NSObject>
 
@@ -46,7 +46,7 @@ typedef void (^ATComponentCallback)(NSDictionary * _Nullable params);
 
 /**
  要求注册的目的是解耦类名
- 默认为按需创建实例
+ 默认懒加载
  需要立即创建实例，实现IATComponentLaunch的launchType方法
  */
 + (BOOL)registerTarget:(NSString *)name aClass:(Class)aClass;
