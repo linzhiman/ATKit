@@ -353,4 +353,30 @@
     [self waitForExpectationsWithTimeout:60 handler:nil];
 }
 
+- (void)testExample11 {
+    self.exception = [self expectationWithDescription:@"11"];
+    self.notifyQueue = nil;
+    self.taskQueue = [[ATTaskQueue alloc] initWithType:ATTaskQueueTypeMainQueue notifyQueue:self.notifyQueue];
+    AT_WEAKIFY_SELF;
+    for (NSUInteger i = 0; i < 10; ++i) {
+        ATTaskNormal *task = [[ATTaskNormal alloc] init];
+        task.priority = i % 5;
+        task.actionBlock = ^id(ATTaskNormal * _Nonnull task, id  _Nullable params) {
+            NSLog(@"ATTaskQueueTest action %@ params %@ thread %@", @(task.taskId), params, [NSThread currentThread]);
+            [weak_self.actions addObject:@(task.taskId)];
+            return nil;
+        };
+        task.completeBlock = ^(ATTaskNormal * _Nonnull task, id  _Nullable result) {
+            NSLog(@"ATTaskQueueTest finished %@ result %@ thread %@", @(task.taskId), result, [NSThread currentThread]);
+            [weak_self.finisheds addObject:@(task.taskId)];
+            if (weak_self.finisheds.count == 10) {
+                [self.exception fulfill];
+            }
+        };
+        [self.taskQueue pushTask:task];
+    }
+    [self.taskQueue scheduleAll];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
 @end

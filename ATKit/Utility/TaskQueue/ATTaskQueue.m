@@ -36,6 +36,7 @@ NSUInteger ATTaskGenTaskId()
     if (copyInstance != nil) {
         copyInstance.state = self.state;
         copyInstance.taskId = self.taskId;
+        copyInstance.priority = self.priority;
         copyInstance.userInfo = self.userInfo;
     }
     return copyInstance;
@@ -178,6 +179,11 @@ typedef NS_ENUM(NSUInteger, ATTaskScheduleType) {
     if (self.taskMap[@(task.taskId)] == nil) {
         ATTaskBase *aTask = task.copy;
         [self.taskList addObject:aTask];
+        [self.taskList sortUsingComparator:^NSComparisonResult(id  _Nonnull obj1, id  _Nonnull obj2) {
+            ATTaskBase *base1 = (ATTaskBase *)obj1;
+            ATTaskBase *base2 = (ATTaskBase *)obj2;
+            return base2.priority > base1.priority;
+        }];
         self.taskMap[@(aTask.taskId)] = aTask;
     }
     [self.mutexLock unlock];

@@ -12,6 +12,7 @@
 // 支持并发或者串行执行任务
 // 支持触发所有或者只触发一个任务
 // 支持手动结束任务
+// 支持优先级
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -32,6 +33,7 @@ typedef NS_ENUM(NSUInteger, ATTaskQueueType) {
 
 @property (nonatomic, assign, readonly) NSUInteger taskId;
 @property (nonatomic, assign, readonly) ATTaskState state;
+@property (nonatomic, assign) NSUInteger priority;//默认0，越大优先级越高
 @property (nonatomic, strong) id userInfo;
 
 @end
