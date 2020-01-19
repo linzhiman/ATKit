@@ -8,37 +8,114 @@
 
 #import "ATComponentService.h"
 
-AT_STRING_DEFINE_VALUE(kATComponentServiceCode, @"ATCode")
-AT_STRING_DEFINE_VALUE(kATComponentServiceMsg, @"ATMsg")
+AT_STRING_DEFINE_VALUE(kATComponentServiceCode, @"ATCSCode")
+AT_STRING_DEFINE_VALUE(kATComponentServiceMsg, @"ATCSMsg")
 
-static NSMapTable *ComponentMap() {
-    static NSMapTable *map = nil;
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        map = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
-    });
-    return map;
+@interface ATComponentServiceInner : NSObject
+
+AT_DECLARE_SINGLETON;
+
+@property (nonatomic, strong) NSLock *lock;
+@property (nonatomic, strong) NSMapTable<NSString *, id> *componentMap;
+@property (nonatomic, strong) NSMapTable<NSString *, Class> *componentClassMap;
+
+- (BOOL)registerTarget:(NSString *)name aClass:(Class)aClass;
+- (BOOL)unRegisterTarget:(NSString *)name aClass:(Class)aClass;
+- (id)componentNamed:(NSString *)name;
+
+@end
+
+@implementation ATComponentServiceInner
+
+AT_IMPLEMENT_SINGLETON(ATComponentServiceInner);
+
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        _lock = [[NSLock alloc] init];
+        _componentMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
+        _componentClassMap = [NSMapTable mapTableWithKeyOptions:NSPointerFunctionsStrongMemory valueOptions:NSPointerFunctionsStrongMemory];
+    }
+    return self;
 }
+
+- (BOOL)registerTarget:(NSString *)name aClass:(Class)aClass
+{
+    ATComponentLaunchType launchType = ATComponentLaunchTypeOnCall;
+    if ([aClass respondsToSelector:@selector(launchType)]) {
+        launchType = [aClass launchType];
+    }
+    
+    BOOL res = NO;
+    
+    [self.lock lock];
+    if ([self.componentMap objectForKey:name] == nil && [self.componentClassMap objectForKey:name] == nil) {
+        if (launchType == ATComponentLaunchTypeOnRegister) {
+            [self.componentMap setObject:[[aClass alloc] init] forKey:name];
+        }
+        else {
+            [self.componentClassMap setObject:aClass forKey:name];
+        }
+        res = YES;
+    }
+    [self.lock unlock];
+    
+    return res;
+}
+
+- (BOOL)unRegisterTarget:(NSString *)name aClass:(Class)aClass
+{
+    BOOL res = NO;
+    
+    [self.lock lock];
+    id oldObject = [self.componentMap objectForKey:name];
+    if (oldObject != nil && [oldObject isKindOfClass:aClass]) {
+        [self.componentMap removeObjectForKey:name];
+        res = YES;
+    }
+    Class oldClass = [self.componentClassMap objectForKey:name];
+    if (oldClass != NULL && oldClass == aClass) {
+        [self.componentClassMap removeObjectForKey:name];
+        res = YES;
+    }
+    [self.lock unlock];
+    
+    return res;
+}
+
+- (id)componentNamed:(NSString *)name
+{
+    id res = nil;
+    
+    [self.lock lock];
+    id anObject = [self.componentMap objectForKey:name];
+    if (anObject != nil) {
+        res = anObject;
+    }
+    else {
+        Class aClass = [self.componentClassMap objectForKey:name];
+        anObject = [[aClass alloc] init];
+        [self.componentMap setObject:anObject forKey:name];
+        res = anObject;
+    }
+    [self.lock unlock];
+    
+    return res;
+}
+
+@end
 
 @implementation ATComponentService
 
 + (BOOL)registerTarget:(NSString *)name aClass:(Class)aClass
 {
-    if ([ComponentMap() objectForKey:name] == nil) {
-        [ComponentMap() setObject:[[aClass alloc] init] forKey:name];
-        return YES;
-    }
-    return NO;
+    return [[ATComponentServiceInner sharedObject] registerTarget:name aClass:aClass];
 }
 
 + (BOOL)unRegisterTarget:(NSString *)name aClass:(Class)aClass
 {
-    id oldObject = [ComponentMap() objectForKey:name];
-    if (oldObject != nil && [oldObject isKindOfClass:aClass]) {
-        [ComponentMap() removeObjectForKey:name];
-        return YES;
-    }
-    return NO;
+    return [[ATComponentServiceInner sharedObject] unRegisterTarget:name aClass:aClass];
 }
 
 + (NSDictionary *)callTarget:(NSString *)name action:(NSString *)action params:(NSDictionary * _Nullable)params
@@ -55,7 +132,7 @@ static NSMapTable *ComponentMap() {
         aDictionary = [NSDictionary atcs_dicWithCode:ATComponentServiceCodeArgErr msg:@"Argument error"];
     }
     else {
-        id anObject = [ComponentMap() objectForKey:name];
+        id anObject = [[ATComponentServiceInner sharedObject] componentNamed:name];
         if (anObject == nil) {
             aDictionary = [NSDictionary atcs_dicWithCode:ATComponentServiceCodeNoTarget msg:[NSString stringWithFormat:@"No target named %@", name]];
         }

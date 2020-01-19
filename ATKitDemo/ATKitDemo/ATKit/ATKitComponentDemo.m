@@ -40,13 +40,17 @@ AT_COMPONENT_ACTION(version)
 
 @implementation ATKitComponentDemo
 
+static NSString * _Nonnull extracted() {
+    return [ATComponentService a_versionWithPrefix:@"abc" callback:^(NSString * _Nonnull version) {
+        NSLog(@"ATKitComponentDemo callback %@", version);
+    }];
+}
+
 - (void)demo
 {
     AT_COMPONENT_REGISTER(A, ATKitComponentA);
     
-    NSString *version = [ATComponentService a_versionWithPrefix:@"abc" callback:^(NSString * _Nonnull version) {
-        NSLog(@"ATKitComponentDemo callback %@", version);
-    }];
+    NSString *version = extracted();
     NSLog(@"ATKitComponentDemo retrun %@", version);
 }
 
