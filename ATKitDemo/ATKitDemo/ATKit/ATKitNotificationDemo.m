@@ -57,20 +57,20 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
         NSLog(@"kNotification2 %@", userInfo);
     }];
     
-    [self atbn_onkName:^(ATBNkNameObj * _Nonnull obj) {
-        NSLog(@"atbn_onkName");
+    [AT_BN_ADD_OBSERVER(kName) block:^(ATBNkNameObj * _Nonnull obj) {
+        NSLog(@"kName");
     }];
-    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
-        NSLog(@"atbn_onkName3 %d %@ %@", obj.a, obj.b, obj.c);
+    [AT_BN_ADD_OBSERVER(kName3) block:^(ATBNkName3Obj * _Nonnull obj) {
+        NSLog(@"kName3 %d %@ %@", obj.a, obj.b, obj.c);
     }];
     
 #ifdef UseObj
-    [self atbn_onkName9:^(ATBNkName9Obj * _Nonnull obj) {
-        NSLog(@"atbn_onkName9 %@", @(obj.test.test));
+    [AT_BN_ADD_OBSERVER(kName9) block:^(ATBNkName9Obj * _Nonnull obj) {
+        NSLog(@"kName9 %@", @(obj.test.test));
     }];
 #else
-    [self atbn_onkName9:^(ATKitNotificationTest * _Nonnull test) {
-        NSLog(@"atbn_onkName9 %@", @(test.test));
+    [AT_BN_ADD_OBSERVER(kName9) block:^(ATKitNotificationTest * _Nonnull test) {
+        NSLog(@"kName9 %@", @(test.test));
     }];
 #endif
 }
@@ -80,8 +80,8 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_removeNativeAll];
     [self atbn_removeNativeName:kNotification1];
     
-    [self atbn_removeALL];
-    [self atbn_removeName:kName];
+    AT_BN_REMOVE_OBSERVER(kName);
+    AT_BN_REMOVE_All;
 }
 
 - (void)demo
@@ -91,12 +91,12 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [self atbn_postkName_];
-    [self atbn_postkName3_a:2 b:@"b" c:@(0)];
+    [AT_BN_POST_NAME(kName) post_];
+    [AT_BN_POST_NAME(kName3) post_a:1 b:@"ok" c:@(0)];
     
     ATKitNotificationTest *test = [ATKitNotificationTest new];
     test.test = YES;
-    [self atbn_postkName9_test:test];
+    [AT_BN_POST_NAME(kName9) post_test:test];
 }
 
 @end
@@ -124,15 +124,15 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
         NSLog(@"demo2 kNotification2 %@", userInfo);
     }];
     
-    [self atbn_onkName5:^(ATBNkName5Obj * _Nonnull obj) {
-        NSLog(@"demo2 atbn_onkName5");
+    [AT_BN_ADD_OBSERVER(kName5) block:^(ATBNkName5Obj * _Nonnull obj) {
+        NSLog(@"demo2 kName5");
     }];
 // 分类也订阅了kName3，子类再次订阅会触发断言，改为force方式
-//    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
-//        NSLog(@"demo2 atbn_onkName3");
+//    [AT_BN_ADD_OBSERVER(kName3) block:^(ATBNkName3Obj * _Nonnull obj) {
+//        NSLog(@"demo2 kName3");
 //    }];
-    self.kName3Ob = [self atbn_force_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
-        NSLog(@"demo2 atbn_force_onkName3");
+    self.kName3Ob = [AT_BN_ADD_OBSERVER(kName3) forceBlock:^(ATBNkName3Obj * _Nonnull obj) {
+        NSLog(@"demo2 kName3");
     }];
 }
 
@@ -142,28 +142,30 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_removeNativeName:kNotification1];
     [AT_BN_CENTER removeNativeObserver:self.kNotification2Ob];
     
-    [self atbn_removeALL];
-    [self atbn_removeName:kName];
-    [AT_BN_CENTER removeObserver:self.kName3Ob];
+    AT_BN_REMOVE_OBSERVER(kName);
+    AT_BN_REMOVE_All;
+    AT_BN_REMOVE_FORCE_OBSERVER(self.kName3Ob);
 }
 
 - (void)demo
 {
+//    [super demo];
+    
     [self demo2_initNotification];
     
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [self atbn_postkName_];
-    [self atbn_postkName3_a:2 b:@"b" c:@(0)];
+    [AT_BN_POST_NAME(kName) post_];
+    [AT_BN_POST_NAME(kName3) post_a:1 b:@"ok" c:@(0)];
     
     [self demo2_removeNotification];
     
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [self atbn_postkName_];
-    [self atbn_postkName3_a:2 b:@"b" c:@(0)];
+    [AT_BN_POST_NAME(kName) post_];
+    [AT_BN_POST_NAME(kName3) post_a:1 b:@"ok" c:@(0)];
 }
 
 @end

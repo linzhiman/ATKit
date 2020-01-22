@@ -25,28 +25,40 @@ NS_ASSUME_NONNULL_BEGIN
 
 #define AT_BN_CENTER [ATBlockNotificationCenter sharedObject]
 
+#define AT_BN_ADD_OBSERVER(atName) [ATBN##atName##Obj fromObserver:self]
+
+#define AT_BN_REMOVE_OBSERVER(atName) [self atbn_removeName:atName];
+#define AT_BN_REMOVE_All [self atbn_removeALL];
+#define AT_BN_REMOVE_FORCE_OBSERVER(atIns) [AT_BN_CENTER removeObserver:atIns];
+
+#define AT_BN_POST_NAME(atName) ATBN##atName##Obj
+
 #define AT_BN_BLOCK_TYPE(atName) metamacro_concat(ATBN_, atName)
 
-#define AT_BN_DECLARE_BASE(atName, ...) \
+#define AT_BN_DECLARE_BASE(atName, atPropertys, ...) \
     extern NSString * const atName; \
-    @interface NSObject (ATBN##atName) \
-    - (void)atbn_on##atName:(AT_BN_BLOCK_TYPE(atName))block; \
-    - (id)atbn_force_on##atName:(AT_BN_BLOCK_TYPE(atName))block; \
-    - (void)metamacro_concat(atbn_post##atName##_, AT_SELECTOR_ARGS(__VA_ARGS__)); \
-    @end
+    @interface ATBN##atName##Obj : NSObject \
+    atPropertys \
+    @property (nonatomic, strong) id observer; \
+    + (ATBN##atName##Obj *)fromObserver:(id)observer; \
+    + (void)metamacro_concat(post##_, AT_SELECTOR_ARGS(__VA_ARGS__)); \
+    - (void)block:(AT_BN_BLOCK_TYPE(atName))block; \
+    - (id)forceBlock:(AT_BN_BLOCK_TYPE(atName))block; \
+    @end \
 
 #define AT_BN_DEFINE_BASE(atName, ...) \
     NSString * const atName = @"ATBN_"#atName; \
-    @implementation NSObject (ATBN##atName) \
-    - (void)atbn_on##atName:(AT_BN_BLOCK_TYPE(atName))block \
-    { \
-        [AT_BN_CENTER addObserver:self name:atName block:block]; \
+    @implementation ATBN##atName##Obj \
+    + (ATBN##atName##Obj *)fromObserver:(id)observer { \
+        ATBN##atName##Obj *tmp = [ATBN##atName##Obj new];tmp.observer = observer;return tmp; \
     } \
-    - (id)atbn_force_on##atName:(AT_BN_BLOCK_TYPE(atName))block \
-    { \
-        return [AT_BN_CENTER forceAddObserver:self name:atName block:block]; \
+    - (void)block:(AT_BN_BLOCK_TYPE(atName))block { \
+        [AT_BN_CENTER addObserver:self.observer name:atName block:block]; \
     } \
-    - (void)metamacro_concat(atbn_post##atName##_, AT_SELECTOR_ARGS(__VA_ARGS__))
+    - (id)forceBlock:(AT_BN_BLOCK_TYPE(atName))block { \
+        return [AT_BN_CENTER forceAddObserver:self.observer name:atName block:block]; \
+    } \
+    + (void)metamacro_concat(post##_, AT_SELECTOR_ARGS(__VA_ARGS__))
 
 #define AT_BN_DEFINE_CALL_BLOCK(atName, atArg) \
     NSArray *blocksNamed = [AT_BN_CENTER blocksNamed:atName]; \
@@ -72,32 +84,29 @@ NS_ASSUME_NONNULL_BEGIN
 // HANDLER宏：#define AT_PROPERTY_DECLARE_HANDLER_xxx AT_PROPERTY_DECLARE_STRONG xxx
 // 通用系统类型在ATGlobalMacro.h添加，自定义类型在app工程中添加，建议添加一个公用文件并加入预编译便于使用
 #define AT_BN_DECLARE(atName, ...) \
-    @interface ATBN##atName##Obj : NSObject \
-    AT_PROPERTY_DECLARE(__VA_ARGS__) \
-    @end \
+    @class ATBN##atName##Obj; \
     typedef void(^AT_BN_BLOCK_TYPE(atName))(ATBN##atName##Obj *obj); \
-    AT_BN_DECLARE_BASE(atName, __VA_ARGS__)
+    AT_BN_DECLARE_BASE(atName, AT_PROPERTY_DECLARE(__VA_ARGS__), __VA_ARGS__)
 
 // AT_BN_DECLARE_NO_OBJ(kName, int, a, NSString *, b)
 // Block类型为^(int a, NSString * b) {}
 // 参数支持所有类型，参数列表改动将导致所有订阅代码需要改动，一般用于自定义obj类型
 #define AT_BN_DECLARE_NO_OBJ(atName, ...) \
     typedef void(^AT_BN_BLOCK_TYPE(atName))(AT_PAIR_CONCAT_ARGS(__VA_ARGS__)); \
-    AT_BN_DECLARE_BASE(atName, __VA_ARGS__)
+    AT_BN_DECLARE_BASE(atName, , __VA_ARGS__)
 
 // 实现文件添加定义（AT_BN_DEFINE or AT_BN_DEFINE_NO_OBJ）
 
 // AT_BN_DEFINE(kName, int, a, NSString *, b)
 #define AT_BN_DEFINE(atName, ...) \
-    @implementation ATBN##atName##Obj \
-    @end \
     AT_BN_DEFINE_BASE(atName, __VA_ARGS__) \
     { \
         ATBN##atName##Obj *obj = [ATBN##atName##Obj new]; \
         AT_PROPERTY_SET_VALUE(__VA_ARGS__) \
         AT_BN_DEFINE_CALL_BLOCK(atName, obj) \
     } \
-    @end
+    @end \
+    
 
 // AT_BN_DEFINE_NO_OBJ(kName, int, a, NSString *, b)
 #define AT_BN_DEFINE_NO_OBJ(atName, ...) \
@@ -108,17 +117,18 @@ NS_ASSUME_NONNULL_BEGIN
     @end
 
 // 监听
-// [self atbn_onkName:^(ATBNkNameObj * _Nonnull obj) {}];
-// [self atbn_onkName:^(int a, NSString *b) {}];
+// [AT_BN_ADD_OBSERVER(kName) block:^(ATBNkNameObj * _Nonnull obj) {}];
+// [AT_BN_ADD_OBSERVER(kName) block:^(int a, NSString *b) {}];
 
 // 取消监听
-// [self atbn_removeName:kName];
+// AT_BN_REMOVE_OBSERVER(kName)
 
-// 取消所有监听
-// [self atbn_removeALL];
+// 取消所有监听，注意不会取消force的
+// AT_BN_REMOVE_All
 
 // 发送通知
-// [self atbn_postkName_a:123 b:@"abc"];
+// [AT_BN_POST_NAME(kName) post_];
+// [AT_BN_POST_NAME(kName) post_a:123 b:@"abc"];
 
 typedef void (^ATBNNativeBlock)(NSDictionary * _Nullable userInfo);
 
