@@ -17,6 +17,10 @@
 // 其二，不会打包obj，所有参数原样作为block参数列表，一般用于自定义obj类型
 // 最大支持8个参数，如需调整，修改ATGlobalMacro.h
 
+// 同一个对象重复订阅同一个通知，会触发断言
+// 如必须添加请调用atbn_force_onXXX接口，保留返回值id，取消这个通知时调用下面方法
+// [AT_BN_CENTER removeObserver:id];
+
 NS_ASSUME_NONNULL_BEGIN
 
 #define AT_BN_CENTER [ATBlockNotificationCenter sharedObject]
@@ -27,6 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
     extern NSString * const atName; \
     @interface NSObject (ATBN##atName) \
     - (void)atbn_on##atName:(AT_BN_BLOCK_TYPE(atName))block; \
+    - (id)atbn_force_on##atName:(AT_BN_BLOCK_TYPE(atName))block; \
     - (void)metamacro_concat(atbn_post##atName##_, AT_SELECTOR_ARGS(__VA_ARGS__)); \
     @end
 
@@ -36,6 +41,10 @@ NS_ASSUME_NONNULL_BEGIN
     - (void)atbn_on##atName:(AT_BN_BLOCK_TYPE(atName))block \
     { \
         [AT_BN_CENTER addObserver:self name:atName block:block]; \
+    } \
+    - (id)atbn_force_on##atName:(AT_BN_BLOCK_TYPE(atName))block \
+    { \
+        return [AT_BN_CENTER forceAddObserver:self name:atName block:block]; \
     } \
     - (void)metamacro_concat(atbn_post##atName##_, AT_SELECTOR_ARGS(__VA_ARGS__))
 
@@ -121,6 +130,9 @@ AT_DECLARE_SINGLETON;
 
 - (void)addObserver:(id)observer name:(NSString *)name block:(id)block;
 
+// 必须持有返回值id，取消订阅时调用@selector(removeObserver:)，参数为返回值id
+- (id)forceAddObserver:(id)observer name:(NSString *)name block:(id)block;
+
 - (void)removeObserver:(id)observer name:(NSString *)name;
 - (void)removeObserver:(id)observer;
 
@@ -131,6 +143,9 @@ AT_DECLARE_SINGLETON;
 // 建议使用NSObject (ATBN)中的方法调用
 
 - (void)addNativeObserver:(id)observer name:(NSString *)name block:(ATBNNativeBlock)block;
+
+// 必须持有返回值id，取消订阅时调用@selector(removeNativeObserver:)，参数为返回值id
+- (id)forceAddNativeObserver:(id)observer name:(NSString *)name block:(ATBNNativeBlock)block;
 
 - (void)removeNativeObserver:(id)observer name:(NSString *)name;
 - (void)removeNativeObserver:(id)observer;
@@ -146,6 +161,7 @@ AT_DECLARE_SINGLETON;
 #pragma mark - Native Notification
 
 - (void)atbn_addNativeName:(NSString *)name block:(ATBNNativeBlock)block;
+- (id)atbn_forceAddNativeName:(NSString *)name block:(ATBNNativeBlock)block;
 
 - (void)atbn_removeNativeName:(NSString *)name;
 - (void)atbn_removeNativeAll;

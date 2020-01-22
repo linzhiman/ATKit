@@ -9,6 +9,14 @@
 #import "ATBlockNotificationCenter.h"
 #import "ATWeakObject.h"
 
+@interface ATBlockNotificationForce : NSObject
+
+@end
+
+@implementation ATBlockNotificationForce
+
+@end
+
 @interface ATBlockNotificationCenter()
 
 @property (nonatomic, strong) NSMutableDictionary<NSString *, NSMutableArray *> *observers;//name->[WrapObj]
@@ -74,6 +82,13 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
         }
         [notifications addObject:name];
     }
+}
+
+- (id)forceAddObserver:(id)observer name:(NSString *)name block:(id)block
+{
+    ATBlockNotificationForce *force = [ATBlockNotificationForce new];
+    [self addObserver:force name:name block:block];
+    return force;
 }
 
 - (void)removeObserver:(id)observer name:(NSString *)name
@@ -192,6 +207,13 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
     }
 }
 
+- (id)forceAddNativeObserver:(id)observer name:(NSString *)name block:(ATBNNativeBlock)block
+{
+    ATBlockNotificationForce *force = [ATBlockNotificationForce new];
+    [self addNativeObserver:force name:name block:block];
+    return force;
+}
+
 - (void)removeNativeObserver:(id)observer name:(NSString *)name
 {
     @synchronized(self)
@@ -294,6 +316,11 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
 - (void)atbn_addNativeName:(NSString *)name block:(ATBNNativeBlock)block
 {
     [AT_BN_CENTER addNativeObserver:self name:name block:block];
+}
+
+- (id)atbn_forceAddNativeName:(NSString *)name block:(ATBNNativeBlock)block
+{
+    return [AT_BN_CENTER forceAddNativeObserver:self name:name block:block];
 }
 
 - (void)atbn_removeNativeName:(NSString *)name

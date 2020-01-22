@@ -102,6 +102,13 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
 @end
 
 
+@interface ATKitNotificationDemo2 ()
+
+@property (nonatomic, strong) id kNotification2Ob;
+@property (nonatomic, strong) id kName3Ob;
+
+@end
+
 @implementation ATKitNotificationDemo2
 
 - (void)demo2_initNotification
@@ -109,31 +116,48 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_addNativeName:kNotification3 block:^(NSDictionary * _Nullable userInfo) {
         NSLog(@"demo2 kNotification3 %@", userInfo);
     }];
+// 分类也订阅了kNotification2，子类再次订阅会触发断言，改为force方式
 //    [self atbn_addNativeName:kNotification2 block:^(NSDictionary * _Nullable userInfo) {
 //        NSLog(@"demo2 kNotification2 %@", userInfo);
 //    }];
+    self.kNotification2Ob = [self atbn_forceAddNativeName:kNotification2 block:^(NSDictionary * _Nullable userInfo) {
+        NSLog(@"demo2 kNotification2 %@", userInfo);
+    }];
     
     [self atbn_onkName5:^(ATBNkName5Obj * _Nonnull obj) {
         NSLog(@"demo2 atbn_onkName5");
     }];
+// 分类也订阅了kName3，子类再次订阅会触发断言，改为force方式
 //    [self atbn_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
 //        NSLog(@"demo2 atbn_onkName3");
 //    }];
+    self.kName3Ob = [self atbn_force_onkName3:^(ATBNkName3Obj * _Nonnull obj) {
+        NSLog(@"demo2 atbn_force_onkName3");
+    }];
 }
 
 - (void)demo2_removeNotification
 {
     [self atbn_removeNativeAll];
     [self atbn_removeNativeName:kNotification1];
+    [AT_BN_CENTER removeNativeObserver:self.kNotification2Ob];
     
     [self atbn_removeALL];
     [self atbn_removeName:kName];
+    [AT_BN_CENTER removeObserver:self.kName3Ob];
 }
 
 - (void)demo
 {
     [self demo2_initNotification];
-//    [self demo2_removeNotification];
+    
+    [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
+    [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
+    
+    [self atbn_postkName_];
+    [self atbn_postkName3_a:2 b:@"b" c:@(0)];
+    
+    [self demo2_removeNotification];
     
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
