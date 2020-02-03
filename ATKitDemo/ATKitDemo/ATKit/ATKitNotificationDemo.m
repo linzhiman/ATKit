@@ -57,19 +57,19 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
         NSLog(@"kNotification2 %@", userInfo);
     }];
     
-    [AT_BN_ADD_OBSERVER(kName) block:^(ATBNkNameObj * _Nonnull obj) {
+    [AT_BN_ADD_OBSERVER_NAMED(kName) block:^(ATBNkNameObj * _Nonnull obj) {
         NSLog(@"kName");
     }];
-    [AT_BN_ADD_OBSERVER(kName3) block:^(ATBNkName3Obj * _Nonnull obj) {
+    [AT_BN_ADD_OBSERVER_NAMED(kName3) block:^(ATBNkName3Obj * _Nonnull obj) {
         NSLog(@"kName3 %d %@ %@", obj.a, obj.b, obj.c);
     }];
     
 #ifdef UseObj
-    [AT_BN_ADD_OBSERVER(kName9) block:^(ATBNkName9Obj * _Nonnull obj) {
+    [AT_BN_ADD_OBSERVER_NAMED(kName9) block:^(ATBNkName9Obj * _Nonnull obj) {
         NSLog(@"kName9 %@", @(obj.test.test));
     }];
 #else
-    [AT_BN_ADD_OBSERVER(kName9) block:^(ATKitNotificationTest * _Nonnull test) {
+    [AT_BN_ADD_OBSERVER_NAMED(kName9) block:^(ATKitNotificationTest * _Nonnull test) {
         NSLog(@"kName9 %@", @(test.test));
     }];
 #endif
@@ -80,8 +80,8 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_removeNativeAll];
     [self atbn_removeNativeName:kNotification1];
     
-    AT_BN_REMOVE_OBSERVER(kName);
-    AT_BN_REMOVE_All;
+    AT_BN_REMOVE_OBSERVER_NAMED(kName);
+    AT_BN_REMOVE_OBSERVER;
 }
 
 - (void)demo
@@ -91,12 +91,12 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [AT_BN_POST_NAME(kName) post_];
-    [AT_BN_POST_NAME(kName3) post_a:1 b:@"ok" c:@(0)];
+    [AT_BN_OBJ_NAMED(kName) post_];
+    [AT_BN_OBJ_NAMED(kName3) post_a:1 b:@"ok" c:@(0)];
     
     ATKitNotificationTest *test = [ATKitNotificationTest new];
     test.test = YES;
-    [AT_BN_POST_NAME(kName9) post_test:test];
+    [AT_BN_OBJ_NAMED(kName9) post_test:test];
 }
 
 @end
@@ -124,14 +124,14 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
         NSLog(@"demo2 kNotification2 %@", userInfo);
     }];
     
-    [AT_BN_ADD_OBSERVER(kName5) block:^(ATBNkName5Obj * _Nonnull obj) {
+    [AT_BN_ADD_OBSERVER_NAMED(kName5) block:^(ATBNkName5Obj * _Nonnull obj) {
         NSLog(@"demo2 kName5");
     }];
 // 分类也订阅了kName3，子类再次订阅会触发断言，改为force方式
-//    [AT_BN_ADD_OBSERVER(kName3) block:^(ATBNkName3Obj * _Nonnull obj) {
+//    [AT_BN_ADD_OBSERVER_NAMED(kName3) block:^(ATBNkName3Obj * _Nonnull obj) {
 //        NSLog(@"demo2 kName3");
 //    }];
-    self.kName3Ob = [AT_BN_ADD_OBSERVER(kName3) forceBlock:^(ATBNkName3Obj * _Nonnull obj) {
+    self.kName3Ob = [AT_BN_ADD_OBSERVER_NAMED(kName3) forceBlock:^(ATBNkName3Obj * _Nonnull obj) {
         NSLog(@"demo2 kName3");
     }];
 }
@@ -140,10 +140,10 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
 {
     [self atbn_removeNativeAll];
     [self atbn_removeNativeName:kNotification1];
-    [AT_BN_CENTER removeNativeObserver:self.kNotification2Ob];
+    [self atbn_removeNativeForce:self.kNotification2Ob];
     
-    AT_BN_REMOVE_OBSERVER(kName);
-    AT_BN_REMOVE_All;
+    AT_BN_REMOVE_OBSERVER_NAMED(kName);
+    AT_BN_REMOVE_OBSERVER;
     AT_BN_REMOVE_FORCE_OBSERVER(self.kName3Ob);
 }
 
@@ -156,16 +156,16 @@ AT_BN_DEFINE_NO_OBJ(kName9, ATKitNotificationTest *, test);
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [AT_BN_POST_NAME(kName) post_];
-    [AT_BN_POST_NAME(kName3) post_a:1 b:@"ok" c:@(0)];
+    [AT_BN_OBJ_NAMED(kName) post_];
+    [AT_BN_OBJ_NAMED(kName3) post_a:1 b:@"ok" c:@(0)];
     
     [self demo2_removeNotification];
     
     [self atbn_postNativeName:kNotification1 userInfo:@{kNotificationKey:@(1)}];
     [self atbn_postNativeName:kNotification2 userInfo:@{kNotificationKey:@(2)}];
     
-    [AT_BN_POST_NAME(kName) post_];
-    [AT_BN_POST_NAME(kName3) post_a:1 b:@"ok" c:@(0)];
+    [AT_BN_OBJ_NAMED(kName) post_];
+    [AT_BN_OBJ_NAMED(kName3) post_a:1 b:@"ok" c:@(0)];
 }
 
 @end

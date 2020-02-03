@@ -17,21 +17,23 @@
 // 其二，不会打包obj，所有参数原样作为block参数列表，一般用于自定义obj类型
 // 最大支持8个参数，如需调整，修改ATGlobalMacro.h
 
-// 同一个对象重复订阅同一个通知，会触发断言
-// 如必须添加请调用atbn_force_onXXX接口，保留返回值id，取消这个通知时调用下面方法
-// [AT_BN_CENTER removeObserver:id];
+// 同一个对象重复订阅同一个通知，会触发断言(如父子类同时订阅)
+// 如必须添加请调用forceBlock接口，保留返回值cbObj，取消这个通知时调用下面方法
+// AT_BN_REMOVE_FORCE_OBSERVER(cbObj);
 
 NS_ASSUME_NONNULL_BEGIN
 
 #define AT_BN_CENTER [ATBlockNotificationCenter sharedObject]
 
-#define AT_BN_ADD_OBSERVER(atName) [ATBN##atName##Obj fromObserver:self]
+#define AT_BN_ADD_OBSERVER_NAMED(atName) [ATBN##atName##Obj fromObserver:self]
 
-#define AT_BN_REMOVE_OBSERVER(atName) [self atbn_removeName:atName];
-#define AT_BN_REMOVE_All [self atbn_removeALL];
-#define AT_BN_REMOVE_FORCE_OBSERVER(atIns) [AT_BN_CENTER removeObserver:atIns];
+#define AT_BN_REMOVE_OBSERVER_NAMED(atName) [self atbn_removeName:atName];
 
-#define AT_BN_POST_NAME(atName) ATBN##atName##Obj
+#define AT_BN_REMOVE_OBSERVER [self atbn_removeALL];
+
+#define AT_BN_REMOVE_FORCE_OBSERVER(atIns) [self atbn_removeForce:atIns];
+
+#define AT_BN_OBJ_NAMED(atName) ATBN##atName##Obj
 
 #define AT_BN_BLOCK_TYPE(atName) metamacro_concat(ATBN_, atName)
 
@@ -116,19 +118,23 @@ NS_ASSUME_NONNULL_BEGIN
     } \
     @end
 
-// 监听
-// [AT_BN_ADD_OBSERVER(kName) block:^(ATBNkNameObj * _Nonnull obj) {}];
-// [AT_BN_ADD_OBSERVER(kName) block:^(int a, NSString *b) {}];
+// 订阅
+// [AT_BN_ADD_OBSERVER_NAMED(kName) block:^(ATBNkNameObj * _Nonnull obj) {}];
+// [AT_BN_ADD_OBSERVER_NAMED(kName) block:^(int a, NSString *b) {}];
 
-// 取消监听
-// AT_BN_REMOVE_OBSERVER(kName)
+// 取消订阅
+// AT_BN_REMOVE_OBSERVER_NAMED(kName);
 
-// 取消所有监听，注意不会取消force的
-// AT_BN_REMOVE_All
+// 取消所有订阅，注意不会取消force的订阅
+// AT_BN_REMOVE_OBSERVER;
+
+// 强制订阅和取消
+// self.cbObj = [AT_BN_ADD_OBSERVER_NAMED(kName) forceBlock:^(ATBNkNameObj * _Nonnull obj) {}];
+// AT_BN_REMOVE_FORCE_OBSERVER(self.cbObj);
 
 // 发送通知
-// [AT_BN_POST_NAME(kName) post_];
-// [AT_BN_POST_NAME(kName) post_a:123 b:@"abc"];
+// [AT_BN_OBJ_NAMED(kName) post_];
+// [AT_BN_OBJ_NAMED(kName) post_a:123 b:@"abc"];
 
 typedef void (^ATBNNativeBlock)(NSDictionary * _Nullable userInfo);
 
@@ -140,7 +146,7 @@ AT_DECLARE_SINGLETON;
 
 - (void)addObserver:(id)observer name:(NSString *)name block:(id)block;
 
-// 必须持有返回值id，取消订阅时调用@selector(removeObserver:)，参数为返回值id
+// 必须持有返回值cbObj，取消订阅时调用@selector(removeObserver:)，参数为返回值cbObj
 - (id)forceAddObserver:(id)observer name:(NSString *)name block:(id)block;
 
 - (void)removeObserver:(id)observer name:(NSString *)name;
@@ -167,6 +173,7 @@ AT_DECLARE_SINGLETON;
 
 - (void)atbn_removeALL;
 - (void)atbn_removeName:(NSString *)name;
+- (void)atbn_removeForce:(id)cbObj;
 
 #pragma mark - Native Notification
 
@@ -175,6 +182,7 @@ AT_DECLARE_SINGLETON;
 
 - (void)atbn_removeNativeName:(NSString *)name;
 - (void)atbn_removeNativeAll;
+- (void)atbn_removeNativeForce:(id)cbObj;
 
 - (void)atbn_postNativeName:(NSString *)name;
 - (void)atbn_postNativeName:(NSString *)name userInfo:(NSDictionary *)userInfo;

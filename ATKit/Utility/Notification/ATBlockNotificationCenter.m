@@ -311,6 +311,11 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
     [AT_BN_CENTER removeObserver:self name:name];
 }
 
+- (void)atbn_removeForce:(id)cbObj
+{
+    [AT_BN_CENTER removeObserver:cbObj];
+}
+
 #pragma mark - Native Notification
 
 - (void)atbn_addNativeName:(NSString *)name block:(ATBNNativeBlock)block
@@ -331,6 +336,11 @@ AT_IMPLEMENT_SINGLETON(ATBlockNotificationCenter);
 - (void)atbn_removeNativeAll
 {
     [AT_BN_CENTER removeNativeObserver:self];
+}
+
+- (void)atbn_removeNativeForce:(id)cbObj
+{
+    [AT_BN_CENTER removeNativeObserver:cbObj];
 }
 
 - (void)atbn_postNativeName:(NSString *)name
