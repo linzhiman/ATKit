@@ -12,6 +12,7 @@
 #import "ATKitProtocolManagerDemo.h"
 #import "ATKitComponentDemo.h"
 #import "ATKitTransformViewController.h"
+#import "ATKitApiStrategyDemo.h"
 
 typedef NS_ENUM(NSUInteger, ATKitDemoCellType) {
     ATKitDemoCellTypeDefault,
@@ -163,6 +164,10 @@ static NSString * const ATKitDemoCellIdentifier = @"ATKitDemoCellIdentifier";
     
     [self addItem:@"Component" inSectionType:ATKitDemoSectionTypeUtils clickCallback:^{
         [[[ATKitComponentDemo alloc] init] demo];
+    }];
+    
+    [self addItem:@"ApiStrategy" inSectionType:ATKitDemoSectionTypeUtils clickCallback:^{
+        [[[ATKitApiStrategyDemo alloc] init] demo];
     }];
     
     [self makeSectionList];

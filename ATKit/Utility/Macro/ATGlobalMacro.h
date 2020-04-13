@@ -52,6 +52,9 @@
 
 #define AT_WEAKIFY_SELF __weak __typeof(self) weak_self = self;
 #define AT_STRONGIFY_SELF __strong __typeof(self) self = weak_self;
+#define AT_ENSURE_WEAKSELF_AND_STRONGIFY_SELF \
+    if (!weak_self) { return; } \
+    __strong __typeof(self) self = weak_self;
 
 //Block
 
